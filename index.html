@@ -320,8 +320,16 @@
             margin-bottom: 20px;
             color: #ff99ff;
         }
-        .edit-form input, .edit-form select {
-            width: 100%;
+        
+        /* ===== ИСПРАВЛЕНИЕ: все поля ввода одинаковой ширины ===== */
+        .form-control,
+        .edit-form input,
+        .edit-form select,
+        input[type="date"],
+        .edit-form input[type="date"] {
+            width: 100% !important;
+            max-width: 100%;
+            box-sizing: border-box;
             background: #2d0d40;
             border: 2px solid #ff1a75;
             border-radius: 30px;
@@ -329,7 +337,18 @@
             color: white;
             margin-bottom: 16px;
             font-size: 16px;
+            font-family: inherit;
+            -webkit-appearance: none;
+            appearance: none;
         }
+        
+        /* Календарь-иконка (делаем светлой) */
+        input[type="date"]::-webkit-calendar-picker-indicator {
+            filter: invert(1);
+            opacity: 0.6;
+            cursor: pointer;
+        }
+        
         .edit-form .btn-neon {
             margin-top: 10px;
         }
@@ -391,15 +410,6 @@
         
         .form-group { margin-bottom: 16px; }
         .form-group label { display: block; margin-bottom: 6px; color: #ffb3ff; }
-        .form-control {
-            width: 100%;
-            background: #1f0a30;
-            border: 2px solid #7a2a9c;
-            border-radius: 30px;
-            padding: 14px;
-            color: white;
-            font-size: 16px;
-        }
         .btn-neon {
             background: transparent;
             border: 2px solid #ff1a75;
@@ -1159,4 +1169,5 @@
         })();
     </script>
 </body>
+
 </html>
