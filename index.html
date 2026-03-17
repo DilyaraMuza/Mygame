@@ -507,7 +507,7 @@ import {
   deleteDoc 
 } from "https://www.gstatic.com/firebasejs/10.13.1/firebase-firestore.js";
 
-async function loadFromFirebase() {
+async function loadFromFirebase(state) {
   try {
     const userDoc = await getDoc(doc(db, "users", "player"));
     if (userDoc.exists()) {
@@ -535,7 +535,7 @@ async function loadFromFirebase() {
   }
 }
 
-async function saveToFirebase() {
+async function saveToFirebase(state) {
   try {
     await setDoc(doc(db, "users", "player"), {
       designerTheory: state.designerTheory,
@@ -561,7 +561,6 @@ async function saveToFirebase() {
   }
 }
 
-loadFromFirebase();
 
     
 </script>
@@ -863,13 +862,7 @@ loadFromFirebase();
             }
 
             function loadState() {
-                let saved = localStorage.getItem('stazhor_state');
-                if (saved) {
-                    try {
-                        let loaded = JSON.parse(saved);
-                        state = { ...state, ...loaded };
-                    } catch(e) {}
-                }
+                loadFromFirebase(state);
             }
             loadState();
 
@@ -901,7 +894,7 @@ loadFromFirebase();
         state.bonusClaimedToday = true;
         
         saveState();
-        await saveToFirebase();
+        await saveToFirebase(state);
         renderHome();
         renderStats();
         playCoinSound();
@@ -935,7 +928,7 @@ loadFromFirebase();
             ]
         };
         saveState();
-        await saveToFirebase();
+        await saveToFirebase(state);
         renderHome();
         renderQuests();
         renderStats();
@@ -975,7 +968,7 @@ loadFromFirebase();
                 if (newGlobal > oldGlobal) showLevelToast('Общий уровень', newGlobal, globalRanks[newGlobal-1]);
                 
                 saveState();
-                await saveToFirebase();
+                await saveToFirebase(state);
                 playCoinSound();
                 showXpToast(quest.xp);
                 renderHome();
@@ -1008,7 +1001,7 @@ loadFromFirebase();
                 quest.date = document.getElementById('editDate').value;
                 
                 saveState();
-                await saveToFirebase();
+                await saveToFirebase(state);
                 renderQuests();
                 document.getElementById('editModal').classList.remove('active');
                 editingQuestId = null;
