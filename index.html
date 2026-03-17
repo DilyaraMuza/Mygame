@@ -858,7 +858,7 @@ async function saveToFirebase(state) {
             }
 
             function loadState() {
-                loadFromFirebase(state);
+                loadFromFirebase(state).then(()=> renderHome());
             }
             loadState();
 
