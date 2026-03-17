@@ -497,7 +497,95 @@ const db = getFirestore(app);
 const auth = getAuth(app);
 
 console.log('Firebase подключён');
+
+    <script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.13.1/firebase-app.js";
+import { getFirestore } from "https://www.gstatic.com/firebasejs/10.13.1/firebase-firestore.js";
+import { getAuth } from "https://www.gstatic.com/firebasejs/10.13.1/firebase-auth.js";
+
+const firebaseConfig = {
+  apiKey: "AIzaSyA_saJDVmNph7VHINADqy_DRuzF91J1ez8",
+  authDomain: "my-game-350a4.firebaseapp.com",
+  projectId: "my-game-350a4",
+  storageBucket: "my-game-350a4.firebasestorage.app",
+  messagingSenderId: "1037545222875",
+  appId: "1:1037545222875:web:52fe99e0a85083546812fe"
+};
+
+const app = initializeApp(firebaseConfig);
+const db = getFirestore(app);
+const auth = getAuth(app);
+
+console.log('Firebase подключён');
+
+import { 
+  collection, 
+  doc, 
+  getDoc, 
+  getDocs, 
+  setDoc, 
+  deleteDoc 
+} from "https://www.gstatic.com/firebasejs/10.13.1/firebase-firestore.js";
+
+async function loadFromFirebase() {
+  try {
+    const userDoc = await getDoc(doc(db, "users", "player"));
+    if (userDoc.exists()) {
+      const userData = userDoc.data();
+      state.designerTheory = userData.designerTheory || 0;
+      state.designerPractice = userData.designerPractice || 0;
+      state.english = userData.english || 0;
+      state.style = userData.style || 0;
+      state.coins = userData.coins || 0;
+      state.streak = userData.streak || 0;
+    }
+
+    const questsSnapshot = await getDocs(collection(db, "quests"));
+    state.quests = [];
+    questsSnapshot.forEach((doc) => {
+      state.quests.push(doc.data());
+    });
+
+    renderHome();
+    renderQuests();
+    renderStats();
+    console.log('✅ Данные загружены из Firebase');
+  } catch (e) {
+    console.log('❌ Ошибка загрузки:', e);
+  }
+}
+
+async function saveToFirebase() {
+  try {
+    await setDoc(doc(db, "users", "player"), {
+      designerTheory: state.designerTheory,
+      designerPractice: state.designerPractice,
+      english: state.english,
+      style: state.style,
+      coins: state.coins,
+      streak: state.streak
+    });
+
+    const questsSnapshot = await getDocs(collection(db, "quests"));
+    questsSnapshot.forEach(async (doc) => {
+      await deleteDoc(doc.ref);
+    });
+
+    for (const quest of state.quests) {
+      await setDoc(doc(db, "quests", quest.id.toString()), quest);
+    }
+
+    console.log('✅ Данные сохранены в Firebase');
+  } catch (e) {
+    console.log('❌ Ошибка сохранения:', e);
+  }
+}
+
+loadFromFirebase();
+
+    
 </script>
+    
     
 </head>
 <body>
@@ -827,24 +915,25 @@ console.log('Firebase подключён');
                 updateBonusUI();
             }
 
-            function claimBonus() {
-                let today = new Date().toDateString();
-                if (state.lastLogin === today && !state.bonusClaimedToday) {
-                    state.coins += 10 + state.streak * 2;
-                    state.designerTheory += 10;
-                    state.designerPractice += 10;
-                    state.english += 10;
-                    state.style += 10;
-                    state.bonusClaimedToday = true;
-                    
-                    saveState();
-                    renderHome();
-                    renderStats();
-                    playCoinSound();
-                    showXpToast(40);
-                }
-                updateBonusUI();
-            }
+            async function claimBonus() {
+    let today = new Date().toDateString();
+    if (state.lastLogin === today && !state.bonusClaimedToday) {
+        state.coins += 10 + state.streak * 2;
+        state.designerTheory += 10;
+        state.designerPractice += 10;
+        state.english += 10;
+        state.style += 10;
+        state.bonusClaimedToday = true;
+        
+        saveState();
+        await saveToFirebase();
+        renderHome();
+        renderStats();
+        playCoinSound();
+        showXpToast(40);
+    }
+    updateBonusUI();
+}
 
             function updateBonusUI() {
                 document.getElementById('streakDays').innerText = state.streak || 0;
@@ -852,33 +941,35 @@ console.log('Firebase подключён');
             }
 
             // ========== СБРОС ПРОГРЕССА ==========
-            function resetProgress() {
-                if (confirm('Сбросить весь прогресс? Это нельзя отменить.')) {
-                    state = {
-                        designerTheory: 0,
-                        designerPractice: 0,
-                        english: 0,
-                        style: 0,
-                        coins: 0,
-                        streak: 0,
-                        lastLogin: new Date().toDateString(),
-                        bonusClaimedToday: false,
-                        quests: [
-                            { id: 1, name: 'Прочитать главу', type: 'designerTheory', xp: 20, difficulty: '20', date: '2025-04-08', done: false },
-                            { id: 2, name: 'Встреча с дизайнером', type: 'designerPractice', xp: 50, difficulty: '50', date: '2025-04-09', done: false },
-                            { id: 3, name: 'Duolingo', type: 'english', xp: 20, difficulty: '20', date: '2025-04-07', done: false },
-                            { id: 4, name: 'Защита проекта', type: 'designerPractice', xp: 200, difficulty: '200', date: '2025-04-20', done: false },
-                        ]
-                    };
-                    saveState();
-                    renderHome();
-                    renderQuests();
-                    renderStats();
-                }
-            }
+           async function resetProgress() {
+    if (confirm('Сбросить весь прогресс? Это нельзя отменить.')) {
+        state = {
+            designerTheory: 0,
+            designerPractice: 0,
+            english: 0,
+            style: 0,
+            coins: 0,
+            streak: 0,
+            lastLogin: new Date().toDateString(),
+            bonusClaimedToday: false,
+            quests: [
+                { id: 1, name: 'Прочитать главу', type: 'designerTheory', xp: 20, difficulty: '20', date: '2025-04-08', done: false },
+                { id: 2, name: 'Встреча с дизайнером', type: 'designerPractice', xp: 50, difficulty: '50', date: '2025-04-09', done: false },
+                { id: 3, name: 'Duolingo', type: 'english', xp: 20, difficulty: '20', date: '2025-04-07', done: false },
+                { id: 4, name: 'Защита проекта', type: 'designerPractice', xp: 200, difficulty: '200', date: '2025-04-20', done: false },
+            ]
+        };
+        saveState();
+        await saveToFirebase();
+        renderHome();
+        renderQuests();
+        renderStats();
+    }
+}
+            
 
             // ========== ВЫПОЛНЕНИЕ КВЕСТА ==========
-            function completeQuest(questId) {
+            async function completeQuest(questId) {
                 let quest = state.quests.find(x => x.id === questId);
                 if (!quest || quest.done) return;
                 
@@ -909,6 +1000,7 @@ console.log('Firebase подключён');
                 if (newGlobal > oldGlobal) showLevelToast('Общий уровень', newGlobal, globalRanks[newGlobal-1]);
                 
                 saveState();
+                await saveToFirebase();
                 playCoinSound();
                 showXpToast(quest.xp);
                 renderHome();
@@ -929,7 +1021,7 @@ console.log('Firebase подключён');
                 document.getElementById('editModal').classList.add('active');
             }
 
-            function saveEdit() {
+            async function saveEdit() {
                 if (!editingQuestId) return;
                 
                 let quest = state.quests.find(x => x.id === editingQuestId);
@@ -941,6 +1033,7 @@ console.log('Firebase подключён');
                 quest.date = document.getElementById('editDate').value;
                 
                 saveState();
+                await saveToFirebase();
                 renderQuests();
                 document.getElementById('editModal').classList.remove('active');
                 editingQuestId = null;
@@ -1185,20 +1278,20 @@ console.log('Firebase подключён');
 
             // ========== ДОБАВЛЕНИЕ КВЕСТА ==========
             document.getElementById('addQuestBtn').addEventListener('click', function(e) {
-                e.preventDefault();
-                let name = document.getElementById('questName').value.trim();
-                if (!name) return alert('введи название');
-                let type = document.getElementById('questType').value;
-                let xp = parseInt(document.getElementById('questDifficulty').value);
-                let date = document.getElementById('questDate').value;
-                let newId = state.quests.length ? Math.max(...state.quests.map(q=>q.id)) + 1 : 1;
-                state.quests.push({ id: newId, name, type, xp, difficulty: xp.toString(), date, done: false });
-                saveState();
-                document.getElementById('questName').value = '';
-                document.getElementById('questDate').value = '';
-                renderQuests();
-                document.querySelector('[data-page="pageQuests"]').click();
-            });
+    e.preventDefault();
+    let name = document.getElementById('questName').value.trim();
+    if (!name) return alert('введи название');
+    let type = document.getElementById('questType').value;
+    let xp = parseInt(document.getElementById('questDifficulty').value);
+    let date = document.getElementById('questDate').value;
+    let newId = state.quests.length ? Math.max(...state.quests.map(q=>q.id)) + 1 : 1;
+    state.quests.push({ id: newId, name, type, xp, difficulty: xp.toString(), date, done: false });
+    saveState();
+    document.getElementById('questName').value = '';
+    document.getElementById('questDate').value = '';
+    renderQuests();
+    document.querySelector('[data-page="pageQuests"]').click();
+});
 
             // ========== БОНУС ==========
             document.getElementById('dailyBonusBtn').addEventListener('click', function(e) {
