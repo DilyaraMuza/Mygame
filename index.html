@@ -478,6 +478,30 @@
     }
 }
     </style>
+
+<script type="module">
+  // Импортируем функции, которые нужны для работы с Firebase.
+  // Используем CDN-ссылки для прямого подключения Firebase SDK.
+  // firebase-app.js нужен для инициализации самого Firebase.
+  // firebase-firestore.js нужен для работы с базой данных Cloud Firestore.
+  // firebase-auth.js нужен для работы с аутентификацией.
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.0.0/firebase-app.js";
+  import { getFirestore } from "https://www.gstatic.com/firebasejs/10.0.0/firebase-firestore.js";
+  import { getAuth } from "https://www.gstatic.com/firebasejs/10.0.0/firebase-auth.js";
+
+  // ВАШ КОД КОНФИГУРАЦИИ ИЗ КОНСОЛИ FIREBASE
+  // Вот ваш скопированный код, который вы должны вставить сюда:
+  const firebaseConfig = {
+ apiKey: "AIzaSyA_saJDVmNph7VHINADqy_DRuzF91J1ez8",
+authDomain: "my-game-350a4.firebaseapp.com",
+ projectId: "my-game-350a4",
+ storageBucket: "my-game-350a4.firebasestorage.app",
+ messagingSenderId: "1037545222875",
+ appId: "1:1037545222875:web:52fe99e0a85083546812fe"
+};
+
+
+    
 </head>
 <body>
     <div class="container">
