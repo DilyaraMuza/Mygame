@@ -948,51 +948,61 @@ console.log('Firebase подключён');
 
             // ========== ОТРИСОВКА ГЛАВНОЙ ==========
             function renderHome() {
-                let dt = state.designerTheory, dp = state.designerPractice;
-                let en = state.english, st = state.style;
-                let desLvl = Math.min(getLevel(dt), getLevel(dp));
-                let enLvl = getLevel(en);
-                let stLvl = getLevel(st);
-                let global = getGlobalLevel();
+    let dt = state.designerTheory, dp = state.designerPractice;
+    let en = state.english, st = state.style;
+    let desLvl = Math.min(getLevel(dt), getLevel(dp));
+    let enLvl = getLevel(en);
+    let stLvl = getLevel(st);
+    let global = getGlobalLevel();
 
-                let html = `
-                    <div class="skill-card">
-                        <div class="skill-header">
-                            <span>ДИЗАЙНЕР</span>
-                            <span class="skill-level-badge">ур.${desLvl} · ${globalRanks[desLvl-1]}</span>
-                        </div>
-                        <div class="progress-bg"><div class="progress-fill" style="width:${Math.min(getProgress(dt), getProgress(dp))}%"></div></div>
-                        <div class="skill-stats">
-                            <span>теория ${dt} XP</span>
-                            <span>практика ${dp} XP</span>
-                        </div>
-                    </div>
-                    <div class="skill-card">
-                        <div class="skill-header">
-                            <span>АНГЛИЙСКИЙ</span>
-                            <span class="skill-level-badge">ур.${enLvl} · ${englishRanks[enLvl-1]}</span>
-                        </div>
-                        <div class="progress-bg"><div class="progress-fill" style="width:${getProgress(en)}%"></div></div>
-                        <div class="skill-stats"><span>${en} XP</span></div>
-                    </div>
-                    <div class="skill-card">
-                        <div class="skill-header">
-                            <span>ПЕРСОНАЛЬНЫЙ СТИЛЬ</span>
-                            <span class="skill-level-badge">ур.${stLvl} · ${styleRanks[stLvl-1]}</span>
-                        </div>
-                        <div class="progress-bg"><div class="progress-fill" style="width:${getProgress(st)}%"></div></div>
-                        <div class="skill-stats"><span>${st} XP</span></div>
-                    </div>
-                `;
-                document.getElementById('skillsContainer').innerHTML = html;
+    // Функция для расчёта XP до следующего уровня
+    function getXpToNextLevel(xp) {
+        let lvl = getLevel(xp);
+        if (lvl >= thresholds.length) return 0;
+        return thresholds[lvl] - xp;
+    }
 
-                document.getElementById('globalLevel').innerText = global;
-                document.getElementById('globalTitle').innerText = globalRanks[global-1];
-                let globalXp = dt + dp + en + st;
-                document.getElementById('globalProgress').style.width = Math.min(100, (globalXp % 200) / 2) + '%';
+    let html = `
+        <div class="skill-card">
+            <div class="skill-header">
+                <span>ДИЗАЙНЕР</span>
+                <span class="skill-level-badge">ур.${desLvl} · ${globalRanks[desLvl-1]}</span>
+            </div>
+            <div class="progress-bg"><div class="progress-fill" style="width:${Math.min(getProgress(dt), getProgress(dp))}%"></div></div>
+            <div class="skill-stats">
+                <span>до след. уровня: ${getXpToNextLevel(Math.min(dt, dp))} XP</span>
+            </div>
+        </div>
+        <div class="skill-card">
+            <div class="skill-header">
+                <span>АНГЛИЙСКИЙ</span>
+                <span class="skill-level-badge">ур.${enLvl} · ${englishRanks[enLvl-1]}</span>
+            </div>
+            <div class="progress-bg"><div class="progress-fill" style="width:${getProgress(en)}%"></div></div>
+            <div class="skill-stats">
+                <span>до след. уровня: ${getXpToNextLevel(en)} XP</span>
+            </div>
+        </div>
+        <div class="skill-card">
+            <div class="skill-header">
+                <span>ПЕРСОНАЛЬНЫЙ СТИЛЬ</span>
+                <span class="skill-level-badge">ур.${stLvl} · ${styleRanks[stLvl-1]}</span>
+            </div>
+            <div class="progress-bg"><div class="progress-fill" style="width:${getProgress(st)}%"></div></div>
+            <div class="skill-stats">
+                <span>до след. уровня: ${getXpToNextLevel(st)} XP</span>
+            </div>
+        </div>
+    `;
+    document.getElementById('skillsContainer').innerHTML = html;
 
-                updateBonusUI();
-            }
+    document.getElementById('globalLevel').innerText = global;
+    document.getElementById('globalTitle').innerText = globalRanks[global-1];
+    let globalXp = dt + dp + en + st;
+    document.getElementById('globalProgress').style.width = Math.min(100, (globalXp % 200) / 2) + '%';
+
+    updateBonusUI();
+}
 
             // ========== ОТРИСОВКА КВЕСТОВ ==========
             function renderQuests() {
