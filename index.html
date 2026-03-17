@@ -478,26 +478,6 @@
     }
 }
     </style>
-<script type="module">
-import { initializeApp } from "https://www.gstatic.com/firebasejs/10.13.1/firebase-app.js";
-import { getFirestore } from "https://www.gstatic.com/firebasejs/10.13.1/firebase-firestore.js";
-import { getAuth } from "https://www.gstatic.com/firebasejs/10.13.1/firebase-auth.js";
-
-const firebaseConfig = {
-  apiKey: "AIzaSyA_saJDVmNph7VHINADqy_DRuzF91J1ez8",
-  authDomain: "my-game-350a4.firebaseapp.com",
-  projectId: "my-game-350a4",
-  storageBucket: "my-game-350a4.firebasestorage.app",
-  messagingSenderId: "1037545222875",
-  appId: "1:1037545222875:web:52fe99e0a85083546812fe"
-};
-
-const app = initializeApp(firebaseConfig);
-const db = getFirestore(app);
-const auth = getAuth(app);
-
-console.log('Firebase подключён');
-
     <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.13.1/firebase-app.js";
 import { getFirestore } from "https://www.gstatic.com/firebasejs/10.13.1/firebase-firestore.js";
@@ -715,21 +695,16 @@ loadFromFirebase();
         (function() {
             // ========== СОСТОЯНИЕ ==========
             let state = {
-                designerTheory: 0,
-                designerPractice: 0,
-                english: 0,
-                style: 0,
-                coins: 120,
-                streak: 3,
-                lastLogin: new Date().toDateString(),
-                bonusClaimedToday: false,
-                quests: [
-                    { id: 1, name: 'Прочитать главу', type: 'designerTheory', xp: 20, difficulty: '20', date: '2025-04-08', done: false },
-                    { id: 2, name: 'Встреча с дизайнером', type: 'designerPractice', xp: 50, difficulty: '50', date: '2025-04-09', done: false },
-                    { id: 3, name: 'Duolingo', type: 'english', xp: 20, difficulty: '20', date: '2025-04-07', done: false },
-                    { id: 4, name: 'Защита проекта', type: 'designerPractice', xp: 200, difficulty: '200', date: '2025-04-20', done: false },
-                ]
-            };
+    designerTheory: 0,
+    designerPractice: 0,
+    english: 0,
+    style: 0,
+    coins: 0,
+    streak: 0,
+    lastLogin: new Date().toDateString(),
+    bonusClaimedToday: false,
+    quests: []  
+};
 
             // ========== РАНГИ ==========
             const globalRanks = [
