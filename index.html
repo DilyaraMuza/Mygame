@@ -479,30 +479,24 @@
 }
     </style>
 
-<script src="https://www.gstatic.com/firebasejs/10.13.0/firebase-app.js"></script>
-<script src="https://www.gstatic.com/firebasejs/10.13.0/firebase-firestore.js"></script>
-<script src="https://www.gstatic.com/firebasejs/10.13.0/firebase-auth.js"></script>
-<script>
-  const firebaseConfig = {
-    apiKey: "AIzaSyA_saJDVmNph7VHINADqy_DRuzF91J1ez8",
-    authDomain: "my-game-350a4.firebaseapp.com",
-    projectId: "my-game-350a4",
-    storageBucket: "my-game-350a4.firebasestorage.app",
-    messagingSenderId: "1037545222875",
-    appId: "1:1037545222875:web:52fe99e0a85083546812fe"
-  };
-  firebase.initializeApp(firebaseConfig);
-  const db = firebase.firestore();
-  const auth = firebase.auth();
-  console.log('Firebase ready');
-</script>
+// Импортируйте необходимые функции из нужных вам SDK
+import { initializeApp } from "firebase/app";
+// TODO: Добавьте SDK для продуктов Firebase, которые вы хотите использовать
+// https://firebase.google.com/docs/web/setup#available-libraries
 
-// Инициализация Firebase
+// Конфигурация Firebase для вашего веб-приложения
+const firebaseConfig = {
+ apiKey: "AIzaSyA_saJDVmNph7VHINADqy_DRuzF91J1ez8",
+authDomain: "my-game-350a4.firebaseapp.com",
+ projectId: "my-game-350a4",
+ storageBucket: "my-game-350a4.firebasestorage.app",
+ messagingSenderId: "1037545222875",
+ appId: "1:1037545222875:web:52fe99e0a85083546812fe"
+};
+
+// Инициализировать Firebase
 const app = initializeApp(firebaseConfig);
-const db = getFirestore(app);
-const auth = getAuth(app);
 
-console.log('Firebase подключён!');
     
 </head>
 <body>
