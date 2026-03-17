@@ -478,95 +478,6 @@
     }
 }
     </style>
-    <script type="module">
-import { initializeApp } from "https://www.gstatic.com/firebasejs/10.13.1/firebase-app.js";
-import { getFirestore } from "https://www.gstatic.com/firebasejs/10.13.1/firebase-firestore.js";
-import { getAuth } from "https://www.gstatic.com/firebasejs/10.13.1/firebase-auth.js";
-
-const firebaseConfig = {
-  apiKey: "AIzaSyA_saJDVmNph7VHINADqy_DRuzF91J1ez8",
-  authDomain: "my-game-350a4.firebaseapp.com",
-  projectId: "my-game-350a4",
-  storageBucket: "my-game-350a4.firebasestorage.app",
-  messagingSenderId: "1037545222875",
-  appId: "1:1037545222875:web:52fe99e0a85083546812fe"
-};
-
-const app = initializeApp(firebaseConfig);
-const db = getFirestore(app);
-const auth = getAuth(app);
-
-console.log('Firebase подключён');
-
-import { 
-  collection, 
-  doc, 
-  getDoc, 
-  getDocs, 
-  setDoc, 
-  deleteDoc 
-} from "https://www.gstatic.com/firebasejs/10.13.1/firebase-firestore.js";
-
-async function loadFromFirebase(state) {
-  try {
-    const userDoc = await getDoc(doc(db, "users", "player"));
-    if (userDoc.exists()) {
-      const userData = userDoc.data();
-      state.designerTheory = userData.designerTheory || 0;
-      state.designerPractice = userData.designerPractice || 0;
-      state.english = userData.english || 0;
-      state.style = userData.style || 0;
-      state.coins = userData.coins || 0;
-      state.streak = userData.streak || 0;
-    }
-
-    const questsSnapshot = await getDocs(collection(db, "quests"));
-    state.quests = [];
-    questsSnapshot.forEach((doc) => {
-      state.quests.push(doc.data());
-    });
-
-    renderHome();
-    renderQuests();
-    renderStats();
-    console.log('✅ Данные загружены из Firebase');
-  } catch (e) {
-    console.log('❌ Ошибка загрузки:', e);
-  }
-}
-
-async function saveToFirebase(state) {
-  try {
-    await setDoc(doc(db, "users", "player"), {
-      designerTheory: state.designerTheory,
-      designerPractice: state.designerPractice,
-      english: state.english,
-      style: state.style,
-      coins: state.coins,
-      streak: state.streak
-    });
-
-    const questsSnapshot = await getDocs(collection(db, "quests"));
-    questsSnapshot.forEach(async (doc) => {
-      await deleteDoc(doc.ref);
-    });
-
-    for (const quest of state.quests) {
-      await setDoc(doc(db, "quests", quest.id.toString()), quest);
-    }
-
-    console.log('✅ Данные сохранены в Firebase');
-  } catch (e) {
-    console.log('❌ Ошибка сохранения:', e);
-  }
-}
-
-globalThis.loadFromFirebase=loadFromFirebase;
-globalThis.saveToFirebase=saveToFirebase;
-    
-</script>
-    
-    
 </head>
 <body>
     <div class="container">
@@ -691,7 +602,91 @@ globalThis.saveToFirebase=saveToFirebase;
             <button class="btn-neon" id="saveEditBtn">сохранить</button>
         </div>
     </div>
-    <script>
+        <script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.13.1/firebase-app.js";
+import { getFirestore } from "https://www.gstatic.com/firebasejs/10.13.1/firebase-firestore.js";
+import { getAuth } from "https://www.gstatic.com/firebasejs/10.13.1/firebase-auth.js";
+
+const firebaseConfig = {
+  apiKey: "AIzaSyA_saJDVmNph7VHINADqy_DRuzF91J1ez8",
+  authDomain: "my-game-350a4.firebaseapp.com",
+  projectId: "my-game-350a4",
+  storageBucket: "my-game-350a4.firebasestorage.app",
+  messagingSenderId: "1037545222875",
+  appId: "1:1037545222875:web:52fe99e0a85083546812fe"
+};
+
+const app = initializeApp(firebaseConfig);
+const db = getFirestore(app);
+const auth = getAuth(app);
+
+console.log('Firebase подключён');
+
+import { 
+  collection, 
+  doc, 
+  getDoc, 
+  getDocs, 
+  setDoc, 
+  deleteDoc 
+} from "https://www.gstatic.com/firebasejs/10.13.1/firebase-firestore.js";
+
+async function loadFromFirebase(state) {
+  try {
+    const userDoc = await getDoc(doc(db, "users", "player"));
+    if (userDoc.exists()) {
+      const userData = userDoc.data();
+      state.designerTheory = userData.designerTheory || 0;
+      state.designerPractice = userData.designerPractice || 0;
+      state.english = userData.english || 0;
+      state.style = userData.style || 0;
+      state.coins = userData.coins || 0;
+      state.streak = userData.streak || 0;
+    }
+
+    const questsSnapshot = await getDocs(collection(db, "quests"));
+    state.quests = [];
+    questsSnapshot.forEach((doc) => {
+      state.quests.push(doc.data());
+    });
+
+    renderHome();
+    renderQuests();
+    renderStats();
+    console.log('✅ Данные загружены из Firebase');
+  } catch (e) {
+    console.log('❌ Ошибка загрузки:', e);
+  }
+}
+
+async function saveToFirebase(state) {
+  try {
+    await setDoc(doc(db, "users", "player"), {
+      designerTheory: state.designerTheory,
+      designerPractice: state.designerPractice,
+      english: state.english,
+      style: state.style,
+      coins: state.coins,
+      streak: state.streak
+    });
+
+    const questsSnapshot = await getDocs(collection(db, "quests"));
+    questsSnapshot.forEach(async (doc) => {
+      await deleteDoc(doc.ref);
+    });
+
+    for (const quest of state.quests) {
+      await setDoc(doc(db, "quests", quest.id.toString()), quest);
+    }
+
+    console.log('✅ Данные сохранены в Firebase');
+  } catch (e) {
+    console.log('❌ Ошибка сохранения:', e);
+  }
+}
+
+    
+
         (function() {
             // ========== СОСТОЯНИЕ ==========
             let state = {
