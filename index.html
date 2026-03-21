@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
+    <title> Моя игра ✦</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <div id="xpToast" class="xp-toast">+0 XP</div>
+        <div id="levelToast" class="level-toast"></div>
+        
+        <!-- ГЛАВНАЯ -->
+        <div id="pageHome" class="page active">
+            <div class="bonus-card">
+                <div class="bonus-stats">
+                    <div class="bonus-item">
+                        <div class="bonus-value" id="streakDays">0</div>
+                        <div class="bonus-label">дней подряд</div>
+                    </div>
+                    <div class="bonus-item">
+                        <div class="bonus-value" id="coinBalance">0</div>
+                        <div class="bonus-label">монет</div>
+                    </div>
+                </div>
+                <button class="bonus-btn" id="dailyBonusBtn">забрать</button>
+            </div>
+
+            <div class="level-card">
+                <div class="level-number" id="globalLevel">1</div>
+                <div class="level-title" id="globalTitle">Новичок</div>
+                <div class="progress-bg">
+                    <div class="progress-fill" id="globalProgress" style="width:0%"></div>
+                </div>
+            </div>
+
+            <div class="hero">
+                <div class="avatar-large" id="avatarLarge">
+                    <img id="avatarImg" src="" style="display: none;">
+                    <div class="avatar-placeholder" id="avatarPlaceholder">твой образ</div>
+                </div>
+                <input type="file" id="fileInput" accept="image/*" style="display: none;">
+            </div>
+
+            <div id="skillsContainer"></div>
+        </div>
+
+        <!-- КВЕСТЫ -->
+        <div id="pageQuests" class="page">
+            <h2 style="margin-bottom: 20px;">КВЕСТЫ</h2>
+            <div class="filters">
+                <button class="filter-btn active" data-filter="all">ВСЕ</button>
+                <button class="filter-btn" data-filter="urgent">СРОЧНЫЕ</button>
+                <button class="filter-btn" data-filter="overdue">ПРОСРОЧЕННЫЕ</button>
+            </div>
+            <div id="questsContainer"></div>
+        </div>
+
+        <!-- НОВЫЙ КВЕСТ -->
+        <div id="pageNewQuest" class="page">
+            <h2 style="margin-bottom: 20px;">НОВЫЙ КВЕСТ</h2>
+            <div class="form-group">
+                <label>название</label>
+                <input type="text" class="form-control" id="questName" placeholder="например: прочитать главу">
+            </div>
+            <div class="form-group">
+                <label>тип</label>
+                <select class="form-control" id="questType">
+                    <option value="designerTheory">Дизайнер (теория)</option>
+                    <option value="designerPractice">Дизайнер (практика)</option>
+                    <option value="english">Английский</option>
+                    <option value="style">Персональный стиль</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label>сложность</label>
+                <select class="form-control" id="questDifficulty">
+                    <option value="20">★ Задача (20 XP)</option>
+                    <option value="50">★★ Миссия (50 XP)</option>
+                    <option value="100">★★★ Операция (100 XP)</option>
+                    <option value="200">★★★★ Эпическая миссия (200 XP)</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label>сделать до (дата)</label>
+                <input type="date" class="form-control" id="questDate">
+            </div>
+            <button class="btn-neon" id="addQuestBtn">создать</button>
+        </div>
+
+        <!-- СТАТИСТИКА -->
+        <div id="pageStats" class="page">
+            <h2 style="margin-bottom: 20px;">СТАТИСТИКА</h2>
+            <div class="stat-row"><span>всего XP</span> <span id="totalXP">0</span></div>
+            <div class="stat-row"><span>выполнено квестов</span> <span id="doneCount">0</span></div>
+            <div class="stat-row"><span>монет</span> <span id="statsCoins">0</span></div>
+            <div class="stat-row"><span>дней подряд</span> <span id="statsStreak">0</span></div>
+            <button class="reset-btn" id="resetProgressBtn">сбросить прогресс</button>
+        </div>
+    </div>
+
+    <!-- МЕНЮ -->
+    <div class="tab-bar">
+        <div class="tab active" data-page="pageHome"><span>🏠</span>главная</div>
+        <div class="tab" data-page="pageQuests"><span>📋</span>квесты</div>
+        <div class="tab" data-page="pageNewQuest"><span>➕</span>новое</div>
+        <div class="tab" data-page="pageStats"><span>📊</span>стат</div>
+    </div>
+
+    <!-- МОДАЛКА РЕДАКТИРОВАНИЯ -->
+    <div class="edit-modal" id="editModal">
+        <div class="edit-form">
+            <h3>РЕДАКТИРОВАТЬ КВЕСТ</h3>
+            <input type="text" id="editName" placeholder="название">
+            <select id="editType">
+                <option value="designerTheory">Дизайнер (теория)</option>
+                <option value="designerPractice">Дизайнер (практика)</option>
+                <option value="english">Английский</option>
+                <option value="style">Персональный стиль</option>
+            </select>
+            <select id="editDifficulty">
+                <option value="20">★ Задача (20 XP)</option>
+                <option value="50">★★ Миссия (50 XP)</option>
+                <option value="100">★★★ Операция (100 XP)</option>
+                <option value="200">★★★★ Эпическая миссия (200 XP)</option>
+            </select>
+            <input type="date" id="editDate">
+            <button class="btn-neon" id="saveEditBtn">сохранить</button>
+        </div>
+    </div>
+
+    <script type="module" src="firebase-config.js"></script>
+    <script type="module" src="script.js"></script>
+</body>
+</html>
