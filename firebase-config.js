@@ -16,7 +16,7 @@ export const app = initializeApp(firebaseConfig);
 export const db = getFirestore(app);
 export const auth = getAuth(app);
 
-// Функции для работы с Firebase
+// Загрузка ВСЕХ квестов
 export async function loadFromFirebase(state) {
     try {
         const userDoc = await getDoc(doc(db, "users", "player"));
@@ -42,6 +42,7 @@ export async function loadFromFirebase(state) {
     }
 }
 
+// Сохранение ВСЕХ квестов (перезаписываем всю коллекцию)
 export async function saveToFirebase(state) {
     try {
         await setDoc(doc(db, "users", "player"), {
@@ -53,16 +54,18 @@ export async function saveToFirebase(state) {
             streak: state.streak
         });
 
+        // Удаляем все старые квесты
         const questsSnapshot = await getDocs(collection(db, "quests"));
         for (const docSnap of questsSnapshot.docs) {
             await deleteDoc(docSnap.ref);
         }
 
+        // Сохраняем ВСЕ текущие квесты
         for (const quest of state.quests) {
             await setDoc(doc(db, "quests", quest.id.toString()), quest);
         }
 
-        console.log('✅ Данные сохранены в Firebase');
+        console.log('✅ Все квесты сохранены в Firebase');
     } catch (e) {
         console.log('❌ Ошибка сохранения:', e);
     }
