@@ -1,6 +1,6 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.13.1/firebase-app.js";
 import { getFirestore } from "https://www.gstatic.com/firebasejs/10.13.1/firebase-firestore.js";
-import { getAuth } from "https://www.gstatic.com/firebasejs/10.13.1/firebase-auth.js";
+import { getAuth, signInWithEmailAndPassword, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.13.1/firebase-auth.js";
 import { collection, doc, getDoc, getDocs, setDoc, deleteDoc } from "https://www.gstatic.com/firebasejs/10.13.1/firebase-firestore.js";
 
 const firebaseConfig = {
@@ -16,7 +16,10 @@ export const app = initializeApp(firebaseConfig);
 export const db = getFirestore(app);
 export const auth = getAuth(app);
 
-// Загрузка ВСЕХ квестов
+// Экспортируем функции аутентификации
+export const signInWithEmail = (email, password) => signInWithEmailAndPassword(auth, email, password);
+export const onAuthStateChangedListener = (callback) => onAuthStateChanged(auth, callback);
+
 export async function loadFromFirebase(state) {
     try {
         const userDoc = await getDoc(doc(db, "users", "player"));
@@ -42,7 +45,6 @@ export async function loadFromFirebase(state) {
     }
 }
 
-// Сохранение ВСЕХ квестов (перезаписываем всю коллекцию)
 export async function saveToFirebase(state) {
     try {
         await setDoc(doc(db, "users", "player"), {
@@ -54,13 +56,11 @@ export async function saveToFirebase(state) {
             streak: state.streak
         });
 
-        // Удаляем все старые квесты
         const questsSnapshot = await getDocs(collection(db, "quests"));
         for (const docSnap of questsSnapshot.docs) {
             await deleteDoc(docSnap.ref);
         }
 
-        // Сохраняем ВСЕ текущие квесты
         for (const quest of state.quests) {
             await setDoc(doc(db, "quests", quest.id.toString()), quest);
         }

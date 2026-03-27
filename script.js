@@ -1,4 +1,38 @@
-import { loadFromFirebase, saveToFirebase } from './firebase-config.js';
+import { loadFromFirebase, saveToFirebase, signInWithEmail, auth, onAuthStateChanged } from './firebase-config.js';
+
+// Ждём, пока Firebase определит, залогинен ли пользователь
+onAuthStateChanged(auth, (user) => {
+    if (user) {
+        // Пользователь вошёл — показываем игру
+        document.getElementById('loginScreen').style.display = 'none';
+        document.getElementById('gameContainer').classList.add('visible');
+        startGame();
+    } else {
+        // Пользователь не вошёл — показываем форму входа
+        document.getElementById('loginScreen').style.display = 'flex';
+        document.getElementById('gameContainer').classList.remove('visible');
+    }
+});
+
+// Обработчик кнопки входа
+document.getElementById('loginBtn').addEventListener('click', async () => {
+    const email = document.getElementById('loginEmail').value;
+    const password = document.getElementById('loginPassword').value;
+    const errorDiv = document.getElementById('loginError');
+
+    if (!email || !password) {
+        errorDiv.innerText = 'Введи email и пароль';
+        return;
+    }
+
+    try {
+        await signInWithEmail(email, password);
+        errorDiv.innerText = '';
+    } catch (error) {
+        errorDiv.innerText = 'Ошибка входа: неверный email или пароль';
+        console.error(error);
+    }
+});
 
 let state = {
     designerTheory: 0,
@@ -199,7 +233,6 @@ async function completeQuest(questId) {
     if (newSt > oldSt) showLevelToast('Персональный стиль', newSt, styleRanks[newSt-1]);
     if (newGlobal > oldGlobal) showLevelToast('Общий уровень', newGlobal, globalRanks[newGlobal-1]);
     
-    // Просто помечаем квест как выполненный
     quest.done = true;
     
     saveState();
@@ -261,12 +294,9 @@ function renderHome() {
 }
 
 function renderQuests() {
-    // Показываем только НЕвыполненные квесты
     let active = state.quests.filter(q => !q.done);
-    
     if (currentFilter === 'urgent') active = active.filter(q => isUrgent(q.date));
     if (currentFilter === 'overdue') active = active.filter(q => isOverdue(q.date));
-    
     let groups = { 20: [], 50: [], 100: [], 200: [] };
     active.forEach(q => groups[q.xp].push(q));
     let titles = { 20: 'ЗАДАЧА ★', 50: 'МИССИЯ ★★', 100: 'ОПЕРАЦИЯ ★★★', 200: 'ЭПИЧЕСКАЯ МИССИЯ ★★★★' };
@@ -319,7 +349,6 @@ function renderQuests() {
 function renderStats() {
     let total = state.designerTheory + state.designerPractice + state.english + state.style;
     document.getElementById('totalXP').innerText = total;
-    // Считаем выполненные квесты (где done === true)
     document.getElementById('doneCount').innerText = state.quests.filter(q => q.done).length;
     document.getElementById('statsCoins').innerText = state.coins;
     document.getElementById('statsStreak').innerText = state.streak;
@@ -391,11 +420,10 @@ document.getElementById('resetProgressBtn').addEventListener('click', e => { e.p
 document.getElementById('saveEditBtn').addEventListener('click', () => saveEdit());
 document.getElementById('editModal').addEventListener('click', e => { if (e.target === this) saveEdit(); });
 
-async function init() {
+async function startGame() {
     await loadFromFirebase(state);
     checkDailyBonus();
     renderHome();
     renderQuests();
     renderStats();
 }
-init();
