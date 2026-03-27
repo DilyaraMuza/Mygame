@@ -16,9 +16,9 @@ export const app = initializeApp(firebaseConfig);
 export const db = getFirestore(app);
 export const auth = getAuth(app);
 
-// Экспортируем функции аутентификации
+// Экспортируем функции аутентификации с теми же именами, что и в script.js
 export const signInWithEmail = (email, password) => signInWithEmailAndPassword(auth, email, password);
-export const onAuthStateChangedListener = (callback) => onAuthStateChanged(auth, callback);
+export const onAuthStateChanged = (callback) => onAuthStateChanged(auth, callback);
 
 export async function loadFromFirebase(state) {
     try {
