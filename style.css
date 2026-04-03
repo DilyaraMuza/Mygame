@@ -455,64 +455,68 @@ input[type="date"]::-webkit-calendar-picker-indicator {
         padding: 20px 15px;
     }
 }
-/* ========== ЭКРАН ВХОДА ========== */
-.login-wrapper {
-    position: relative;
-    width: 292px;
-    height: 244px;
-    z-index: 10;
-    margin: auto;
+/* ========== НОВЫЙ ЭКРАН ВХОДА ========== */
+#loginScreen {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle at 20% 30%, #2E206F 0%, #15082C 100%);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    transition: all 0.3s ease;
 }
 
-.login-frame {
+/* Скрываем экран входа — этот класс будет добавлять JS */
+#loginScreen.hide {
+    display: none;
+}
+
+/* Контент внутри экрана входа */
+#loginScreen .login-frame {
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    z-index: 1;
     pointer-events: none;
 }
 
-.login-frame svg {
+#loginScreen .login-frame svg {
     width: 100%;
     height: 100%;
     display: block;
 }
 
-.login-content {
+#loginScreen .login-content {
     position: relative;
     z-index: 2;
-    width: 100%;
-    height: 100%;
+    width: 292px;
+    height: 244px;
 }
 
-.input-login,
-.input-password {
+#loginScreen .input-login,
+#loginScreen .input-password {
     position: absolute;
     width: 152px;
     height: 36px;
 }
 
-.input-login {
+#loginScreen .input-login {
     top: 52px;
     left: 67px;
 }
 
-.input-password {
+#loginScreen .input-password {
     top: 108px;
     left: 67px;
 }
 
-.input-login svg,
-.input-password svg {
-    width: 100%;
-    height: 100%;
-    display: block;
-}
-
-.input-login input,
-.input-password input {
+#loginScreen .input-login input,
+#loginScreen .input-password input {
     position: absolute;
     top: 0;
     left: 0;
@@ -527,7 +531,7 @@ input[type="date"]::-webkit-calendar-picker-indicator {
     outline: none;
 }
 
-.button-svg {
+#loginScreen .button-svg {
     position: absolute;
     bottom: 40px;
     left: 101px;
@@ -535,13 +539,7 @@ input[type="date"]::-webkit-calendar-picker-indicator {
     height: 40px;
 }
 
-.button-svg svg {
-    width: 100%;
-    height: 100%;
-    display: block;
-}
-
-.button-svg button {
+#loginScreen .button-svg button {
     position: absolute;
     top: 0;
     left: 0;
@@ -556,7 +554,7 @@ input[type="date"]::-webkit-calendar-picker-indicator {
     cursor: pointer;
 }
 
-#loginError {
+#loginScreen #loginError {
     position: absolute;
     bottom: -30px;
     left: 0;
@@ -564,4 +562,14 @@ input[type="date"]::-webkit-calendar-picker-indicator {
     text-align: center;
     color: #ff6666;
     font-size: 10px;
+}
+
+/* Игра скрыта по умолчанию */
+#gameContainer {
+    display: none;
+}
+
+/* Когда залогинились — показываем игру */
+#gameContainer.visible {
+    display: block;
 }
