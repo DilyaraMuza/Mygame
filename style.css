@@ -455,6 +455,8 @@ input[type="date"]::-webkit-calendar-picker-indicator {
         padding: 20px 15px;
     }
 }
+
+
 /* ========== НОВЫЙ ЭКРАН ВХОДА ========== */
 #loginScreen {
     position: fixed;
@@ -462,7 +464,14 @@ input[type="date"]::-webkit-calendar-picker-indicator {
     left: 0;
     width: 100%;
     height: 100%;
-    background: radial-gradient(circle at 20% 30%, #2E206F 0%, #15082C 100%);
+    /* фоновое изображение */
+    background-image: url('фон.jpg'); /**/
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    /* радиальный градиент поверх изображения */
+    background-blend-mode: overlay;
+    background-color: #15082C; /* запасной цвет */
     display: flex;
     justify-content: center;
     align-items: center;
@@ -470,18 +479,19 @@ input[type="date"]::-webkit-calendar-picker-indicator {
     transition: all 0.3s ease;
 }
 
-/* Скрываем экран входа — этот класс будет добавлять JS */
+/* Скрываем экран входа */
 #loginScreen.hide {
     display: none;
 }
 
-/* Контент внутри экрана входа */
+/* Рамка*/
 #loginScreen .login-frame {
     position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 292px;
+    height: 244px;
     pointer-events: none;
 }
 
@@ -491,28 +501,40 @@ input[type="date"]::-webkit-calendar-picker-indicator {
     display: block;
 }
 
+/* Контент поверх рамки — тоже фиксированный размер */
 #loginScreen .login-content {
-    position: relative;
-    z-index: 2;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
     width: 292px;
     height: 244px;
+    z-index: 2;
 }
 
-#loginScreen .input-login,
-#loginScreen .input-password {
+/* поля ввода и кнопка — те же отступы */
+#loginScreen .input-login {
     position: absolute;
+    top: 52px;
+    left: 67px;
     width: 152px;
     height: 36px;
 }
 
-#loginScreen .input-login {
-    top: 52px;
-    left: 67px;
-}
-
 #loginScreen .input-password {
+    position: absolute;
     top: 108px;
     left: 67px;
+    width: 152px;
+    height: 36px;
+}
+
+#loginScreen .button-svg {
+    position: absolute;
+    bottom: 40px;
+    left: 101px;
+    width: 90px;
+    height: 40px;
 }
 
 #loginScreen .input-login input,
@@ -529,14 +551,6 @@ input[type="date"]::-webkit-calendar-picker-indicator {
     font-family: 'Inter', monospace;
     font-size: 12px;
     outline: none;
-}
-
-#loginScreen .button-svg {
-    position: absolute;
-    bottom: 40px;
-    left: 101px;
-    width: 90px;
-    height: 40px;
 }
 
 #loginScreen .button-svg button {
@@ -562,14 +576,4 @@ input[type="date"]::-webkit-calendar-picker-indicator {
     text-align: center;
     color: #ff6666;
     font-size: 10px;
-}
-
-/* Игра скрыта по умолчанию */
-#gameContainer {
-    display: none;
-}
-
-/* Когда залогинились — показываем игру */
-#gameContainer.visible {
-    display: block;
 }
