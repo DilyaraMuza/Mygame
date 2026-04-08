@@ -170,8 +170,9 @@ function checkDailyBonus() {
         let yesterday = new Date(Date.now() - 86400000).toDateString();
         state.streak = state.lastLogin === yesterday ? state.streak + 1 : 1;
         state.lastLogin = today;
-        state.bonusClaimedToday = false;
+        state.bonusClaimedToday = true;
         saveState();
+        await saveToFirebase(state);
     }
     updateBonusUI();
 }
