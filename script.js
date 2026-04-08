@@ -183,7 +183,7 @@ function checkDailyBonus() {
     }
     updateBonusUI();
 }
-1
+
 
 async function claimBonus() {
     let today = new Date().toDateString();
