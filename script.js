@@ -172,14 +172,6 @@ function checkDailyBonus() {
         state.lastLogin = today;
         state.bonusClaimedToday = false;
         saveState();
-        
-        // Разблокируем кнопку бонуса
-        const bonusBtn = document.getElementById('dailyBonusBtn');
-        if (bonusBtn) {
-            bonusBtn.disabled = false;
-            bonusBtn.style.opacity = '1';
-            bonusBtn.textContent = 'забрать';
-        }
     }
     updateBonusUI();
 }
