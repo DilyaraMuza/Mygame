@@ -153,6 +153,23 @@
                 <div class="stat-row"><span>дней подряд</span> <span id="statsStreak">0</span></div>
                 <button class="reset-btn" id="resetProgressBtn">сбросить прогресс</button>
             </div>
+        <!-- СПОРТ (ДЕРЕВО ЦЕЛЕЙ) -->
+            <div id="pageSport" class="page">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+                    <h2>🌳 ДЕРЕВО ЦЕЛЕЙ</h2>
+                    <button id="closeSportBtn" class="btn-neon" style="width: auto; padding: 8px 20px;">✕</button>
+                </div>
+                <canvas id="sportTreeCanvas" width="600" height="500" style="width:100%; height:auto; background: #0a0215; border-radius: 20px;"></canvas>
+                <div id="sportNodeModal" class="edit-modal" style="display: none;">
+                    <div class="edit-form" style="text-align: center;">
+                        <h3 id="sportNodeTitle">Цель</h3>
+                        <p id="sportNodeDesc" style="margin: 20px 0; color: #ffb3ff;">Выполни задание, чтобы получить бонус XP</p>
+                        <button id="sportNodeCompleteBtn" class="btn-neon">✨ ВЫПОЛНИТЬ ✨</button>
+                        <button id="sportNodeCloseBtn" class="btn-neon" style="margin-top: 10px; background: #330066;">ЗАКРЫТЬ</button>
+                    </div>
+                </div>
+            </div>
+        
         </div>
 
         <!-- МЕНЮ -->

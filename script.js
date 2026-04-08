@@ -3,12 +3,10 @@ import { loadFromFirebase, saveToFirebase, signInWithEmail, auth, onAuthStateCha
 // Ждём, пока Firebase определит, залогинен ли пользователь
 onAuthStateChanged(auth, (user) => {
     if (user) {
-        // Пользователь вошёл — показываем игру
         document.getElementById('loginScreen').style.display = 'none';
         document.getElementById('gameContainer').classList.add('visible');
         startGame();
     } else {
-        // Пользователь не вошёл — показываем форму входа
         document.getElementById('loginScreen').style.display = 'flex';
         document.getElementById('gameContainer').classList.remove('visible');
     }
@@ -19,12 +17,10 @@ document.getElementById('loginBtn').addEventListener('click', async () => {
     const email = document.getElementById('loginEmail').value;
     const password = document.getElementById('loginPassword').value;
     const errorDiv = document.getElementById('loginError');
-
     if (!email || !password) {
         errorDiv.innerText = 'Введи email и пароль';
         return;
     }
-
     try {
         await signInWithEmail(email, password);
         errorDiv.innerText = '';
@@ -39,11 +35,19 @@ let state = {
     designerPractice: 0,
     english: 0,
     style: 0,
+    sport: 0,
     coins: 0,
     streak: 0,
     lastLogin: new Date().toDateString(),
     bonusClaimedToday: false,
-    quests: []  
+    quests: [],
+    sportTree: {
+        pushups: { completed: [false, false, false, false, false, false] },
+        squats: { completed: [false, false, false, false, false] },
+        abs: { completed: [false, false, false, false, false] },
+        pullups: { completed: [false, false, false, false, false] },
+        handstand: { completed: [false, false, false, false, false] }
+    }
 };
 
 const globalRanks = ['Новичок', 'Ученик', 'Джуниор', 'Мидл', 'Сеньор', 'Мастер', 'Грандмастер', 'Легенда', 'Мифический', 'Божественный'];
@@ -54,6 +58,7 @@ const thresholds = [0, 100, 250, 450, 700, 1000, 1350, 1750, 2200, 2700, 3300];
 let audioCtx = null;
 let currentFilter = 'all';
 let editingQuestId = null;
+let currentSportNode = null;
 
 function playCoinSound() {
     try {
@@ -113,8 +118,9 @@ function getGlobalLevel() {
     let l2 = getLevel(state.designerPractice);
     let l3 = getLevel(state.english);
     let l4 = getLevel(state.style);
+    let l5 = getLevel(state.sport);
     let desLvl = Math.min(l1, l2);
-    let sum = desLvl + l3 + l4;
+    let sum = desLvl + l3 + l4 + l5;
     return Math.min(10, Math.max(1, Math.floor(Math.sqrt(sum) * 1.5)));
 }
 
@@ -178,6 +184,7 @@ async function claimBonus() {
         state.designerPractice += 10;
         state.english += 10;
         state.style += 10;
+        state.sport += 10;
         state.bonusClaimedToday = true;
         saveState();
         await saveToFirebase(state);
@@ -192,27 +199,35 @@ async function claimBonus() {
 async function resetProgress() {
     if (confirm('Сбросить весь прогресс?')) {
         state = {
-            designerTheory: 0, designerPractice: 0, english: 0, style: 0,
+            designerTheory: 0, designerPractice: 0, english: 0, style: 0, sport: 0,
             coins: 0, streak: 0,
             lastLogin: new Date().toDateString(),
             bonusClaimedToday: false,
-            quests: []
+            quests: [],
+            sportTree: {
+                pushups: { completed: [false, false, false, false, false, false] },
+                squats: { completed: [false, false, false, false, false] },
+                abs: { completed: [false, false, false, false, false] },
+                pullups: { completed: [false, false, false, false, false] },
+                handstand: { completed: [false, false, false, false, false] }
+            }
         };
         saveState();
         await saveToFirebase(state);
         renderHome();
         renderQuests();
         renderStats();
+        if (document.getElementById('pageSport')) drawSportTree();
     }
 }
 
 async function completeQuest(questId) {
     let quest = state.quests.find(x => x.id === questId);
     if (!quest || quest.done) return;
-    
     let oldDes = Math.min(getLevel(state.designerTheory), getLevel(state.designerPractice));
     let oldEn = getLevel(state.english);
     let oldSt = getLevel(state.style);
+    let oldSport = getLevel(state.sport);
     let oldGlobal = getGlobalLevel();
     
     switch (quest.type) {
@@ -220,21 +235,23 @@ async function completeQuest(questId) {
         case 'designerPractice': state.designerPractice += quest.xp; break;
         case 'english': state.english += quest.xp; break;
         case 'style': state.style += quest.xp; break;
+        case 'sport': state.sport += quest.xp; break;
     }
     state.coins += Math.floor(quest.xp / 10);
     
     let newDes = Math.min(getLevel(state.designerTheory), getLevel(state.designerPractice));
     let newEn = getLevel(state.english);
     let newSt = getLevel(state.style);
+    let newSport = getLevel(state.sport);
     let newGlobal = getGlobalLevel();
     
     if (newDes > oldDes) showLevelToast('Дизайнер', newDes, globalRanks[newDes-1]);
     if (newEn > oldEn) showLevelToast('Английский', newEn, englishRanks[newEn-1]);
     if (newSt > oldSt) showLevelToast('Персональный стиль', newSt, styleRanks[newSt-1]);
+    if (newSport > oldSport) showLevelToast('Спорт', newSport, globalRanks[newSport-1]);
     if (newGlobal > oldGlobal) showLevelToast('Общий уровень', newGlobal, globalRanks[newGlobal-1]);
     
     quest.done = true;
-    
     saveState();
     await saveToFirebase(state);
     playCoinSound();
@@ -271,27 +288,185 @@ async function saveEdit() {
 }
 
 function renderHome() {
-    let dt = state.designerTheory, dp = state.designerPractice, en = state.english, st = state.style;
+    let dt = state.designerTheory, dp = state.designerPractice, en = state.english, st = state.style, sp = state.sport;
     let desLvl = Math.min(getLevel(dt), getLevel(dp));
     let enLvl = getLevel(en);
     let stLvl = getLevel(st);
+    let sportLvl = getLevel(sp);
     let global = getGlobalLevel();
     let getXpToNext = (xp) => {
         let lvl = getLevel(xp);
         return lvl >= thresholds.length ? 0 : thresholds[lvl] - xp;
     };
     let html = `
-        <div class="skill-card"><div class="skill-header"><span>ДИЗАЙНЕР</span><span class="skill-level-badge">ур.${desLvl} · ${globalRanks[desLvl-1]}</span></div><div class="progress-bg"><div class="progress-fill" style="width:${Math.min(getProgress(dt), getProgress(dp))}%"></div></div><div class="skill-stats"><span>до след. уровня: ${getXpToNext(Math.min(dt, dp))} XP</span></div></div>
-        <div class="skill-card"><div class="skill-header"><span>АНГЛИЙСКИЙ</span><span class="skill-level-badge">ур.${enLvl} · ${englishRanks[enLvl-1]}</span></div><div class="progress-bg"><div class="progress-fill" style="width:${getProgress(en)}%"></div></div><div class="skill-stats"><span>до след. уровня: ${getXpToNext(en)} XP</span></div></div>
-        <div class="skill-card"><div class="skill-header"><span>ПЕРСОНАЛЬНЫЙ СТИЛЬ</span><span class="skill-level-badge">ур.${stLvl} · ${styleRanks[stLvl-1]}</span></div><div class="progress-bg"><div class="progress-fill" style="width:${getProgress(st)}%"></div></div><div class="skill-stats"><span>до след. уровня: ${getXpToNext(st)} XP</span></div></div>
+        <div class="skill-card" data-skill="designer">
+            <div class="skill-header"><span>ДИЗАЙНЕР</span><span class="skill-level-badge">ур.${desLvl} · ${globalRanks[desLvl-1]}</span></div>
+            <div class="progress-bg"><div class="progress-fill" style="width:${Math.min(getProgress(dt), getProgress(dp))}%"></div></div>
+            <div class="skill-stats"><span>до след. уровня: ${getXpToNext(Math.min(dt, dp))} XP</span></div>
+        </div>
+        <div class="skill-card" data-skill="english">
+            <div class="skill-header"><span>АНГЛИЙСКИЙ</span><span class="skill-level-badge">ур.${enLvl} · ${englishRanks[enLvl-1]}</span></div>
+            <div class="progress-bg"><div class="progress-fill" style="width:${getProgress(en)}%"></div></div>
+            <div class="skill-stats"><span>до след. уровня: ${getXpToNext(en)} XP</span></div>
+        </div>
+        <div class="skill-card" data-skill="style">
+            <div class="skill-header"><span>ПЕРСОНАЛЬНЫЙ СТИЛЬ</span><span class="skill-level-badge">ур.${stLvl} · ${styleRanks[stLvl-1]}</span></div>
+            <div class="progress-bg"><div class="progress-fill" style="width:${getProgress(st)}%"></div></div>
+            <div class="skill-stats"><span>до след. уровня: ${getXpToNext(st)} XP</span></div>
+        </div>
+        <div class="skill-card" data-skill="sport">
+            <div class="skill-header"><span>🏋️‍♂️ СПОРТ</span><span class="skill-level-badge">ур.${sportLvl} · ${globalRanks[sportLvl-1]}</span></div>
+            <div class="progress-bg"><div class="progress-fill" style="width:${getProgress(sp)}%"></div></div>
+            <div class="skill-stats"><span>до след. уровня: ${getXpToNext(sp)} XP</span></div>
+        </div>
     `;
     document.getElementById('skillsContainer').innerHTML = html;
+    
+    document.querySelectorAll('.skill-card').forEach(card => {
+        card.addEventListener('click', () => {
+            if (card.dataset.skill === 'sport') showSportTree();
+        });
+    });
+    
     document.getElementById('globalLevel').innerText = global;
     document.getElementById('globalTitle').innerText = globalRanks[global-1];
-    let globalXp = dt + dp + en + st;
+    let globalXp = dt + dp + en + st + sp;
     document.getElementById('globalProgress').style.width = Math.min(100, (globalXp % 200) / 2) + '%';
     updateBonusUI();
 }
+
+const sportNodes = {
+    pushups: { name: 'Отжимания', nodes: ['1 отжимание', '5 отжиманий', '10 отжиманий', '1 на кулаках', '5 на кулаках', '10 на кулаках'] },
+    squats: { name: 'Приседания', nodes: ['20 приседаний', '50 приседаний', '80 приседаний', '5 пистолетиком', '10 пистолетиком'] },
+    abs: { name: 'Пресс', nodes: ['Скручивания 20', 'Планка 1 мин', 'Планка 1.5 мин', 'Планка 2 мин', 'Мостик стоя'] },
+    pullups: { name: 'Подтягивания', nodes: ['Половина', '1 подтягивание', '3 подтягивания', '5 подтягиваний', '10 подтягиваний'] },
+    handstand: { name: 'Стойка на руках', nodes: ['Купить спандер', '30 сек у стены', '60 сек у стены', '1.5 мин у стены', 'Без стены'] }
+};
+
+function showSportTree() {
+    document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+    document.getElementById('pageSport').classList.add('active');
+    document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+    drawSportTree();
+}
+
+function drawSportTree() {
+    const canvas = document.getElementById('sportTreeCanvas');
+    if (!canvas) return;
+    const ctx = canvas.getContext('2d');
+    const width = canvas.clientWidth;
+    const height = canvas.clientHeight;
+    canvas.width = width;
+    canvas.height = height;
+    
+    ctx.clearRect(0, 0, width, height);
+    
+    // Рисуем ствол
+    ctx.beginPath();
+    ctx.moveTo(width/2, height);
+    ctx.lineTo(width/2 - 15, height - 80);
+    ctx.lineTo(width/2 + 15, height - 80);
+    ctx.fillStyle = '#8B5A2B';
+    ctx.fill();
+    ctx.fillStyle = '#A0522D';
+    ctx.fillRect(width/2 - 8, height - 80, 16, 80);
+    
+    const branchY = [80, 180, 280, 380, 480];
+    const branchNames = ['handstand', 'pullups', 'abs', 'squats', 'pushups'];
+    const branchX = width / 2;
+    
+    branchNames.forEach((branch, idx) => {
+        const y = branchY[idx];
+        ctx.beginPath();
+        ctx.moveTo(branchX, y);
+        ctx.lineTo(branchX + 100, y - 20);
+        ctx.lineTo(branchX + 150, y);
+        ctx.strokeStyle = '#8B5A2B';
+        ctx.lineWidth = 6;
+        ctx.stroke();
+        
+        const nodes = sportNodes[branch].nodes;
+        const completed = state.sportTree[branch].completed;
+        const startX = branchX + 50;
+        const stepX = 100;
+        
+        nodes.forEach((node, nodeIdx) => {
+            const x = startX + nodeIdx * stepX;
+            const isCompleted = completed[nodeIdx];
+            const isAvailable = nodeIdx === 0 || completed[nodeIdx - 1];
+            
+            ctx.beginPath();
+            ctx.arc(x, y, 18, 0, 2 * Math.PI);
+            ctx.fillStyle = isCompleted ? '#00ff88' : (isAvailable ? '#ff1a75' : '#555');
+            ctx.fill();
+            ctx.strokeStyle = '#fff';
+            ctx.lineWidth = 2;
+            ctx.stroke();
+            ctx.fillStyle = '#fff';
+            ctx.font = 'bold 12px monospace';
+            ctx.fillText(nodeIdx + 1, x - 6, y + 5);
+            
+            canvas.dataset[`node_${branch}_${nodeIdx}`] = JSON.stringify({ branch, nodeIdx, node });
+        });
+    });
+    
+    canvas.onclick = (e) => {
+        const rect = canvas.getBoundingClientRect();
+        const scaleX = canvas.width / rect.width;
+        const scaleY = canvas.height / rect.height;
+        const mouseX = (e.clientX - rect.left) * scaleX;
+        const mouseY = (e.clientY - rect.top) * scaleY;
+        
+        branchNames.forEach((branch, idx) => {
+            const y = branchY[idx];
+            const nodes = sportNodes[branch].nodes;
+            const startX = canvas.width/2 + 50;
+            const stepX = 100;
+            nodes.forEach((node, nodeIdx) => {
+                const x = startX + nodeIdx * stepX;
+                if (Math.hypot(mouseX - x, mouseY - y) < 20) {
+                    const completed = state.sportTree[branch].completed;
+                    const isAvailable = nodeIdx === 0 || completed[nodeIdx - 1];
+                    if (isAvailable && !completed[nodeIdx]) {
+                        currentSportNode = { branch, nodeIdx, node, xpBonus: 50 };
+                        document.getElementById('sportNodeTitle').innerText = sportNodes[branch].name;
+                        document.getElementById('sportNodeDesc').innerHTML = `🎯 ${node}<br><span style="font-size: 14px;">Бонус: +50 XP к Спорту</span>`;
+                        document.getElementById('sportNodeModal').style.display = 'flex';
+                    } else if (completed[nodeIdx]) {
+                        alert('✅ Цель уже выполнена!');
+                    } else {
+                        alert('🔒 Сначала выполни предыдущую цель в этой ветке!');
+                    }
+                }
+            });
+        });
+    };
+}
+
+async function completeSportNode() {
+    if (!currentSportNode) return;
+    const { branch, nodeIdx, xpBonus } = currentSportNode;
+    state.sportTree[branch].completed[nodeIdx] = true;
+    state.sport += xpBonus;
+    saveState();
+    await saveToFirebase(state);
+    drawSportTree();
+    renderHome();
+    renderStats();
+    document.getElementById('sportNodeModal').style.display = 'none';
+    currentSportNode = null;
+    showXpToast(xpBonus);
+    playCoinSound();
+}
+
+document.getElementById('sportNodeCompleteBtn')?.addEventListener('click', completeSportNode);
+document.getElementById('sportNodeCloseBtn')?.addEventListener('click', () => {
+    document.getElementById('sportNodeModal').style.display = 'none';
+    currentSportNode = null;
+});
+document.getElementById('closeSportBtn')?.addEventListener('click', () => {
+    document.querySelector('[data-page="pageHome"]').click();
+});
 
 function renderQuests() {
     let active = state.quests.filter(q => !q.done);
@@ -347,7 +522,7 @@ function renderQuests() {
 }
 
 function renderStats() {
-    let total = state.designerTheory + state.designerPractice + state.english + state.style;
+    let total = state.designerTheory + state.designerPractice + state.english + state.style + state.sport;
     document.getElementById('totalXP').innerText = total;
     document.getElementById('doneCount').innerText = state.quests.filter(q => q.done).length;
     document.getElementById('statsCoins').innerText = state.coins;
@@ -426,4 +601,5 @@ async function startGame() {
     renderHome();
     renderQuests();
     renderStats();
+    if (document.getElementById('pageSport')) drawSportTree();
 }
