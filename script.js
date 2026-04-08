@@ -172,9 +172,18 @@ function checkDailyBonus() {
         state.lastLogin = today;
         state.bonusClaimedToday = false;
         saveState();
+        
+        // Разблокируем кнопку бонуса
+        const bonusBtn = document.getElementById('dailyBonusBtn');
+        if (bonusBtn) {
+            bonusBtn.disabled = false;
+            bonusBtn.style.opacity = '1';
+            bonusBtn.textContent = 'забрать';
+        }
     }
     updateBonusUI();
 }
+1
 
 async function claimBonus() {
     let today = new Date().toDateString();
@@ -192,8 +201,17 @@ async function claimBonus() {
         renderStats();
         playCoinSound();
         showXpToast(40);
+        
+        // Блокируем кнопку после получения бонуса
+        const bonusBtn = document.getElementById('dailyBonusBtn');
+        if (bonusBtn) {
+            bonusBtn.disabled = true;
+            bonusBtn.style.opacity = '0.5';
+            bonusBtn.textContent = '✅ ПОЛУЧЕНО';
+        }
     }
     updateBonusUI();
+}
 }
 
 async function resetProgress() {
