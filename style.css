@@ -580,36 +580,16 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 
 /* ========== ДЕРЕВО ЦЕЛЕЙ ========== */
 #sportTreeCanvas {
+    display: block;
+    width: 100%;
+    height: auto;
+    background: #0a0215;
+    border-radius: 20px;
+    overflow-x: auto;
     cursor: pointer;
 }
 
-.sport-node {
-    cursor: pointer;
-    transition: all 0.2s;
-}
-
-.sport-node.locked {
-    opacity: 0.5;
-    filter: grayscale(0.3);
-}
-
-.sport-node.completed {
-    filter: drop-shadow(0 0 10px #00ff88);
-}
-
-.sport-node.available {
-    filter: drop-shadow(0 0 8px #ff1a75);
-    animation: pulseNode 1.5s infinite;
-}
-
-@keyframes pulseNode {
-    0% { filter: drop-shadow(0 0 5px #ff1a75); }
-    50% { filter: drop-shadow(0 0 15px #ff66b3); }
-    100% { filter: drop-shadow(0 0 5px #ff1a75); }
-}
-
-.sport-line {
-    stroke: #ff1a75;
-    stroke-width: 2;
-    filter: drop-shadow(0 0 3px #ff1a75);
+#pageSport {
+    overflow-x: auto;
+    padding-bottom: 20px;
 }
