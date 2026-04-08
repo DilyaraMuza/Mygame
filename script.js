@@ -305,48 +305,41 @@ function drawSportTree() {
     const canvas = document.getElementById('sportTreeCanvas');
     if (!canvas) return;
     
-    // Получаем ширину контейнера
-    const container = canvas.parentElement;
-    let width = container.clientWidth - 20; // отступы
-    if (width < 400) width = 400; // минимальная ширина для дерева
-    canvas.width = width;
+    // ФИКСИРОВАННЫЙ РАЗМЕР — 650px, чтобы всё влезло
+    canvas.width = 650;
     canvas.height = 500;
     
     const ctx = canvas.getContext('2d');
-    ctx.clearRect(0, 0, width, 500);
-    
-    // Масштабируем координаты относительно ширины
-    const scaleX = width / 600; // 600 — базовая ширина
+    ctx.clearRect(0, 0, 650, 500);
     
     // Рисуем ствол
     ctx.beginPath();
-    ctx.moveTo(width/2, 500);
-    ctx.lineTo(width/2 - 15 * scaleX, 420);
-    ctx.lineTo(width/2 + 15 * scaleX, 420);
+    ctx.moveTo(650/2, 500);
+    ctx.lineTo(650/2 - 15, 420);
+    ctx.lineTo(650/2 + 15, 420);
     ctx.fillStyle = '#8B5A2B';
     ctx.fill();
     ctx.fillStyle = '#A0522D';
-    ctx.fillRect(width/2 - 8 * scaleX, 420, 16 * scaleX, 80);
+    ctx.fillRect(650/2 - 8, 420, 16, 80);
     
     const branchY = [80, 180, 280, 380, 480];
     const branchNames = ['handstand', 'pullups', 'abs', 'squats', 'pushups'];
-    const branchX = width / 2;
+    const branchX = 650 / 2;
     
     branchNames.forEach((branch, idx) => {
         const y = branchY[idx];
         ctx.beginPath();
         ctx.moveTo(branchX, y);
-        ctx.lineTo(branchX + 100 * scaleX, y - 20);
-        ctx.lineTo(branchX + 150 * scaleX, y);
+        ctx.lineTo(branchX + 100, y - 20);
+        ctx.lineTo(branchX + 150, y);
         ctx.strokeStyle = '#8B5A2B';
         ctx.lineWidth = 6;
         ctx.stroke();
         
         const nodes = sportNodes[branch].nodes;
         const completed = state.sportTree[branch].completed;
-        const startX = branchX + 50 * scaleX;
-        const stepX = 100 * scaleX;
-        const radius = 18 * scaleX;
+        const startX = branchX + 50;
+        const stepX = 100;
         
         nodes.forEach((node, nodeIdx) => {
             const x = startX + nodeIdx * stepX;
@@ -354,20 +347,17 @@ function drawSportTree() {
             const isAvailable = nodeIdx === 0 || completed[nodeIdx - 1];
             
             ctx.beginPath();
-            ctx.arc(x, y, radius, 0, 2 * Math.PI);
+            ctx.arc(x, y, 18, 0, 2 * Math.PI);
             ctx.fillStyle = isCompleted ? '#00ff88' : (isAvailable ? '#ff1a75' : '#555');
             ctx.fill();
             ctx.strokeStyle = '#fff';
             ctx.lineWidth = 2;
             ctx.stroke();
             ctx.fillStyle = '#fff';
-            ctx.font = `${Math.floor(12 * scaleX)}px monospace`;
-            ctx.fillText(nodeIdx + 1, x - 6 * scaleX, y + 5 * scaleX);
+            ctx.font = 'bold 12px monospace';
+            ctx.fillText(nodeIdx + 1, x - 6, y + 5);
         });
     });
-    
-    // Сохраняем масштаб для кликов
-    canvas.scaleX = scaleX;
     
     canvas.onclick = (e) => {
         const rect = canvas.getBoundingClientRect();
@@ -379,11 +369,11 @@ function drawSportTree() {
         branchNames.forEach((branch, idx) => {
             const y = branchY[idx];
             const nodes = sportNodes[branch].nodes;
-            const startX = canvas.width/2 + 50 * canvas.scaleX;
-            const stepX = 100 * canvas.scaleX;
+            const startX = canvas.width/2 + 50;
+            const stepX = 100;
             nodes.forEach((node, nodeIdx) => {
                 const x = startX + nodeIdx * stepX;
-                if (Math.hypot(mouseX - x, mouseY - y) < 20 * canvas.scaleX) {
+                if (Math.hypot(mouseX - x, mouseY - y) < 20) {
                     const completed = state.sportTree[branch].completed;
                     const isAvailable = nodeIdx === 0 || completed[nodeIdx - 1];
                     if (isAvailable && !completed[nodeIdx]) {
@@ -401,6 +391,7 @@ function drawSportTree() {
         });
     };
 }
+
 
 
 async function completeSportNode() {

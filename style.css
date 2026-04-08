@@ -583,13 +583,13 @@ input[type="date"]::-webkit-calendar-picker-indicator {
     display: block;
     width: 100%;
     height: auto;
+    min-width: 600px;      /* минимальная ширина, чтобы всё влезло */
     background: #0a0215;
     border-radius: 20px;
-    overflow-x: auto;
     cursor: pointer;
 }
 
 #pageSport {
-    overflow-x: auto;
+    overflow-x: auto;      /* горизонтальная прокрутка */
     padding-bottom: 20px;
 }
