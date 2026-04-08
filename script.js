@@ -204,7 +204,6 @@ async function claimBonus() {
     }
     updateBonusUI();
 }
-}
 
 async function resetProgress() {
     if (confirm('Сбросить весь прогресс?')) {
