@@ -287,54 +287,6 @@ async function saveEdit() {
     editingQuestId = null;
 }
 
-function renderHome() {
-    let dt = state.designerTheory, dp = state.designerPractice, en = state.english, st = state.style, sp = state.sport;
-    let desLvl = Math.min(getLevel(dt), getLevel(dp));
-    let enLvl = getLevel(en);
-    let stLvl = getLevel(st);
-    let sportLvl = getLevel(sp);
-    let global = getGlobalLevel();
-    let getXpToNext = (xp) => {
-        let lvl = getLevel(xp);
-        return lvl >= thresholds.length ? 0 : thresholds[lvl] - xp;
-    };
-    let html = `
-        <div class="skill-card" data-skill="designer">
-            <div class="skill-header"><span>ДИЗАЙНЕР</span><span class="skill-level-badge">ур.${desLvl} · ${globalRanks[desLvl-1]}</span></div>
-            <div class="progress-bg"><div class="progress-fill" style="width:${Math.min(getProgress(dt), getProgress(dp))}%"></div></div>
-            <div class="skill-stats"><span>до след. уровня: ${getXpToNext(Math.min(dt, dp))} XP</span></div>
-        </div>
-        <div class="skill-card" data-skill="english">
-            <div class="skill-header"><span>АНГЛИЙСКИЙ</span><span class="skill-level-badge">ур.${enLvl} · ${englishRanks[enLvl-1]}</span></div>
-            <div class="progress-bg"><div class="progress-fill" style="width:${getProgress(en)}%"></div></div>
-            <div class="skill-stats"><span>до след. уровня: ${getXpToNext(en)} XP</span></div>
-        </div>
-        <div class="skill-card" data-skill="style">
-            <div class="skill-header"><span>ПЕРСОНАЛЬНЫЙ СТИЛЬ</span><span class="skill-level-badge">ур.${stLvl} · ${styleRanks[stLvl-1]}</span></div>
-            <div class="progress-bg"><div class="progress-fill" style="width:${getProgress(st)}%"></div></div>
-            <div class="skill-stats"><span>до след. уровня: ${getXpToNext(st)} XP</span></div>
-        </div>
-        <div class="skill-card" data-skill="sport">
-            <div class="skill-header"><span>🏋️‍♂️ СПОРТ</span><span class="skill-level-badge">ур.${sportLvl} · ${globalRanks[sportLvl-1]}</span></div>
-            <div class="progress-bg"><div class="progress-fill" style="width:${getProgress(sp)}%"></div></div>
-            <div class="skill-stats"><span>до след. уровня: ${getXpToNext(sp)} XP</span></div>
-        </div>
-    `;
-    document.getElementById('skillsContainer').innerHTML = html;
-    
-    document.querySelectorAll('.skill-card').forEach(card => {
-        card.addEventListener('click', () => {
-            if (card.dataset.skill === 'sport') showSportTree();
-        });
-    });
-    
-    document.getElementById('globalLevel').innerText = global;
-    document.getElementById('globalTitle').innerText = globalRanks[global-1];
-    let globalXp = dt + dp + en + st + sp;
-    document.getElementById('globalProgress').style.width = Math.min(100, (globalXp % 200) / 2) + '%';
-    updateBonusUI();
-}
-
 const sportNodes = {
     pushups: { name: 'Отжимания', nodes: ['1 отжимание', '5 отжиманий', '10 отжиманий', '1 на кулаках', '5 на кулаках', '10 на кулаках'] },
     squats: { name: 'Приседания', nodes: ['20 приседаний', '50 приседаний', '80 приседаний', '5 пистолетиком', '10 пистолетиком'] },
@@ -346,30 +298,28 @@ const sportNodes = {
 function showSportTree() {
     document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
     document.getElementById('pageSport').classList.add('active');
-    document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
-    drawSportTree();
+    setTimeout(() => drawSportTree(), 100);
 }
 
 function drawSportTree() {
     const canvas = document.getElementById('sportTreeCanvas');
     if (!canvas) return;
-    const ctx = canvas.getContext('2d');
-    const width = canvas.clientWidth;
-    const height = canvas.clientHeight;
+    const container = canvas.parentElement;
+    const width = container.clientWidth || 500;
     canvas.width = width;
-    canvas.height = height;
-    
-    ctx.clearRect(0, 0, width, height);
+    canvas.height = 500;
+    const ctx = canvas.getContext('2d');
+    ctx.clearRect(0, 0, width, 500);
     
     // Рисуем ствол
     ctx.beginPath();
-    ctx.moveTo(width/2, height);
-    ctx.lineTo(width/2 - 15, height - 80);
-    ctx.lineTo(width/2 + 15, height - 80);
+    ctx.moveTo(width/2, 500);
+    ctx.lineTo(width/2 - 15, 420);
+    ctx.lineTo(width/2 + 15, 420);
     ctx.fillStyle = '#8B5A2B';
     ctx.fill();
     ctx.fillStyle = '#A0522D';
-    ctx.fillRect(width/2 - 8, height - 80, 16, 80);
+    ctx.fillRect(width/2 - 8, 420, 16, 80);
     
     const branchY = [80, 180, 280, 380, 480];
     const branchNames = ['handstand', 'pullups', 'abs', 'squats', 'pushups'];
@@ -405,8 +355,6 @@ function drawSportTree() {
             ctx.fillStyle = '#fff';
             ctx.font = 'bold 12px monospace';
             ctx.fillText(nodeIdx + 1, x - 6, y + 5);
-            
-            canvas.dataset[`node_${branch}_${nodeIdx}`] = JSON.stringify({ branch, nodeIdx, node });
         });
     });
     
@@ -467,6 +415,54 @@ document.getElementById('sportNodeCloseBtn')?.addEventListener('click', () => {
 document.getElementById('closeSportBtn')?.addEventListener('click', () => {
     document.querySelector('[data-page="pageHome"]').click();
 });
+
+function renderHome() {
+    let dt = state.designerTheory, dp = state.designerPractice, en = state.english, st = state.style, sp = state.sport;
+    let desLvl = Math.min(getLevel(dt), getLevel(dp));
+    let enLvl = getLevel(en);
+    let stLvl = getLevel(st);
+    let sportLvl = getLevel(sp);
+    let global = getGlobalLevel();
+    let getXpToNext = (xp) => {
+        let lvl = getLevel(xp);
+        return lvl >= thresholds.length ? 0 : thresholds[lvl] - xp;
+    };
+    let html = `
+        <div class="skill-card" data-skill="designer">
+            <div class="skill-header"><span>ДИЗАЙНЕР</span><span class="skill-level-badge">ур.${desLvl} · ${globalRanks[desLvl-1]}</span></div>
+            <div class="progress-bg"><div class="progress-fill" style="width:${Math.min(getProgress(dt), getProgress(dp))}%"></div></div>
+            <div class="skill-stats"><span>до след. уровня: ${getXpToNext(Math.min(dt, dp))} XP</span></div>
+        </div>
+        <div class="skill-card" data-skill="english">
+            <div class="skill-header"><span>АНГЛИЙСКИЙ</span><span class="skill-level-badge">ур.${enLvl} · ${englishRanks[enLvl-1]}</span></div>
+            <div class="progress-bg"><div class="progress-fill" style="width:${getProgress(en)}%"></div></div>
+            <div class="skill-stats"><span>до след. уровня: ${getXpToNext(en)} XP</span></div>
+        </div>
+        <div class="skill-card" data-skill="style">
+            <div class="skill-header"><span>ПЕРСОНАЛЬНЫЙ СТИЛЬ</span><span class="skill-level-badge">ур.${stLvl} · ${styleRanks[stLvl-1]}</span></div>
+            <div class="progress-bg"><div class="progress-fill" style="width:${getProgress(st)}%"></div></div>
+            <div class="skill-stats"><span>до след. уровня: ${getXpToNext(st)} XP</span></div>
+        </div>
+        <div class="skill-card" data-skill="sport">
+            <div class="skill-header"><span>🏋️‍♂️ СПОРТ</span><span class="skill-level-badge">ур.${sportLvl} · ${globalRanks[sportLvl-1]}</span></div>
+            <div class="progress-bg"><div class="progress-fill" style="width:${getProgress(sp)}%"></div></div>
+            <div class="skill-stats"><span>до след. уровня: ${getXpToNext(sp)} XP</span></div>
+        </div>
+    `;
+    document.getElementById('skillsContainer').innerHTML = html;
+    
+    document.querySelectorAll('.skill-card').forEach(card => {
+        card.addEventListener('click', () => {
+            if (card.dataset.skill === 'sport') showSportTree();
+        });
+    });
+    
+    document.getElementById('globalLevel').innerText = global;
+    document.getElementById('globalTitle').innerText = globalRanks[global-1];
+    let globalXp = dt + dp + en + st + sp;
+    document.getElementById('globalProgress').style.width = Math.min(100, (globalXp % 200) / 2) + '%';
+    updateBonusUI();
+}
 
 function renderQuests() {
     let active = state.quests.filter(q => !q.done);
