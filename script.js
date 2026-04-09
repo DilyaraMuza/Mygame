@@ -164,18 +164,27 @@ function updateBonusUI() {
     document.getElementById('coinBalance').innerText = state.coins || 0;
 }
 
-function checkDailyBonus() {
+async function checkDailyBonus() {
     let today = new Date().toDateString();
     if (state.lastLogin !== today) {
         let yesterday = new Date(Date.now() - 86400000).toDateString();
         state.streak = state.lastLogin === yesterday ? state.streak + 1 : 1;
         state.lastLogin = today;
-        state.bonusClaimedToday = true;
+        state.bonusClaimedToday = false;   // ← не true, а false, чтобы можно было забрать бонус
         saveState();
         await saveToFirebase(state);
+        
+        // Разблокируем кнопку бонуса в новом дне
+        const bonusBtn = document.getElementById('dailyBonusBtn');
+        if (bonusBtn) {
+            bonusBtn.disabled = false;
+            bonusBtn.style.opacity = '1';
+            bonusBtn.textContent = 'забрать';
+        }
     }
     updateBonusUI();
 }
+
 
 
 async function claimBonus() {
