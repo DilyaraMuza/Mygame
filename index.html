@@ -5,105 +5,80 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
     <title> Моя игра ✦</title>
     <link rel="stylesheet" href="style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
-    <!-- НОВЫЙ ЭКРАН ВХОДА (SVG) -->
-    <div id="loginScreen" class="login-wrapper">
-        <div class="login-frame">
-            <svg width="100%" height="100%" viewBox="0 0 294 245" preserveAspectRatio="none" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M188.5 245H183L189.5 235H195L188.5 245ZM196 245H190.5L197 235H202.5L196 245ZM203.5 245H198L204.5 235H210L203.5 245ZM211 245H205.5L212 235H217.5L211 245ZM218.5 245H213L219.5 235H225L218.5 245ZM226 245H220.5L227 235H232.5L226 245ZM233.5 245H228L234.5 235H240L233.5 245ZM182.277 239C182.829 239 183.277 239.448 183.277 240C183.277 240.552 182.829 241 182.277 241H149.5C148.948 241 148.5 240.552 148.5 240C148.5 239.448 148.948 239 149.5 239H182.277ZM273.777 239C274.329 239 274.777 239.448 274.777 240C274.777 240.552 274.329 241 273.777 241H241C240.448 241 240 240.552 240 240C240 239.448 240.448 239 241 239H273.777Z" fill="#965BDC"/>
-                <path d="M10 19.5V191L50.1498 231H278V58.5L238.352 19.5H118.404L97.8277 1H32.0824L10 19.5Z" fill="none" stroke="#BEDFFE" stroke-opacity="0.8" stroke-width="2"/>
-                <path d="M2 155V194L47 240H88.5" stroke="#BEDFFE" stroke-opacity="0.8" stroke-width="4" stroke-linecap="round"/>
-                <path d="M229 9H239L285.5 55V96.5" stroke="#BEDFFE" stroke-opacity="0.8" stroke-width="4" stroke-linecap="round"/>
-                <path d="M286.5 8H246.5L286.5 48V8Z" fill="#392B7A" fill-opacity="0.5" stroke="#FFC5FF" stroke-width="2" stroke-linecap="round"/>
-                <path d="M270.023 24.3721L279.372 15.0233" stroke="#FFC5FF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                <path d="M279.372 24.3721L270.023 15.0233" stroke="#FFC5FF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                <path d="M35.5 8.5H42.5L35.5 19H28.5L35.5 8.5Z" fill="#965BDC"/>
-                <path d="M44.5 8.5H51.5L44.5 19H37.5L44.5 8.5Z" fill="#965BDC"/>
-                <path d="M53.5 8.5H60.5L53.5 19H46.5L53.5 8.5Z" fill="#965BDC"/>
-                <path d="M62.5 8.5H69.5L62.5 19H55.5L62.5 8.5Z" fill="#965BDC"/>
-                <path d="M71.5 8.5H78.5L71.5 19H64.5L71.5 8.5Z" fill="#965BDC"/>
-                <path d="M80.5 8.5H87.5L80.5 19H73.5L80.5 8.5Z" fill="#965BDC"/>
-                <path d="M89.5 8.5H96.5L89.5 19H82.5L89.5 8.5Z" fill="#965BDC"/>
-            </svg>
-        </div>
-        <div class="login-content">
-            <div class="input-login">
-                <svg width="100%" height="100%" viewBox="0 0 153 36" preserveAspectRatio="none" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M137.512 0.236328L146.701 7.31152L147.091 7.61133V28.4736L146.7 28.7734L141.623 32.6777L141.354 32.8857H6.32422L6.05469 32.6777L0.389648 28.3096L0 28.0088V2.15137L0.990234 2.14258L13.4668 2.02344L13.8135 2.02051L14.0869 2.23145L16.0283 3.72754H74.3301L78.8584 0.236328L79.1279 0.0283203H137.241L137.512 0.236328ZM75.2822 5.51953L75.0127 5.72754H15.3457L15.0762 5.51953L13.1396 4.02637L2 4.13281V27.0254L7.00586 30.8857H140.674L145.091 27.4883V8.59473L136.562 2.02832H79.8105L75.2822 5.51953ZM73.0449 2.05762H17.7441L14.8184 0.0195312L76.0127 0L73.0449 2.05762Z" fill="#9EA4D7"/>
-                    <path d="M136.561 2.02856L145.091 8.59497V27.4885L140.674 30.886H7.00562L1.99976 27.0256V4.13306L13.1394 4.02661L15.0759 5.51978L15.3455 5.72778H75.0125L75.282 5.51978L79.8103 2.02856H136.561Z" fill="#392B7A" fill-opacity="0.5" stroke="#9EA4D7" stroke-width="2"/>
-                    <path d="M150.013 26.7432C151.118 26.7434 152.013 27.6632 152.013 28.7998C152.013 29.9365 151.118 30.8572 150.013 30.8574C149.453 30.8574 148.939 30.5954 148.579 30.1807L141.353 35.5889H87.8564V34.5596H140.958L148.096 29.1504C148.077 29.0364 148.064 28.9194 148.064 28.7998C148.065 27.663 148.96 26.7432 150.013 26.7432Z" fill="#A577D0"/>
-                    <path d="M7.90918 36H6.92188V33.9424H7.90918V36ZM9.88281 36H8.89551V33.9424H9.88281V36ZM11.8564 36H10.8701V33.9424H11.8564V36ZM13.8311 36H12.8438V33.9424H13.8311V36ZM15.8047 36H14.8184V33.9424H15.8047V36ZM17.7793 36H16.792V33.9424H17.7793V36ZM19.7529 36H18.7656V33.9424H19.7529V36ZM21.7266 36H20.7402V33.9424H21.7266V36ZM23.7012 36H22.7139V33.9424H23.7012V36ZM25.6748 36H24.6885V33.9424H25.6748V36ZM27.6494 36H26.6621V33.9424H27.6494V36Z" fill="#A577D0"/>
-                </svg>
-                <input type="text" id="loginEmail" placeholder="Логин">
-            </div>
-            <div class="input-password">
-                <svg width="100%" height="100%" viewBox="0 0 153 36" preserveAspectRatio="none" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M137.512 0.236328L146.701 7.31152L147.091 7.61133V28.4736L146.7 28.7734L141.623 32.6777L141.354 32.8857H6.32422L6.05469 32.6777L0.389648 28.3096L0 28.0088V2.15137L0.990234 2.14258L13.4668 2.02344L13.8135 2.02051L14.0869 2.23145L16.0283 3.72754H74.3301L78.8584 0.236328L79.1279 0.0283203H137.241L137.512 0.236328ZM75.2822 5.51953L75.0127 5.72754H15.3457L15.0762 5.51953L13.1396 4.02637L2 4.13281V27.0254L7.00586 30.8857H140.674L145.091 27.4883V8.59473L136.562 2.02832H79.8105L75.2822 5.51953ZM73.0449 2.05762H17.7441L14.8184 0.0195312L76.0127 0L73.0449 2.05762Z" fill="#9EA4D7"/>
-                    <path d="M136.561 2.02856L145.091 8.59497V27.4885L140.674 30.886H7.00562L1.99976 27.0256V4.13306L13.1394 4.02661L15.0759 5.51978L15.3455 5.72778H75.0125L75.282 5.51978L79.8103 2.02856H136.561Z" fill="#392B7A" fill-opacity="0.5" stroke="#9EA4D7" stroke-width="2"/>
-                    <path d="M150.013 26.7432C151.118 26.7434 152.013 27.6632 152.013 28.7998C152.013 29.9365 151.118 30.8572 150.013 30.8574C149.453 30.8574 148.939 30.5954 148.579 30.1807L141.353 35.5889H87.8564V34.5596H140.958L148.096 29.1504C148.077 29.0364 148.064 28.9194 148.064 28.7998C148.065 27.663 148.96 26.7432 150.013 26.7432Z" fill="#A577D0"/>
-                    <path d="M7.90918 36H6.92188V33.9424H7.90918V36ZM9.88281 36H8.89551V33.9424H9.88281V36ZM11.8564 36H10.8701V33.9424H11.8564V36ZM13.8311 36H12.8438V33.9424H13.8311V36ZM15.8047 36H14.8184V33.9424H15.8047V36ZM17.7793 36H16.792V33.9424H17.7793V36ZM19.7529 36H18.7656V33.9424H19.7529V36ZM21.7266 36H20.7402V33.9424H21.7266V36ZM23.7012 36H22.7139V33.9424H23.7012V36ZM25.6748 36H24.6885V33.9424H25.6748V36ZM27.6494 36H26.6621V33.9424H27.6494V36Z" fill="#A577D0"/>
-                </svg>
-                <input type="password" id="loginPassword" placeholder="Пароль">
-            </div>
-            <div class="button-svg">
-                <svg width="100%" height="100%" viewBox="0 0 91 40" preserveAspectRatio="none" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M4.9873 39.0576H4V37H4.9873V39.0576ZM6.96094 39.0576H5.97363V37H6.96094V39.0576ZM8.93457 39.0576H7.94824V37H8.93457V39.0576ZM10.9092 39.0576H9.92188V37H10.9092V39.0576ZM12.8828 39.0576H11.8965V37H12.8828V39.0576ZM14.8574 39.0576H13.8701V37H14.8574V39.0576ZM16.8311 39.0576H15.8438V37H16.8311V39.0576ZM18.8047 39.0576H17.8184V37H18.8047V39.0576ZM20.7793 39.0576H19.792V37H20.7793V39.0576Z" fill="#A577D0"/>
-                    <path d="M9 1.01932L10.3687 3H43.6744L45 1L9 1.01932Z" fill="#A577D0"/>
-                    <path d="M81.8945 1L87 8.56055V31.1387L84.3887 35H3.9668L1 30.5977V3.44727L7.04199 3.33789L8.07812 4.875L8.37598 5.31641H45.2148L45.5117 4.875L48.124 1H81.8945Z" fill="#673D94" fill-opacity="0.5" stroke="#FFC5FF" stroke-width="2"/>
-                    <path d="M89.1072 19L90.5 20.5V28V32.5L86.7639 39H49.3333L46.8759 37.8582H26.756L26 37.0885H86.2145L89.1072 32.2942V27V19Z" fill="#A577D0"/>
-                </svg>
-                <button id="loginBtn">Вход</button>
-            </div>
+    <!-- Экран входа -->
+    <div id="loginScreen" class="login-container">
+        <div class="login-card">
+            <h2>⚡ ВХОД ⚡</h2>
+            <input type="email" id="loginEmail" placeholder="email">
+            <input type="password" id="loginPassword" placeholder="пароль">
+            <button id="loginBtn">ВОЙТИ</button>
             <div id="loginError" class="error-msg"></div>
         </div>
     </div>
 
-    <!-- Контейнер игры (изначально скрыт) -->
+
+    <!-- Контейнер игры -->
     <div id="gameContainer" class="game-container">
         <div class="container">
-            <div id="xpToast" class="xp-toast">+0 XP</div>
-            <div id="levelToast" class="level-toast"></div>
-            
-            <!-- ГЛАВНАЯ -->
+            <!-- Главная страница -->
             <div id="pageHome" class="page active">
-                <div class="bonus-card">
-                    <div class="bonus-stats">
-                        <div class="bonus-item">
-                            <div class="bonus-value" id="streakDays">0</div>
-                            <div class="bonus-label">дней подряд</div>
-                        </div>
-                        <div class="bonus-item">
-                            <div class="bonus-value" id="coinBalance">0</div>
-                            <div class="bonus-label">монет</div>
-                        </div>
+                <!-- Верхняя статистика -->
+                <div class="top-stats">
+                    <div class="level-box">
+                        <div class="level-label">УРОВЕНЬ</div>
+                        <div class="level-value" id="globalLevel">1</div>
+                        <div class="xp-text" id="globalXp">0 / 0 XP</div>
                     </div>
-                    <button class="bonus-btn" id="dailyBonusBtn">забрать</button>
-                </div>
-
-                <div class="level-card">
-                    <div class="level-number" id="globalLevel">1</div>
-                    <div class="level-title" id="globalTitle">Новичок</div>
-                    <div class="progress-bg">
-                        <div class="progress-fill" id="globalProgress" style="width:0%"></div>
+                    <div class="coins-box">
+                        <div class="coins-label">МОНИТОРЫ</div>
+                        <div class="coins-value" id="coinBalance">0</div>
                     </div>
                 </div>
 
-                <div class="hero">
-                    <div class="avatar-large" id="avatarLarge">
-                        <img id="avatarImg" src="" style="display: none;">
-                        <div class="avatar-placeholder" id="avatarPlaceholder">твой образ</div>
-                    </div>
-                    <input type="file" id="fileInput" accept="image/*" style="display: none;">
+
+                <!-- Круговой прогресс (общий) -->
+                <div class="circular-progress">
+                    <svg width="140" height="140" viewBox="0 0 140 140">
+                        <circle class="progress-ring-bg" cx="70" cy="70" r="60" fill="none" stroke="#1E2A4A" stroke-width="8"/>
+                        <circle id="globalProgressRing" class="progress-ring-fill" cx="70" cy="70" r="60" fill="none" stroke="url(#progressGrad)" stroke-width="8" stroke-linecap="round" stroke-dasharray="377" stroke-dashoffset="377"/>
+                        <text x="70" y="70" text-anchor="middle" dominant-baseline="middle" class="progress-text" id="globalProgressPercent">0%</text>
+                        <text x="70" y="88" text-anchor="middle" dominant-baseline="middle" class="progress-label">прогресс</text>
+                        <defs>
+                            <linearGradient id="progressGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                                <stop offset="0%" stop-color="#2850A3"/>
+                                <stop offset="100%" stop-color="#6B46C1"/>
+                            </linearGradient>
+                        </defs>
+                    </svg>
                 </div>
 
-                <div id="skillsContainer"></div>
+
+                <!-- Список навыков -->
+                <div class="skills-list" id="skillsContainer"></div>
+
+
+                <!-- Ежедневная цель -->
+                <div class="daily-goal">
+                    <div class="goal-title">ЕЖЕДНЕВНАЯ ЦЕЛЬ</div>
+                    <div class="goal-progress" id="dailyGoalProgress">0 / 0</div>
+                    <div class="goal-bar-bg">
+                        <div class="goal-bar-fill" id="dailyGoalFill" style="width: 0%"></div>
+                    </div>
+                    <div class="goal-reward" id="dailyGoalReward">Выполни 3 задания и получи 50 монет</div>
+                </div>
+
+
+                <!-- Кнопка бонуса -->
+                <button class="bonus-btn" id="dailyBonusBtn">ЗАБРАТЬ БОНУС</button>
             </div>
+
 
             <!-- КВЕСТЫ -->
             <div id="pageQuests" class="page">
-                <h2 style="margin-bottom: 20px;">КВЕСТЫ</h2>
+                <h2>КВЕСТЫ</h2>
                 <div class="filters">
                     <button class="filter-btn active" data-filter="all">ВСЕ</button>
                     <button class="filter-btn" data-filter="urgent">СРОЧНЫЕ</button>
@@ -112,9 +87,10 @@
                 <div id="questsContainer"></div>
             </div>
 
+
             <!-- НОВЫЙ КВЕСТ -->
             <div id="pageNewQuest" class="page">
-                <h2 style="margin-bottom: 20px;">НОВЫЙ КВЕСТ</h2>
+                <h2>НОВЫЙ КВЕСТ</h2>
                 <div class="form-group">
                     <label>название</label>
                     <input type="text" class="form-control" id="questName" placeholder="например: прочитать главу">
@@ -122,11 +98,10 @@
                 <div class="form-group">
                     <label>тип</label>
                     <select class="form-control" id="questType">
-                        <option value="designerTheory">Дизайнер (теория)</option>
-                        <option value="designerPractice">Дизайнер (практика)</option>
+                        <option value="designerTheory">Дизайнер</option>
                         <option value="english">Английский</option>
                         <option value="style">Персональный стиль</option>
-                        <option value="style">СПОРТ</option>
+                        <option value="sport">Спорт</option>
                     </select>
                 </div>
                 <div class="form-group">
@@ -145,33 +120,24 @@
                 <button class="btn-neon" id="addQuestBtn">создать</button>
             </div>
 
+
             <!-- СТАТИСТИКА -->
             <div id="pageStats" class="page">
-                <h2 style="margin-bottom: 20px;">СТАТИСТИКА</h2>
+                <h2>СТАТИСТИКА</h2>
                 <div class="stat-row"><span>всего XP</span> <span id="totalXP">0</span></div>
                 <div class="stat-row"><span>выполнено квестов</span> <span id="doneCount">0</span></div>
                 <div class="stat-row"><span>монет</span> <span id="statsCoins">0</span></div>
                 <div class="stat-row"><span>дней подряд</span> <span id="statsStreak">0</span></div>
                 <button class="reset-btn" id="resetProgressBtn">сбросить прогресс</button>
             </div>
-        <!-- СПОРТ (ДЕРЕВО ЦЕЛЕЙ) -->
-            <div id="pageSport" class="page">
-                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
-                    <h2>🌳 ДЕРЕВО ЦЕЛЕЙ</h2>
-                    <button id="closeSportBtn" class="btn-neon" style="width: auto; padding: 8px 20px;">✕</button>
-                </div>
-                <canvas id="sportTreeCanvas" width="600" height="500" style="width:100%; height:auto; background: #0a0215; border-radius: 20px;"></canvas>
-                <div id="sportNodeModal" class="edit-modal" style="display: none;">
-                    <div class="edit-form" style="text-align: center;">
-                        <h3 id="sportNodeTitle">Цель</h3>
-                        <p id="sportNodeDesc" style="margin: 20px 0; color: #ffb3ff;">Выполни задание, чтобы получить бонус XP</p>
-                        <button id="sportNodeCompleteBtn" class="btn-neon">✨ ВЫПОЛНИТЬ ✨</button>
-                        <button id="sportNodeCloseBtn" class="btn-neon" style="margin-top: 10px; background: #330066;">ЗАКРЫТЬ</button>
-                    </div>
-                </div>
+
+
+            <!-- СПОРТ (ДЕРЕВО ЦЕЛЕЙ) — временно скрыто -->
+            <div id="pageSport" class="page" style="display: none;">
+                <canvas id="sportTreeCanvas" width="600" height="500"></canvas>
             </div>
-        
         </div>
+
 
         <!-- МЕНЮ -->
         <div class="tab-bar">
@@ -181,16 +147,17 @@
             <div class="tab" data-page="pageStats"><span>📊</span>стат</div>
         </div>
 
+
         <!-- МОДАЛКА РЕДАКТИРОВАНИЯ -->
         <div class="edit-modal" id="editModal">
             <div class="edit-form">
                 <h3>РЕДАКТИРОВАТЬ КВЕСТ</h3>
                 <input type="text" id="editName" placeholder="название">
                 <select id="editType">
-                    <option value="designerTheory">Дизайнер (теория)</option>
-                    <option value="designerPractice">Дизайнер (практика)</option>
+                    <option value="designerTheory">Дизайнер</option>
                     <option value="english">Английский</option>
-                    <option value="style">Персональный стиль</option>
+                    <option value="style">Стиль</option>
+                    <option value="sport">Спорт</option>
                 </select>
                 <select id="editDifficulty">
                     <option value="20">★ Задача (20 XP)</option>
@@ -203,6 +170,7 @@
             </div>
         </div>
     </div>
+
 
     <script type="module" src="firebase-config.js"></script>
     <script type="module" src="script.js"></script>
