@@ -439,84 +439,50 @@ document.getElementById('closeSportBtn')?.addEventListener('click', () => {
 });
 
 function renderHome() {
-    let dt = state.designerTheory, dp = state.designerPractice;
-    let en = state.english, st = state.style, sp = state.sport;
+    let dt = state.designerTheory, dp = state.designerPractice, en = state.english, st = state.style, sp = state.sport;
     let desLvl = Math.min(getLevel(dt), getLevel(dp));
     let enLvl = getLevel(en);
     let stLvl = getLevel(st);
     let sportLvl = getLevel(sp);
     let global = getGlobalLevel();
-    
-    // XP до следующего уровня
-    function getXpToNext(xp) {
+    let getXpToNext = (xp) => {
         let lvl = getLevel(xp);
         return lvl >= thresholds.length ? 0 : thresholds[lvl] - xp;
-    }
-    
-    // Общий прогресс (для кругового индикатора)
-    let totalXp = dt + dp + en + st + sp;
-    let totalNeeded = thresholds[global] || 100;
-    let globalPercent = Math.min(100, Math.floor((totalXp % totalNeeded) / totalNeeded * 100));
-    
-    // Обновляем круговой прогресс
-    const radius = 60;
-    const circumference = 2 * Math.PI * radius;
-    const offset = circumference - (globalPercent / 100) * circumference;
-    const ring = document.getElementById('globalProgressRing');
-    if (ring) {
-        ring.style.strokeDashoffset = offset;
-    }
-    document.getElementById('globalProgressPercent').innerText = globalPercent + '%';
-    
-    // Уровень и XP
-    document.getElementById('globalLevel').innerText = global;
-    document.getElementById('globalXp').innerText = `${totalXp} / ${thresholds[global] || totalXp + 100} XP`;
-    document.getElementById('coinBalance').innerText = state.coins;
-    
-    // Навыки
-    let skillsHtml = `
-        <div class="skill-card">
-            <div class="skill-header">
-                <div class="skill-name">ДИЗАЙНЕР</div>
-                <div class="skill-level">${desLvl}</div>
-            </div>
-            <div class="skill-xp">${Math.min(dt, dp)} / ${thresholds[desLvl] || 0} XP</div>
-            <div class="progress-bar-bg"><div class="progress-bar-fill" style="width:${Math.min(getProgress(dt), getProgress(dp))}%"></div></div>
+    };
+    let html = `
+        <div class="skill-card" data-skill="designer">
+            <div class="skill-header"><span>ДИЗАЙНЕР</span><span class="skill-level-badge">ур.${desLvl} · ${globalRanks[desLvl-1]}</span></div>
+            <div class="progress-bg"><div class="progress-fill" style="width:${Math.min(getProgress(dt), getProgress(dp))}%"></div></div>
+            <div class="skill-stats"><span>до след. уровня: ${getXpToNext(Math.min(dt, dp))} XP</span></div>
         </div>
-        <div class="skill-card">
-            <div class="skill-header">
-                <div class="skill-name">АНГЛИЙСКИЙ</div>
-                <div class="skill-level">${enLvl}</div>
-            </div>
-            <div class="skill-xp">${en} / ${thresholds[enLvl] || 0} XP</div>
-            <div class="progress-bar-bg"><div class="progress-bar-fill" style="width:${getProgress(en)}%"></div></div>
+        <div class="skill-card" data-skill="english">
+            <div class="skill-header"><span>АНГЛИЙСКИЙ</span><span class="skill-level-badge">ур.${enLvl} · ${englishRanks[enLvl-1]}</span></div>
+            <div class="progress-bg"><div class="progress-fill" style="width:${getProgress(en)}%"></div></div>
+            <div class="skill-stats"><span>до след. уровня: ${getXpToNext(en)} XP</span></div>
         </div>
-        <div class="skill-card">
-            <div class="skill-header">
-                <div class="skill-name">СТИЛЬ</div>
-                <div class="skill-level">${stLvl}</div>
-            </div>
-            <div class="skill-xp">${st} / ${thresholds[stLvl] || 0} XP</div>
-            <div class="progress-bar-bg"><div class="progress-bar-fill" style="width:${getProgress(st)}%"></div></div>
+        <div class="skill-card" data-skill="style">
+            <div class="skill-header"><span>ПЕРСОНАЛЬНЫЙ СТИЛЬ</span><span class="skill-level-badge">ур.${stLvl} · ${styleRanks[stLvl-1]}</span></div>
+            <div class="progress-bg"><div class="progress-fill" style="width:${getProgress(st)}%"></div></div>
+            <div class="skill-stats"><span>до след. уровня: ${getXpToNext(st)} XP</span></div>
         </div>
-        <div class="skill-card">
-            <div class="skill-header">
-                <div class="skill-name">СПОРТ</div>
-                <div class="skill-level">${sportLvl}</div>
-            </div>
-            <div class="skill-xp">${sp} / ${thresholds[sportLvl] || 0} XP</div>
-            <div class="progress-bar-bg"><div class="progress-bar-fill" style="width:${getProgress(sp)}%"></div></div>
+        <div class="skill-card" data-skill="sport">
+            <div class="skill-header"><span>🏋️‍♂️ СПОРТ</span><span class="skill-level-badge">ур.${sportLvl} · ${globalRanks[sportLvl-1]}</span></div>
+            <div class="progress-bg"><div class="progress-fill" style="width:${getProgress(sp)}%"></div></div>
+            <div class="skill-stats"><span>до след. уровня: ${getXpToNext(sp)} XP</span></div>
         </div>
     `;
-    document.getElementById('skillsContainer').innerHTML = skillsHtml;
+    document.getElementById('skillsContainer').innerHTML = html;
     
-    // Ежедневная цель
-    let dailyDone = state.quests.filter(q => q.done && new Date(q.date).toDateString() === new Date().toDateString()).length;
-    let dailyTarget = 3;
-    let dailyPercent = Math.min(100, (dailyDone / dailyTarget) * 100);
-    document.getElementById('dailyGoalProgress').innerText = `${dailyDone} / ${dailyTarget}`;
-    document.getElementById('dailyGoalFill').style.width = dailyPercent + '%';
+    document.querySelectorAll('.skill-card').forEach(card => {
+        card.addEventListener('click', () => {
+            if (card.dataset.skill === 'sport') showSportTree();
+        });
+    });
     
+    document.getElementById('globalLevel').innerText = global;
+    document.getElementById('globalTitle').innerText = globalRanks[global-1];
+    let globalXp = dt + dp + en + st + sp;
+    document.getElementById('globalProgress').style.width = Math.min(100, (globalXp % 200) / 2) + '%';
     updateBonusUI();
 }
 
