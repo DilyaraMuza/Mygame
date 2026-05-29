@@ -1,6 +1,6 @@
 import { loadFromFirebase, saveToFirebase, signInWithEmail, auth, onAuthStateChanged } from './firebase-config.js';
 
-// Ждём, пока Firebase определит, залогинен ли пользователь
+// Ждём, пока Firebase определит, залогинен
 onAuthStateChanged(auth, (user) => {
     if (user) {
         document.getElementById('loginScreen').style.display = 'none';
