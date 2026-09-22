@@ -968,8 +968,7 @@ body {
 .skills-panel .skill-card {
     position: relative;
 
-    display: grid;
-    grid-template-columns: 48px 1fr auto;
+   
 
     align-items: center;
     gap: 12px;
