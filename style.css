@@ -581,3 +581,281 @@ input[type="date"]::-webkit-calendar-picker-indicator {
     font-size: 10px;
 }
 
+
+
+/* =========================================
+   НОВЫЙ HUD-СТИЛЬ — ГЛАВНАЯ
+   ========================================= */
+
+body {
+    background:
+        radial-gradient(circle at 50% 20%, rgba(22, 63, 110, 0.22), transparent 45%),
+        #020711;
+    color: #e8f5ff;
+}
+
+/* Общий контейнер */
+.container {
+    max-width: 480px;
+}
+
+/* -----------------------------------------
+   БОНУСЫ
+   ----------------------------------------- */
+
+.bonus-card {
+    position: relative;
+    background: rgba(5, 16, 30, 0.94);
+    border: 1px solid #3c82b8;
+    border-radius: 0;
+    padding: 14px 16px;
+    margin-bottom: 14px;
+    box-shadow: inset 0 0 20px rgba(37, 111, 170, 0.08);
+}
+
+.bonus-card::before,
+.bonus-card::after {
+    content: "";
+    position: absolute;
+    width: 12px;
+    height: 12px;
+    border-color: #8ed8ff;
+    border-style: solid;
+}
+
+.bonus-card::before {
+    top: -1px;
+    left: -1px;
+    border-width: 2px 0 0 2px;
+}
+
+.bonus-card::after {
+    right: -1px;
+    bottom: -1px;
+    border-width: 0 2px 2px 0;
+}
+
+.bonus-stats {
+    gap: 28px;
+}
+
+.bonus-value {
+    font-size: 24px;
+    color: #e9f8ff;
+    text-shadow: 0 0 12px rgba(87, 191, 255, 0.5);
+}
+
+.bonus-label {
+    color: #7094ae;
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.bonus-btn {
+    background: #ff7a18;
+    border-radius: 2px;
+    padding: 9px 18px;
+    color: #080b10;
+    box-shadow: 0 0 12px rgba(255, 122, 24, 0.3);
+}
+
+/* -----------------------------------------
+   УРОВЕНЬ
+   ----------------------------------------- */
+
+.level-card {
+    position: relative;
+    background: linear-gradient(
+        135deg,
+        rgba(8, 25, 43, 0.98),
+        rgba(3, 11, 22, 0.98)
+    );
+    border: 1px solid #3f8bc1;
+    border-radius: 0;
+    padding: 16px 20px;
+    margin-bottom: 16px;
+    text-align: left;
+    overflow: hidden;
+}
+
+.level-card::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 70px;
+    height: 24px;
+    background: #102f4c;
+    clip-path: polygon(25% 0, 100% 0, 100% 100%, 0 100%);
+    opacity: 0.8;
+}
+
+.level-card::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 55px;
+    height: 5px;
+    background: #46a9e8;
+    clip-path: polygon(0 0, 100% 0, 75% 100%, 0 100%);
+}
+
+.level-number {
+    font-size: 42px;
+    line-height: 1;
+    color: #f1faff;
+    text-shadow: 0 0 16px rgba(61, 177, 255, 0.55);
+}
+
+.level-title {
+    margin-top: 4px;
+    font-size: 14px;
+    color: #79b8dc;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+
+.progress-bg {
+    height: 7px;
+    background: #102234;
+    border-radius: 0;
+    margin: 14px 0 0;
+}
+
+.progress-fill {
+    background: linear-gradient(90deg, #237fba, #72d0ff);
+    box-shadow: 0 0 10px rgba(75, 185, 255, 0.55);
+}
+
+/* -----------------------------------------
+   АВАТАР / HERO
+   ----------------------------------------- */
+
+.hero {
+    position: relative;
+    background: rgba(4, 13, 24, 0.94);
+    border: 1px solid #315e7d;
+    border-radius: 0;
+    padding: 18px;
+    margin-bottom: 16px;
+}
+
+.hero::before {
+    content: "PLAYER // PROFILE";
+    position: absolute;
+    top: 8px;
+    left: 12px;
+    font-size: 8px;
+    letter-spacing: 2px;
+    color: #527d99;
+}
+
+.avatar-large {
+    width: 200px;
+    height: 260px;
+    margin: 18px auto 4px;
+    border: 1px solid #55a9d8;
+    border-radius: 0;
+    background: #071523;
+    box-shadow:
+        0 0 0 4px rgba(42, 112, 158, 0.08),
+        0 0 20px rgba(31, 133, 196, 0.12);
+}
+
+.avatar-large:hover {
+    box-shadow:
+        0 0 0 4px rgba(42, 112, 158, 0.12),
+        0 0 25px rgba(31, 133, 196, 0.3);
+}
+
+.avatar-placeholder {
+    color: #54778d;
+    font-size: 13px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+
+/* -----------------------------------------
+   НАВЫКИ
+   ----------------------------------------- */
+
+.skill-card {
+    position: relative;
+    background: rgba(5, 15, 27, 0.96);
+    border: 1px solid #326d98;
+    border-radius: 0;
+    padding: 16px;
+    margin-bottom: 12px;
+    overflow: hidden;
+}
+
+.skill-card::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 42px;
+    height: 5px;
+    background: #4db6ed;
+    clip-path: polygon(0 0, 100% 0, 78% 100%, 0 100%);
+}
+
+.skill-card::after {
+    content: "";
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    width: 35px;
+    height: 5px;
+    background: #1e5378;
+    clip-path: polygon(25% 0, 100% 0, 100% 100%, 0 100%);
+}
+
+.skill-header {
+    font-size: 17px;
+    color: #e8f7ff;
+    letter-spacing: 0.5px;
+}
+
+.skill-level-badge {
+    background: #0b2236;
+    border: 1px solid #3d8bb8;
+    border-radius: 2px;
+    padding: 4px 10px;
+    color: #83c9eb;
+    font-size: 11px;
+}
+
+.skill-stats {
+    color: #6f98b0;
+    font-size: 12px;
+}
+
+/* -----------------------------------------
+   НИЖНЕЕ МЕНЮ
+   ----------------------------------------- */
+
+.tab-bar {
+    background: rgba(3, 10, 18, 0.97);
+    border-top: 1px solid #285776;
+    padding: 8px 0 11px;
+}
+
+.tab {
+    color: #52758b;
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.tab.active {
+    color: #79d0ff;
+    text-shadow: 0 0 10px rgba(70, 184, 255, 0.6);
+    transform: translateY(-2px);
+}
+
+.tab span {
+    font-size: 20px;
+}
