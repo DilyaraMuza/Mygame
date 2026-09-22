@@ -121,12 +121,15 @@ body {
     margin-bottom: 24px;
     text-align: center;
 }
+
 .level-number {
     font-size: 48px;
     font-weight: bold;
     color: #ffb3ff;
     text-shadow: 0 0 20px #ff1a75;
 }
+
+
 .level-title {
     font-size: 24px;
     color: #e0b0ff;
@@ -578,18 +581,3 @@ input[type="date"]::-webkit-calendar-picker-indicator {
     font-size: 10px;
 }
 
-/* ========== ДЕРЕВО ЦЕЛЕЙ ========== */
-#sportTreeCanvas {
-    display: block;
-    width: 100%;
-    height: auto;
-    min-width: 600px;      /* минимальная ширина, чтобы всё влезло */
-    background: #0a0215;
-    border-radius: 20px;
-    cursor: pointer;
-}
-
-#pageSport {
-    overflow-x: auto;      /* горизонтальная прокрутка */
-    padding-bottom: 20px;
-}
