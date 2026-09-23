@@ -439,50 +439,218 @@ document.getElementById('closeSportBtn')?.addEventListener('click', () => {
 });
 
 function renderHome() {
-    let dt = state.designerTheory, dp = state.designerPractice, en = state.english, st = state.style, sp = state.sport;
+    let dt = state.designerTheory;
+    let dp = state.designerPractice;
+    let en = state.english;
+    let st = state.style;
+    let sp = state.sport;
+
+    // Уровень каждого навыка
+    // Для дизайна берём минимальный уровень теории и практики
     let desLvl = Math.min(getLevel(dt), getLevel(dp));
     let enLvl = getLevel(en);
     let stLvl = getLevel(st);
     let sportLvl = getLevel(sp);
+
     let global = getGlobalLevel();
+
+    // Сколько XP осталось до следующего уровня
     let getXpToNext = (xp) => {
         let lvl = getLevel(xp);
-        return lvl >= thresholds.length ? 0 : thresholds[lvl] - xp;
+
+        if (lvl >= thresholds.length) return 0;
+
+        return thresholds[lvl] - xp;
     };
+
+    // Эффективный XP дизайна:
+    // навык дизайна растёт только настолько, насколько развиты
+    // и теория, и практика
+    let designXp = Math.min(dt, dp);
+
+    // Общий XP всех навыков
+    let totalSkillXp = designXp + en + st + sp;
+
+    // Максимальный XP для четырёх отображаемых навыков
+    let maxSkillXp = thresholds[thresholds.length - 1] * 4;
+
+    // Общий процент
+    let totalSkillProgress = Math.min(
+        100,
+        Math.floor((totalSkillXp / maxSkillXp) * 100)
+    );
+
+    // -----------------------------------------
+    // КАРТОЧКИ НАВЫКОВ
+    // -----------------------------------------
+
     let html = `
+
         <div class="skill-card" data-skill="designer">
-            <div class="skill-header"><span>ДИЗАЙНЕР</span><span class="skill-level-badge">ур.${desLvl} · ${globalRanks[desLvl-1]}</span></div>
-            <div class="progress-bg"><div class="progress-fill" style="width:${Math.min(getProgress(dt), getProgress(dp))}%"></div></div>
-            <div class="skill-stats"><span>до след. уровня: ${getXpToNext(Math.min(dt, dp))} XP</span></div>
+
+            <div class="skill-header">
+                <span>ДИЗАЙН</span>
+            </div>
+
+            <div class="skill-level">
+                <span class="skill-level-label">УРОВЕНЬ</span>
+                <strong>${desLvl}</strong>
+            </div>
+
+            <div class="progress-bg">
+                <div
+                    class="progress-fill"
+                    style="width:${Math.min(getProgress(dt), getProgress(dp))}%"
+                ></div>
+            </div>
+
+            <div class="skill-stats">
+                до след. уровня: ${getXpToNext(designXp)} XP
+            </div>
+
         </div>
+
+
         <div class="skill-card" data-skill="english">
-            <div class="skill-header"><span>АНГЛИЙСКИЙ</span><span class="skill-level-badge">ур.${enLvl} · ${englishRanks[enLvl-1]}</span></div>
-            <div class="progress-bg"><div class="progress-fill" style="width:${getProgress(en)}%"></div></div>
-            <div class="skill-stats"><span>до след. уровня: ${getXpToNext(en)} XP</span></div>
+
+            <div class="skill-header">
+                <span>АНГЛИЙСКИЙ</span>
+            </div>
+
+            <div class="skill-level">
+                <span class="skill-level-label">УРОВЕНЬ</span>
+                <strong>${enLvl}</strong>
+            </div>
+
+            <div class="progress-bg">
+                <div
+                    class="progress-fill"
+                    style="width:${getProgress(en)}%"
+                ></div>
+            </div>
+
+            <div class="skill-stats">
+                до след. уровня: ${getXpToNext(en)} XP
+            </div>
+
         </div>
+
+
         <div class="skill-card" data-skill="style">
-            <div class="skill-header"><span>ПЕРСОНАЛЬНЫЙ СТИЛЬ</span><span class="skill-level-badge">ур.${stLvl} · ${styleRanks[stLvl-1]}</span></div>
-            <div class="progress-bg"><div class="progress-fill" style="width:${getProgress(st)}%"></div></div>
-            <div class="skill-stats"><span>до след. уровня: ${getXpToNext(st)} XP</span></div>
+
+            <div class="skill-header">
+                <span>ПЕРСОНАЛЬНЫЙ СТИЛЬ</span>
+            </div>
+
+            <div class="skill-level">
+                <span class="skill-level-label">УРОВЕНЬ</span>
+                <strong>${stLvl}</strong>
+            </div>
+
+            <div class="progress-bg">
+                <div
+                    class="progress-fill"
+                    style="width:${getProgress(st)}%"
+                ></div>
+            </div>
+
+            <div class="skill-stats">
+                до след. уровня: ${getXpToNext(st)} XP
+            </div>
+
         </div>
+
+
         <div class="skill-card" data-skill="sport">
-            <div class="skill-header"><span>🏋️‍♂️ СПОРТ</span><span class="skill-level-badge">ур.${sportLvl} · ${globalRanks[sportLvl-1]}</span></div>
-            <div class="progress-bg"><div class="progress-fill" style="width:${getProgress(sp)}%"></div></div>
-            <div class="skill-stats"><span>до след. уровня: ${getXpToNext(sp)} XP</span></div>
+
+            <div class="skill-header">
+                <span>СПОРТ</span>
+            </div>
+
+            <div class="skill-level">
+                <span class="skill-level-label">УРОВЕНЬ</span>
+                <strong>${sportLvl}</strong>
+            </div>
+
+            <div class="progress-bg">
+                <div
+                    class="progress-fill"
+                    style="width:${getProgress(sp)}%"
+                ></div>
+            </div>
+
+            <div class="skill-stats">
+                до след. уровня: ${getXpToNext(sp)} XP
+            </div>
+
         </div>
+
     `;
+
     document.getElementById('skillsContainer').innerHTML = html;
-    
+
+
+    // -----------------------------------------
+    // КЛИК ПО НАВЫКАМ
+    // -----------------------------------------
+
     document.querySelectorAll('.skill-card').forEach(card => {
+
         card.addEventListener('click', () => {
-            if (card.dataset.skill === 'sport') showSportTree();
+
+            if (card.dataset.skill === 'sport') {
+                showSportTree();
+            }
+
         });
+
     });
-    
+
+
+    // -----------------------------------------
+    // ОБЩИЙ ПРОГРЕСС НАВЫКОВ
+    // -----------------------------------------
+
+    let totalPercentElement =
+        document.getElementById('skillsTotalPercent');
+
+    let totalProgressElement =
+        document.getElementById('skillsTotalProgress');
+
+    let totalXpElement =
+        document.getElementById('skillsTotalXP');
+
+    if (totalPercentElement) {
+        totalPercentElement.innerText = `${totalSkillProgress}%`;
+    }
+
+    if (totalProgressElement) {
+        totalProgressElement.style.width =
+            `${totalSkillProgress}%`;
+    }
+
+    if (totalXpElement) {
+        totalXpElement.innerText =
+            `${totalSkillXp} / ${maxSkillXp} XP`;
+    }
+
+
+    // -----------------------------------------
+    // ОБЩИЙ УРОВЕНЬ И СТАТУС
+    // -----------------------------------------
+
     document.getElementById('globalLevel').innerText = global;
-    document.getElementById('globalTitle').innerText = globalRanks[global-1];
+    document.getElementById('globalTitle').innerText =
+        globalRanks[global - 1];
+
+
+    // Старый глобальный прогресс
     let globalXp = dt + dp + en + st + sp;
-    document.getElementById('globalProgress').style.width = Math.min(100, (globalXp % 200) / 2) + '%';
+
+    document.getElementById('globalProgress').style.width =
+        Math.min(100, (globalXp % 200) / 2) + '%';
+
+
     updateBonusUI();
 }
 

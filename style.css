@@ -1191,3 +1191,99 @@ body {
         font-size: 13px;
     }
 }
+
+/* =========================================
+   ФИНАЛЬНАЯ НАСТРОЙКА SKILL CARD
+   ========================================= */
+
+.skills-panel .skill-card {
+    min-height: 90px;
+
+    padding: 13px 68px 12px 52px;
+
+    position: relative;
+}
+
+
+/* Название */
+
+.skills-panel .skill-header {
+    font-size: 14px;
+    line-height: 18px;
+
+    margin: 0 0 9px 0;
+
+    color: #dcefff;
+}
+
+
+/* Уровень справа */
+
+.skills-panel .skill-level {
+    position: absolute;
+
+    right: 12px;
+    top: 12px;
+
+    width: 45px;
+
+    text-align: center;
+}
+
+
+/* маленькое "УРОВЕНЬ" */
+
+.skills-panel .skill-level-label {
+    display: block;
+
+    font-size: 7px;
+    line-height: 9px;
+
+    letter-spacing: 1px;
+
+    color: #56839d;
+}
+
+
+/* сама цифра */
+
+.skills-panel .skill-level strong {
+    display: block;
+
+    margin-top: 2px;
+
+    font-size: 22px;
+    line-height: 24px;
+
+    color: #55c9ff;
+
+    text-shadow:
+        0 0 10px rgba(85, 201, 255, 0.45);
+}
+
+
+/* полоска */
+
+.skills-panel .progress-bg {
+    height: 5px;
+
+    margin: 0 0 7px 0;
+
+    background: #0b2031;
+
+    border-radius: 0;
+}
+
+
+/* текст под полоской */
+
+.skills-panel .skill-stats {
+    font-size: 11px;
+    line-height: 15px;
+
+    margin: 0;
+
+    color: #6f98b0;
+
+    letter-spacing: 0.3px;
+}
