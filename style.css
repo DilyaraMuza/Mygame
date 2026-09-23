@@ -862,19 +862,19 @@ body {
 
 
 /* =========================================
-   SKILLS HUD
+   SKILLS HUD — FIXED
    ========================================= */
 
 .skills-panel {
     position: relative;
     background: rgba(4, 13, 24, 0.96);
     border: 1px solid #347aa8;
-    padding: 20px 16px 16px;
+    padding: 18px 16px 14px;
     margin-bottom: 20px;
     overflow: hidden;
 }
 
-/* технические углы */
+/* углы большой панели */
 
 .skills-panel::before,
 .skills-panel::after {
@@ -900,13 +900,15 @@ body {
 }
 
 
-/* ---------- ШАПКА ---------- */
+/* =========================================
+   ЗАГОЛОВОК
+   ========================================= */
 
 .skills-panel-header {
     display: flex;
     justify-content: space-between;
     align-items: flex-end;
-    margin-bottom: 12px;
+    margin-bottom: 11px;
 }
 
 .skills-panel-title {
@@ -931,30 +933,27 @@ body {
 }
 
 
-/* ---------- ОБЩИЙ ПРОГРЕСС ---------- */
+/* =========================================
+   ОБЩИЙ ПРОГРЕСС
+   ========================================= */
 
 .skills-total-progress {
-    height: 8px;
+    height: 7px;
     background: #0b2031;
     border: 1px solid #245271;
-    margin-bottom: 8px;
+    margin-bottom: 7px;
     overflow: hidden;
 }
 
 .skills-total-progress-fill {
     height: 100%;
     width: 0%;
-    background: linear-gradient(
-        90deg,
-        #208ac5,
-        #5dd3ff
-    );
+    background: linear-gradient(90deg, #208ac5, #5dd3ff);
     box-shadow: 0 0 12px rgba(76, 197, 255, 0.6);
-    transition: width 0.4s ease;
 }
 
 .skills-total-xp {
-    margin-bottom: 18px;
+    margin-bottom: 15px;
     font-size: 10px;
     letter-spacing: 1px;
     color: #6e9bb4;
@@ -962,28 +961,27 @@ body {
 
 
 /* =========================================
-   КАРТОЧКИ ОТДЕЛЬНЫХ НАВЫКОВ
+   КАРТОЧКИ НАВЫКОВ
    ========================================= */
+
+/* ВАЖНО:
+   не используем grid/flex для самой карточки,
+   чтобы не ломать существующую структуру JS */
 
 .skills-panel .skill-card {
     position: relative;
 
-     display: grid;
-    grid-template-columns: 48px 1fr auto;
-   
+    display: block;
 
-    align-items: center;
-    gap: 12px;
-
-    background: rgba(5, 17, 29, 0.92);
+    background: rgba(5, 17, 29, 0.94);
     border: 1px solid #245a7c;
-
     border-radius: 0;
 
-    padding: 12px;
-    margin-bottom: 8px;
+    padding: 11px 12px 10px 52px;
 
-    min-height: 72px;
+    margin-bottom: 7px;
+
+    min-height: 69px;
 
     overflow: hidden;
 }
@@ -993,22 +991,31 @@ body {
 }
 
 
-/* ---------- ИКОНКА ---------- */
+/* =========================================
+   ИКОНКИ СЛЕВА
+   ========================================= */
 
-.skills-panel .skill-icon {
-    width: 42px;
-    height: 42px;
+.skills-panel .skill-card::before {
+    content: "◈";
+
+    position: absolute;
+    left: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+
+    width: 32px;
+    height: 32px;
 
     display: flex;
     align-items: center;
     justify-content: center;
 
-    border: 1px solid #3a9bd0;
-    background: #071827;
+    border: 1px solid #3d9ed1;
 
     color: #54c8ff;
+    font-size: 18px;
 
-    font-size: 21px;
+    background: #071827;
 
     clip-path: polygon(
         20% 0,
@@ -1022,92 +1029,129 @@ body {
     );
 
     box-shadow:
-        inset 0 0 12px rgba(50, 170, 230, 0.08),
-        0 0 10px rgba(40, 150, 210, 0.12);
+        inset 0 0 10px rgba(50, 170, 230, 0.1),
+        0 0 8px rgba(40, 150, 210, 0.15);
 }
 
 
-/* ---------- НАЗВАНИЕ ---------- */
+/* разные иконки */
+
+.skills-panel .skill-card:nth-child(1)::before {
+    content: "⌁";
+}
+
+.skills-panel .skill-card:nth-child(2)::before {
+    content: "Aa";
+    font-size: 11px;
+    font-weight: 700;
+}
+
+.skills-panel .skill-card:nth-child(3)::before {
+    content: "✦";
+}
+
+.skills-panel .skill-card:nth-child(4)::before {
+    content: "↯";
+}
+
+
+/* =========================================
+   НАЗВАНИЕ НАВЫКА
+   ========================================= */
 
 .skills-panel .skill-header {
-    font-size: 15px;
-    font-weight: 500;
-    letter-spacing: 0.3px;
-    color: #dcefff;
+    font-size: 14px;
+    line-height: 18px;
 
-    margin-bottom: 6px;
+    font-weight: 500;
+
+    letter-spacing: 0.5px;
+
+    color: #e0f2ff;
+
+    margin: 0 0 4px 0;
 }
 
 
-/* ---------- XP ---------- */
+/* =========================================
+   УБИРАЕМ СТАРЫЕ БЕЙДЖИ
+   ========================================= */
+
+.skills-panel .skill-level-badge {
+    background: transparent !important;
+    border: none !important;
+    padding: 0 !important;
+
+    color: #55c9ff !important;
+
+    font-size: 0 !important;
+}
+
+
+/* если внутри badge есть текст "ур. 1 · Новичок" —
+   оставляем только сам уровень */
+
+.skills-panel .skill-level-badge::after {
+    content: "УРОВЕНЬ";
+    font-size: 8px;
+    letter-spacing: 1px;
+    color: #56839d;
+}
+
+
+/* =========================================
+   XP
+   ========================================= */
 
 .skills-panel .skill-stats {
     font-size: 9px;
-    color: #618da8;
-    letter-spacing: 0.5px;
+    line-height: 12px;
+
+    color: #638da6;
+
+    margin: 0;
 }
 
 
-/* ---------- УРОВЕНЬ ---------- */
+/* =========================================
+   ПРОГРЕСС КАЖДОГО НАВЫКА
+   ========================================= */
 
-.skills-panel .skill-level-badge {
-    background: transparent;
-    border: 0;
+.skills-panel .progress-bg {
+    height: 5px;
 
-    padding: 0;
+    margin-top: 5px;
 
-    color: #58caff;
+    background: #0b2031;
 
-    font-size: 10px;
-    text-align: right;
-
-    white-space: nowrap;
+    border-radius: 0;
 }
 
-.skills-panel .skill-level-badge::first-line {
-    font-size: 10px;
-}
-
-
-/* ---------- УБИРАЕМ ЛИШНЮЮ "ИГРОВУЮ" МИШУРУ ---------- */
-
-.skills-panel .skill-card:hover {
-    transform: none;
-    box-shadow: inset 0 0 20px rgba(40, 150, 210, 0.06);
-}
-
-
-/* ---------- ТОНКИЕ ТЕХНИЧЕСКИЕ ЛИНИИ ---------- */
-
-.skills-panel .skill-card::before {
-    content: "";
-    position: absolute;
-
-    left: 0;
-    top: 0;
-
-    width: 24px;
-    height: 3px;
-
-    background: #4bc4f5;
-
-    clip-path: polygon(
-        0 0,
-        100% 0,
-        75% 100%,
-        0 100%
+.skills-panel .progress-fill {
+    background: linear-gradient(
+        90deg,
+        #238ac2,
+        #5dd3ff
     );
+
+    box-shadow: 0 0 8px rgba(70, 190, 255, 0.45);
 }
+
+
+/* =========================================
+   ТЕХНИЧЕСКИЕ АКЦЕНТЫ
+   ========================================= */
 
 .skills-panel .skill-card::after {
     content: "";
+
     position: absolute;
 
     right: 0;
     bottom: 0;
 
-    width: 30px;
-    height: 3px;
+    width: 28px;
+    height: 4px;
 
     background: #1d5576;
 
@@ -1117,4 +1161,33 @@ body {
         100% 100%,
         0 100%
     );
+}
+
+
+/* =========================================
+   МОБИЛЬНЫЙ РАЗМЕР
+   ========================================= */
+
+@media (max-width: 400px) {
+
+    .skills-panel {
+        padding: 17px 12px 12px;
+    }
+
+    .skills-panel-title {
+        font-size: 22px;
+    }
+
+    .skills-total-percent {
+        font-size: 25px;
+    }
+
+    .skills-panel .skill-card {
+        padding-left: 49px;
+        min-height: 67px;
+    }
+
+    .skills-panel .skill-header {
+        font-size: 13px;
+    }
 }
