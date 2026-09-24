@@ -505,7 +505,7 @@ function renderHome() {
             </div>
 
             <div class="skill-stats">
-                до след. уровня: ${getXpToNext(designXp)} XP
+               <div class="skill-stats">${designXp} / ${thresholds[desLvl]} XP</div>
             </div>
 
         </div>
@@ -530,7 +530,7 @@ function renderHome() {
             </div>
 
             <div class="skill-stats">
-                до след. уровня: ${getXpToNext(en)} XP
+                <div class="skill-stats">${en} / ${thresholds[enLvl]} XP</div>
             </div>
 
         </div>
@@ -555,7 +555,7 @@ function renderHome() {
             </div>
 
             <div class="skill-stats">
-                до след. уровня: ${getXpToNext(st)} XP
+                <div class="skill-stats">${st} / ${thresholds[stLvl]} XP</div>
             </div>
 
         </div>
@@ -580,7 +580,7 @@ function renderHome() {
             </div>
 
             <div class="skill-stats">
-                до след. уровня: ${getXpToNext(sp)} XP
+               <div class="skill-stats">${sp} / ${thresholds[sportLvl]} XP</div>
             </div>
 
         </div>
