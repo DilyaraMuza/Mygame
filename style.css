@@ -582,6 +582,174 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 }
 
 
+/* =========================================
+   ЭКРАН ВХОДА — HUD / CYBERPUNK
+   ========================================= */
+
+.login-wrapper {
+    background:
+        radial-gradient(circle at 50% 45%, rgba(20, 100, 145, 0.12), transparent 45%),
+        #030b12;
+
+    color: #dff6ff;
+}
+
+
+/* лёгкая техническая сетка */
+
+.login-wrapper::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+
+    background:
+        linear-gradient(rgba(60, 150, 190, 0.035) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(60, 150, 190, 0.035) 1px, transparent 1px);
+
+    background-size: 32px 32px;
+
+    pointer-events: none;
+}
+
+
+/* основной контейнер */
+
+.login-content {
+    position: relative;
+    z-index: 2;
+}
+
+
+/* поля */
+
+.login-wrapper .input-login,
+.login-wrapper .input-password {
+    position: relative;
+
+    background: rgba(5, 22, 35, 0.92);
+
+    border: 1px solid #245875;
+
+    box-shadow:
+        inset 0 0 15px rgba(35, 140, 190, 0.06),
+        0 0 10px rgba(30, 130, 180, 0.05);
+}
+
+
+/* убираем фиолетовые SVG-визуальные элементы */
+
+.login-wrapper .input-login svg,
+.login-wrapper .input-password svg,
+.login-wrapper .button-svg svg,
+.login-wrapper .login-frame svg {
+    opacity: 0;
+}
+
+
+/* сами поля поверх старой графики */
+
+.login-wrapper .input-login::before,
+.login-wrapper .input-password::before {
+    content: "";
+
+    position: absolute;
+    inset: 0;
+
+    border: 1px solid rgba(85, 201, 255, 0.25);
+
+    pointer-events: none;
+}
+
+
+/* текстовые поля */
+
+.login-wrapper input {
+    position: relative;
+    z-index: 2;
+
+    background: transparent;
+
+    color: #e8f8ff;
+
+    border: none;
+    outline: none;
+
+    font-family: 'Inter', sans-serif;
+}
+
+.login-wrapper input::placeholder {
+    color: #5d8195;
+}
+
+
+/* кнопка */
+
+.login-wrapper .button-svg {
+    position: relative;
+
+    background: transparent;
+}
+
+.login-wrapper #loginBtn {
+    position: relative;
+    z-index: 3;
+
+    background: #0b2638;
+
+    color: #bfeeff;
+
+    border: 1px solid #4bbce8;
+
+    box-shadow:
+        0 0 10px rgba(65, 190, 240, 0.15),
+        inset 0 0 12px rgba(65, 190, 240, 0.08);
+
+    font-family: 'Inter', sans-serif;
+
+    letter-spacing: 1px;
+
+    transition:
+        background 0.2s ease,
+        box-shadow 0.2s ease,
+        color 0.2s ease;
+}
+
+.login-wrapper #loginBtn:hover {
+    background: #10384f;
+
+    color: #ffffff;
+
+    box-shadow:
+        0 0 18px rgba(65, 190, 240, 0.3),
+        inset 0 0 15px rgba(65, 190, 240, 0.12);
+}
+
+
+/* ошибка */
+
+.login-wrapper .error-msg {
+    color: #ff6680;
+
+    text-shadow: 0 0 8px rgba(255, 70, 110, 0.25);
+}
+
+
+/* декоративная рамка экрана */
+
+.login-wrapper .login-frame {
+    position: absolute;
+
+    background: transparent;
+
+    border: 1px solid rgba(60, 160, 205, 0.25);
+
+    box-shadow:
+        0 0 30px rgba(30, 130, 180, 0.05),
+        inset 0 0 30px rgba(30, 130, 180, 0.03);
+
+    pointer-events: none;
+}
+
 
 /* =========================================
    НОВЫЙ HUD-СТИЛЬ — ГЛАВНАЯ
@@ -1942,170 +2110,3 @@ body {
 
 
 
-/* =========================================
-   ЭКРАН ВХОДА — HUD / CYBERPUNK
-   ========================================= */
-
-.login-wrapper {
-    background:
-        radial-gradient(circle at 50% 45%, rgba(20, 100, 145, 0.12), transparent 45%),
-        #030b12;
-
-    color: #dff6ff;
-}
-
-
-/* лёгкая техническая сетка */
-
-.login-wrapper::before {
-    content: "";
-    position: absolute;
-    inset: 0;
-
-    background:
-        linear-gradient(rgba(60, 150, 190, 0.035) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(60, 150, 190, 0.035) 1px, transparent 1px);
-
-    background-size: 32px 32px;
-
-    pointer-events: none;
-}
-
-
-/* основной контейнер */
-
-.login-content {
-    position: relative;
-    z-index: 2;
-}
-
-
-/* поля */
-
-.login-wrapper .input-login,
-.login-wrapper .input-password {
-    position: relative;
-
-    background: rgba(5, 22, 35, 0.92);
-
-    border: 1px solid #245875;
-
-    box-shadow:
-        inset 0 0 15px rgba(35, 140, 190, 0.06),
-        0 0 10px rgba(30, 130, 180, 0.05);
-}
-
-
-/* убираем фиолетовые SVG-визуальные элементы */
-
-.login-wrapper .input-login svg,
-.login-wrapper .input-password svg,
-.login-wrapper .button-svg svg,
-.login-wrapper .login-frame svg {
-    opacity: 0;
-}
-
-
-/* сами поля поверх старой графики */
-
-.login-wrapper .input-login::before,
-.login-wrapper .input-password::before {
-    content: "";
-
-    position: absolute;
-    inset: 0;
-
-    border: 1px solid rgba(85, 201, 255, 0.25);
-
-    pointer-events: none;
-}
-
-
-/* текстовые поля */
-
-.login-wrapper input {
-    position: relative;
-    z-index: 2;
-
-    background: transparent;
-
-    color: #e8f8ff;
-
-    border: none;
-    outline: none;
-
-    font-family: 'Inter', sans-serif;
-}
-
-.login-wrapper input::placeholder {
-    color: #5d8195;
-}
-
-
-/* кнопка */
-
-.login-wrapper .button-svg {
-    position: relative;
-
-    background: transparent;
-}
-
-.login-wrapper #loginBtn {
-    position: relative;
-    z-index: 3;
-
-    background: #0b2638;
-
-    color: #bfeeff;
-
-    border: 1px solid #4bbce8;
-
-    box-shadow:
-        0 0 10px rgba(65, 190, 240, 0.15),
-        inset 0 0 12px rgba(65, 190, 240, 0.08);
-
-    font-family: 'Inter', sans-serif;
-
-    letter-spacing: 1px;
-
-    transition:
-        background 0.2s ease,
-        box-shadow 0.2s ease,
-        color 0.2s ease;
-}
-
-.login-wrapper #loginBtn:hover {
-    background: #10384f;
-
-    color: #ffffff;
-
-    box-shadow:
-        0 0 18px rgba(65, 190, 240, 0.3),
-        inset 0 0 15px rgba(65, 190, 240, 0.12);
-}
-
-
-/* ошибка */
-
-.login-wrapper .error-msg {
-    color: #ff6680;
-
-    text-shadow: 0 0 8px rgba(255, 70, 110, 0.25);
-}
-
-
-/* декоративная рамка экрана */
-
-.login-wrapper .login-frame {
-    position: absolute;
-
-    background: transparent;
-
-    border: 1px solid rgba(60, 160, 205, 0.25);
-
-    box-shadow:
-        0 0 30px rgba(30, 130, 180, 0.05),
-        inset 0 0 30px rgba(30, 130, 180, 0.03);
-
-    pointer-events: none;
-}
