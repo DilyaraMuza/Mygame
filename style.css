@@ -1287,3 +1287,336 @@ body {
 
     letter-spacing: 0.3px;
 }
+
+/* =========================================
+   ФИНАЛЬНАЯ ТИПОГРАФИКА SKILL CARDS
+   ========================================= */
+
+.skills-panel .skill-card {
+    min-height: 104px;
+
+    padding: 15px 78px 14px 52px;
+
+    margin-bottom: 9px;
+}
+
+
+/* =========================================
+   НАЗВАНИЕ + УРОВЕНЬ
+   ========================================= */
+
+.skills-panel .skill-header {
+    font-size: 16px;
+    line-height: 20px;
+
+    font-weight: 500;
+    letter-spacing: 0.2px;
+
+    color: #e0f2ff;
+
+    margin: 0 0 12px 0;
+}
+
+
+/* "УРОВЕНЬ" справа —
+   теперь на одной высоте с названием */
+
+.skills-panel .skill-level {
+    position: absolute;
+
+    right: 12px;
+    top: 15px;
+
+    width: 48px;
+
+    text-align: center;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+
+/* надпись УРОВЕНЬ */
+
+.skills-panel .skill-level-label {
+    display: block;
+
+    font-size: 10px;
+    line-height: 20px;
+
+    letter-spacing: 0.5px;
+
+    color: #56839d;
+
+    white-space: nowrap;
+}
+
+
+/* цифра уровня */
+
+.skills-panel .skill-level strong {
+    position: absolute;
+
+    top: 31px;
+    left: 0;
+    right: 0;
+
+    display: block;
+
+    font-size: 23px;
+    line-height: 25px;
+
+    text-align: center;
+
+    color: #55c9ff;
+
+    text-shadow:
+        0 0 10px rgba(85, 201, 255, 0.45);
+}
+
+
+/* =========================================
+   ШКАЛА
+   ========================================= */
+
+.skills-panel .progress-bg {
+    height: 8px;
+
+    margin: 0 0 9px 0;
+
+    background: #0b2031;
+
+    border: 1px solid #183a52;
+
+    border-radius: 0;
+}
+
+.skills-panel .progress-fill {
+    height: 100%;
+
+    background: linear-gradient(
+        90deg,
+        #238ac2,
+        #5dd3ff
+    );
+
+    box-shadow:
+        0 0 9px rgba(70, 190, 255, 0.5);
+}
+
+
+/* =========================================
+   ТЕКСТ "ДО СЛЕД. УРОВНЯ"
+   ========================================= */
+
+.skills-panel .skill-stats {
+    font-size: 12px;
+    line-height: 16px;
+
+    color: #7097ae;
+
+    letter-spacing: 0.2px;
+
+    margin: 0;
+}
+
+/* =========================================
+   ПРОФИЛЬ: ОБЩИЙ УРОВЕНЬ + АВАТАР
+   ========================================= */
+
+.profile-hud {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 18px;
+
+    min-height: 150px;
+    padding: 18px;
+
+    background: rgba(5, 18, 30, 0.92);
+    border: 1px solid #214d68;
+
+    clip-path: polygon(
+        0 10px,
+        10px 0,
+        calc(100% - 10px) 0,
+        100% 10px,
+        100% calc(100% - 10px),
+        calc(100% - 10px) 100%,
+        10px 100%,
+        0 calc(100% - 10px)
+    );
+
+    box-shadow:
+        inset 0 0 25px rgba(35, 130, 190, 0.08),
+        0 0 15px rgba(30, 130, 190, 0.08);
+
+    margin-bottom: 16px;
+}
+
+/* Левая часть — общий уровень */
+
+.profile-hud .level-card {
+    flex: 1;
+    min-width: 0;
+
+    padding: 0;
+    margin: 0;
+
+    background: none;
+    border: none;
+    box-shadow: none;
+
+    display: flex;
+    align-items: center;
+    gap: 14px;
+}
+
+.profile-hud .level-number {
+    flex-shrink: 0;
+
+    width: 62px;
+    height: 62px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    font-size: 30px;
+    font-weight: 700;
+    color: #5dd3ff;
+
+    background: #071827;
+    border: 1px solid #3d9ed1;
+
+    clip-path: polygon(
+        18% 0,
+        82% 0,
+        100% 18%,
+        100% 82%,
+        82% 100%,
+        18% 100%,
+        0 82%,
+        0 18%
+    );
+
+    text-shadow: 0 0 12px rgba(85, 201, 255, 0.55);
+}
+
+.profile-hud .level-info {
+    flex: 1;
+    min-width: 0;
+}
+
+.profile-hud .level-label {
+    font-size: 11px;
+    line-height: 14px;
+    letter-spacing: 1.5px;
+    color: #56839d;
+    margin-bottom: 3px;
+}
+
+.profile-hud .level-title {
+    font-size: 18px;
+    line-height: 22px;
+    font-weight: 500;
+    color: #e0f2ff;
+    margin-bottom: 12px;
+}
+
+.profile-hud .progress-bg {
+    width: 100%;
+    height: 7px;
+    margin: 0;
+
+    background: #0b2031;
+    border: 1px solid #183a52;
+    border-radius: 0;
+}
+
+.profile-hud .progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, #238ac2, #5dd3ff);
+    box-shadow: 0 0 9px rgba(70, 190, 255, 0.5);
+}
+
+
+/* Правая часть — аватар */
+
+.profile-hud .hero {
+    flex-shrink: 0;
+
+    width: 105px;
+    height: 105px;
+
+    margin: 0;
+    padding: 0;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    position: relative;
+}
+
+/* восьмиугольная рамка */
+
+.profile-hud .avatar-large {
+    width: 94px;
+    height: 94px;
+
+    position: relative;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    overflow: hidden;
+
+    background: #071827;
+    border: 2px solid #55c9ff;
+
+    clip-path: polygon(
+        22% 0,
+        78% 0,
+        100% 22%,
+        100% 78%,
+        78% 100%,
+        22% 100%,
+        0 78%,
+        0 22%
+    );
+
+    box-shadow:
+        0 0 12px rgba(70, 190, 255, 0.25),
+        inset 0 0 18px rgba(50, 170, 230, 0.12);
+}
+
+.profile-hud .avatar-large::before {
+    content: "";
+    position: absolute;
+    inset: 5px;
+
+    border: 1px solid rgba(93, 211, 255, 0.35);
+
+    clip-path: inherit;
+    pointer-events: none;
+}
+
+.profile-hud .avatar-large img {
+    width: 100%;
+    height: 100%;
+
+    object-fit: cover;
+}
+
+.profile-hud .avatar-placeholder {
+    font-size: 10px;
+    line-height: 13px;
+    text-align: center;
+    color: #56839d;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    padding: 12px;
+}

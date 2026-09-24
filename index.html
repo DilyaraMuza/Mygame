@@ -82,28 +82,37 @@
                     <button class="bonus-btn" id="dailyBonusBtn">забрать</button>
                 </div>
 
-                <div class="level-card">
-                    <div class="level-number" id="globalLevel">1</div>
-                    <div class="level-title" id="globalTitle">Новичок</div>
-                    <div class="progress-bg">
-                        <div class="progress-fill" id="globalProgress" style="width:0%"></div>
-                    </div>
-                </div>
+               <div class="profile-hud">
 
-                <div class="hero">
-                    <div class="avatar-large" id="avatarLarge">
-                        <img id="avatarImg" src="" style="display: none;">
-                        <div class="avatar-placeholder" id="avatarPlaceholder">твой образ</div>
-                    </div>
-                    <input type="file" id="fileInput" accept="image/*" style="display: none;">
-                </div>
+    <div class="level-card">
+        <div class="level-number" id="globalLevel">1</div>
+        <div class="level-info">
+            <div class="level-label">УРОВЕНЬ</div>
+            <div class="level-title" id="globalTitle">Новичок</div>
+
+            <div class="progress-bg">
+                <div class="progress-fill" id="globalProgress" style="width:0%"></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="hero">
+        <div class="avatar-large" id="avatarLarge">
+            <img id="avatarImg" src="" style="display: none;">
+            <div class="avatar-placeholder" id="avatarPlaceholder">твой образ</div>
+        </div>
+
+        <input type="file" id="fileInput" accept="image/*" style="display: none;">
+    </div>
+
+</div>
 
                 <div class="skills-panel">
 
     <div class="skills-panel-header">
         <div>
             <div class="skills-panel-title">НАВЫКИ</div>
-            <div class="skills-panel-subtitle">// ОБЩИЙ ПРОГРЕСС</div>
+            <div class="skills-panel-subtitle"> ОБЩИЙ ПРОГРЕСС</div>
         </div>
 
         <div class="skills-total-percent" id="skillsTotalPercent">0%</div>
@@ -147,7 +156,7 @@
                         <option value="designerPractice">Дизайнер (практика)</option>
                         <option value="english">Английский</option>
                         <option value="style">Персональный стиль</option>
-                        <option value="style">СПОРТ</option>
+                        <option value="style">Спорт</option>
                     </select>
                 </div>
                 <div class="form-group">

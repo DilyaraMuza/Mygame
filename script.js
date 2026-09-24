@@ -489,11 +489,11 @@ function renderHome() {
         <div class="skill-card" data-skill="designer">
 
             <div class="skill-header">
-                <span>ДИЗАЙН</span>
+                <span>Дизайн</span>
             </div>
 
             <div class="skill-level">
-                <span class="skill-level-label">УРОВЕНЬ</span>
+                <span class="skill-level-label">Уровень</span>
                 <strong>${desLvl}</strong>
             </div>
 
@@ -514,11 +514,11 @@ function renderHome() {
         <div class="skill-card" data-skill="english">
 
             <div class="skill-header">
-                <span>АНГЛИЙСКИЙ</span>
+                <span>Английский</span>
             </div>
 
             <div class="skill-level">
-                <span class="skill-level-label">УРОВЕНЬ</span>
+                <span class="skill-level-label">Уровень</span>
                 <strong>${enLvl}</strong>
             </div>
 
@@ -539,11 +539,11 @@ function renderHome() {
         <div class="skill-card" data-skill="style">
 
             <div class="skill-header">
-                <span>ПЕРСОНАЛЬНЫЙ СТИЛЬ</span>
+                <span>Стиль</span>
             </div>
 
             <div class="skill-level">
-                <span class="skill-level-label">УРОВЕНЬ</span>
+                <span class="skill-level-label">Уровень</span>
                 <strong>${stLvl}</strong>
             </div>
 
@@ -564,11 +564,11 @@ function renderHome() {
         <div class="skill-card" data-skill="sport">
 
             <div class="skill-header">
-                <span>СПОРТ</span>
+                <span>Спорт</span>
             </div>
 
             <div class="skill-level">
-                <span class="skill-level-label">УРОВЕНЬ</span>
+                <span class="skill-level-label">Уровень</span>
                 <strong>${sportLvl}</strong>
             </div>
 
