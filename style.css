@@ -1620,3 +1620,44 @@ body {
     letter-spacing: 1px;
     padding: 12px;
 }
+
+.profile-hud .avatar-large {
+    width: 94px;
+    height: 94px;
+    position: relative;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    overflow: hidden;
+
+    background: #071827;
+    border: 2px solid #55c9ff;
+
+    clip-path: polygon(
+        22% 0,
+        78% 0,
+        100% 22%,
+        100% 78%,
+        78% 100%,
+        22% 100%,
+        0 78%,
+        0 22%
+    );
+
+    box-sizing: border-box;
+}
+
+.profile-hud .avatar-large img {
+    position: absolute;
+    inset: 0;
+
+    width: 100%;
+    height: 100%;
+
+    object-fit: cover;
+    object-position: center;
+
+    display: block;
+}
