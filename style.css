@@ -1,7 +1,3 @@
-/* =========================
-   GLOBAL
-   ========================= */
-
 * {
     margin: 0;
     padding: 0;
@@ -9,32 +5,23 @@
     font-family: 'Segoe UI', Roboto, system-ui, sans-serif;
     -webkit-tap-highlight-color: transparent;
 }
-
 body {
+    
+    
     min-height: 100vh;
     padding: 16px 12px 80px;
-    background:
-        radial-gradient(circle at 50% 20%, rgba(22, 63, 110, 0.22), transparent 45%),
-        #020711;
-    color: #e8f5ff;
+    background-image: radial-gradient(circle at 30% 40%, #2e0b40 0%, #0a0215 80%);
 }
-
 .container {
-    max-width: 480px;
+    
     margin: 0 auto;
 }
-
-.hidden { display: none; }
-.page { display: none; }
-.page.active { display: block; }
-
 .filters {
     display: flex;
     gap: 8px;
     margin-bottom: 20px;
     justify-content: center;
 }
-
 .filter-btn {
     background: transparent;
     border: 2px solid #ff1a75;
@@ -46,15 +33,183 @@ body {
     flex: 1;
     transition: all 0.2s;
 }
-
 .filter-btn.active {
     background: #ff1a75;
     color: black;
     box-shadow: 0 0 20px #ff66b2;
 }
+.bonus-card {
+    
+    
+    
+    
+    
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    backdrop-filter: blur(4px);
+}
+.bonus-stats {
+    display: flex;
+    
+}
+.bonus-item {
+    text-align: center;
+}
+.bonus-value {
+    
+    font-weight: bold;
+    
+}
+.bonus-label {
+    
+    
+}
+.bonus-btn {
+    
+    border: none;
+    
+    
+    
+    font-weight: bold;
+    cursor: pointer;
+    
+    -webkit-appearance: none;
+}
+.hero {
+    
+    
+    
+    
+    
+    text-align: center;
+}
+.avatar-large {
+    
+    
+    
+    
+    
+    overflow: hidden;
+    
+    cursor: pointer;
+    transition: all 0.3s;
+}
+.avatar-large:hover {
+    
+}
+.avatar-large img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: none;
+}
+.avatar-placeholder {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    
+    
+}
+.level-card {
+    
+    
+    
+    
+    
+    
+}
 
-.quest-section { margin-bottom: 20px; }
+.level-number {
+    
+    font-weight: bold;
+    
+    
+}
 
+
+.level-title {
+    
+    
+}
+.progress-bg {
+    width: 100%;
+    
+    
+    
+    
+    overflow: hidden;
+}
+.progress-fill {
+    height: 100%;
+    width: 0%;
+    
+    
+}
+.skill-card {
+    
+    
+    
+    
+    
+}
+.skill-header {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    
+    font-weight: bold;
+    margin-bottom: 8px;
+    
+}
+.skill-level-badge {
+    margin-left: auto;
+    
+    
+    
+    
+    
+}
+.skill-stats {
+    display: flex;
+    justify-content: space-between;
+    
+    
+    margin-top: 8px;
+}
+.page { display: none; }
+.page.active { display: block; }
+.tab-bar {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    
+    backdrop-filter: blur(12px);
+    
+    display: flex;
+    justify-content: space-around;
+    
+    z-index: 100;
+}
+.tab {
+    
+    
+    text-align: center;
+    cursor: pointer;
+    padding: 4px 12px;
+}
+.tab.active {
+    
+    
+    
+}
+.tab span {  display: block; margin-bottom: 2px; }
+.quest-section {
+    margin-bottom: 20px;
+}
 .section-title {
     font-size: 18px;
     font-weight: bold;
@@ -64,7 +219,6 @@ body {
     text-transform: uppercase;
     letter-spacing: 2px;
 }
-
 .quest-item {
     background: #1e0a2a;
     border-left: 6px solid #ff1a75;
@@ -78,23 +232,19 @@ body {
     transition: all 0.3s ease;
     position: relative;
 }
-
 .quest-item.fade-out {
     opacity: 0;
     transform: translateX(20px);
     transition: opacity 0.3s, transform 0.3s;
 }
-
 .quest-item.overdue {
     border-left-color: #ff0000;
     box-shadow: 0 0 15px #ff000080;
 }
-
 .quest-item.today {
     border-left-color: #00ff88;
     box-shadow: 0 0 15px #00ff8880;
 }
-
 .quest-check {
     width: 28px;
     height: 28px;
@@ -103,13 +253,11 @@ body {
     flex-shrink: 0;
     cursor: pointer;
 }
-
 .quest-check.done {
     background: #ff1a75;
     box-shadow: 0 0 20px #ff66b2;
     position: relative;
 }
-
 .quest-check.done::after {
     content: "✓";
     color: black;
@@ -118,14 +266,14 @@ body {
     justify-content: center;
     line-height: 28px;
 }
-
-.quest-content { flex: 1; pointer-events: none; }
-
+.quest-content {
+    flex: 1;
+    pointer-events: none;
+}
 .quest-title {
     font-size: 18px;
     font-weight: bold;
 }
-
 .quest-meta {
     display: flex;
     gap: 16px;
@@ -133,126 +281,27 @@ body {
     color: #bf8fbf;
     margin-top: 4px;
 }
-
 .quest-date {
     font-size: 12px;
     color: #b284be;
     margin-top: 4px;
 }
-
-.bonus-card {
-    position: relative;
-    background: rgba(5, 16, 30, 0.94);
-    border: 1px solid #3c82b8;
-    border-radius: 0;
-    padding: 14px 16px;
-    margin-bottom: 14px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    box-shadow: inset 0 0 20px rgba(37, 111, 170, 0.08);
-}
-
-.bonus-card::before,
-.bonus-card::after {
-    content: "";
-    position: absolute;
-    width: 12px;
-    height: 12px;
-    border-color: #8ed8ff;
-    border-style: solid;
-}
-
-.bonus-card::before {
-    top: -1px;
-    left: -1px;
-    border-width: 2px 0 0 2px;
-}
-
-.bonus-card::after {
-    right: -1px;
-    bottom: -1px;
-    border-width: 0 2px 2px 0;
-}
-
-.bonus-stats { display: flex; gap: 28px; }
-.bonus-item { text-align: center; }
-
-.bonus-value {
-    font-size: 24px;
-    font-weight: bold;
-    color: #e9f8ff;
-    text-shadow: 0 0 12px rgba(87, 191, 255, 0.5);
-}
-
-.bonus-label {
-    color: #7094ae;
-    font-size: 10px;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-}
-
-.bonus-btn {
-    background: #ff7a18;
-    border: none;
-    border-radius: 2px;
-    padding: 9px 18px;
-    color: #080b10;
-    font-weight: bold;
-    cursor: pointer;
-    box-shadow: 0 0 12px rgba(255, 122, 24, 0.3);
-    -webkit-appearance: none;
-}
-
-.tab-bar {
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    background: rgba(3, 10, 18, 0.97);
-    backdrop-filter: blur(12px);
-    border-top: 1px solid #285776;
-    display: flex;
-    justify-content: space-around;
-    padding: 8px 0 11px;
-    z-index: 100;
-}
-
-.tab {
-    color: #52758b;
-    font-size: 10px;
-    text-align: center;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-    cursor: pointer;
-    padding: 4px 12px;
-}
-
-.tab.active {
-    color: #79d0ff;
-    text-shadow: 0 0 10px rgba(70, 184, 255, 0.6);
-    transform: translateY(-2px);
-}
-
-.tab span {
-    font-size: 20px;
-    display: block;
-    margin-bottom: 2px;
-}
-
 .edit-modal {
     position: fixed;
-    inset: 0;
-    background: rgba(0, 0, 0, 0.9);
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.9);
     display: none;
     justify-content: center;
     align-items: center;
     z-index: 1000;
     backdrop-filter: blur(5px);
 }
-
-.edit-modal.active { display: flex; }
-
+.edit-modal.active {
+    display: flex;
+}
 .edit-form {
     background: #1a0b2e;
     border: 2px solid #ff1a75;
@@ -261,16 +310,15 @@ body {
     width: 90%;
     max-width: 400px;
 }
-
 .edit-form h3 {
     margin-bottom: 20px;
     color: #ff99ff;
 }
-
 .form-control,
 .edit-form input,
 .edit-form select,
-input[type="date"] {
+input[type="date"],
+.edit-form input[type="date"] {
     width: 100% !important;
     max-width: 100%;
     box-sizing: border-box;
@@ -285,72 +333,14 @@ input[type="date"] {
     -webkit-appearance: none;
     appearance: none;
 }
-
 input[type="date"]::-webkit-calendar-picker-indicator {
     filter: invert(1);
     opacity: 0.6;
     cursor: pointer;
 }
-
-.form-group { margin-bottom: 16px; }
-
-.form-group label {
-    display: block;
-    margin-bottom: 6px;
-    color: #ffb3ff;
+.edit-form .btn-neon {
+    margin-top: 10px;
 }
-
-.edit-form .btn-neon { margin-top: 10px; }
-
-.btn-neon {
-    background: transparent;
-    border: 2px solid #ff1a75;
-    border-radius: 40px;
-    padding: 14px;
-    color: white;
-    font-weight: bold;
-    width: 100%;
-    cursor: pointer;
-    transition: all 0.3s;
-}
-
-.btn-neon:hover {
-    background: #ff1a75;
-    color: black;
-    box-shadow: 0 0 20px #ff66b2;
-}
-
-.stat-row {
-    display: flex;
-    justify-content: space-between;
-    background: #1e0a2a;
-    padding: 16px;
-    border-radius: 20px;
-    margin-bottom: 12px;
-}
-
-.reset-btn {
-    background: #ff1a75;
-    border: none;
-    border-radius: 30px;
-    padding: 16px;
-    color: black;
-    font-weight: bold;
-    width: 100%;
-    cursor: pointer;
-    margin-top: 20px;
-}
-
-.progress-bg {
-    width: 100%;
-    overflow: hidden;
-}
-
-.progress-fill {
-    width: 0%;
-    height: 100%;
-}
-
 .xp-toast {
     position: fixed;
     top: 50%;
@@ -368,12 +358,10 @@ input[type="date"]::-webkit-calendar-picker-indicator {
     transition: opacity 0.2s;
     pointer-events: none;
 }
-
 .xp-toast.show {
     opacity: 1;
     animation: pop 0.3s ease-out;
 }
-
 .level-toast {
     position: fixed;
     top: 30%;
@@ -392,23 +380,85 @@ input[type="date"]::-webkit-calendar-picker-indicator {
     pointer-events: none;
     text-align: center;
 }
-
 .level-toast.show {
     opacity: 1;
     animation: glow 0.5s ease-out;
 }
-
 @keyframes glow {
     0% { transform: translate(-50%, -50%) scale(0.5); opacity: 0; }
     50% { transform: translate(-50%, -50%) scale(1.1); opacity: 1; }
     100% { transform: translate(-50%, -50%) scale(1); opacity: 1; }
 }
-
 @keyframes pop {
     0% { transform: translate(-50%, -50%) scale(0.5); }
     80% { transform: translate(-50%, -50%) scale(1.1); }
     100% { transform: translate(-50%, -50%) scale(1); }
 }
+.form-group { margin-bottom: 16px; }
+.form-group label { display: block; margin-bottom: 6px; color: #ffb3ff; }
+.btn-neon {
+    background: transparent;
+    border: 2px solid #ff1a75;
+    border-radius: 40px;
+    padding: 14px;
+    color: white;
+    font-weight: bold;
+    width: 100%;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+.btn-neon:hover {
+    background: #ff1a75;
+    color: black;
+    box-shadow: 0 0 20px #ff66b2;
+}
+.stat-row {
+    display: flex;
+    justify-content: space-between;
+    background: #1e0a2a;
+    padding: 16px;
+    border-radius: 20px;
+    margin-bottom: 12px;
+}
+.reset-btn {
+    background: #ff1a75;
+    border: none;
+    border-radius: 30px;
+    padding: 16px;
+    color: black;
+    font-weight: bold;
+    width: 100%;
+    cursor: pointer;
+    margin-top: 20px;
+}
+.hidden { display: none; }
+@media (max-width: 600px) {
+    .edit-form input,
+    .edit-form select,
+    .form-control,
+    input[type="date"],
+    .edit-form input[type="date"] {
+        width: 100% !important;
+        max-width: 100%;
+        min-width: 0;
+        box-sizing: border-box;
+        margin-left: 0 !important;
+        margin-right: 0 !important;
+        padding-left: 16px !important;
+        padding-right: 16px !important;
+        font-size: 16px;
+    }
+    input[type="date"] {
+        width: 100% !important;
+        max-width: 100%;
+        display: block;
+    }
+    .edit-form {
+        width: 95%;
+        padding: 20px 15px;
+    }
+}
+
 
 /* ========== НОВЫЙ ЭКРАН ВХОДА ========== */
 #loginScreen {
@@ -529,6 +579,1352 @@ input[type="date"]::-webkit-calendar-picker-indicator {
     text-align: center;
     color: #ff6666;
     font-size: 10px;
+}
+
+
+
+/* =========================================
+   НОВЫЙ HUD-СТИЛЬ — ГЛАВНАЯ
+   ========================================= */
+
+body {
+    background:
+        radial-gradient(circle at 50% 20%, rgba(22, 63, 110, 0.22), transparent 45%),
+        #020711;
+    color: #e8f5ff;
+}
+
+/* Общий контейнер */
+.container {
+    max-width: 480px;
+}
+
+/* -----------------------------------------
+   БОНУСЫ
+   ----------------------------------------- */
+
+.bonus-card {
+    position: relative;
+    background: rgba(5, 16, 30, 0.94);
+    border: 1px solid #3c82b8;
+    border-radius: 0;
+    padding: 14px 16px;
+    margin-bottom: 14px;
+    box-shadow: inset 0 0 20px rgba(37, 111, 170, 0.08);
+}
+
+.bonus-card::before,
+.bonus-card::after {
+    content: "";
+    position: absolute;
+    width: 12px;
+    height: 12px;
+    border-color: #8ed8ff;
+    border-style: solid;
+}
+
+.bonus-card::before {
+    top: -1px;
+    left: -1px;
+    border-width: 2px 0 0 2px;
+}
+
+.bonus-card::after {
+    right: -1px;
+    bottom: -1px;
+    border-width: 0 2px 2px 0;
+}
+
+.bonus-stats {
+    gap: 28px;
+}
+
+.bonus-value {
+    font-size: 24px;
+    color: #e9f8ff;
+    text-shadow: 0 0 12px rgba(87, 191, 255, 0.5);
+}
+
+.bonus-label {
+    color: #7094ae;
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.bonus-btn {
+    background: #ff7a18;
+    border-radius: 2px;
+    padding: 9px 18px;
+    color: #080b10;
+    box-shadow: 0 0 12px rgba(255, 122, 24, 0.3);
+}
+
+/* -----------------------------------------
+   УРОВЕНЬ
+   ----------------------------------------- */
+
+.level-card {
+    position: relative;
+    background: linear-gradient(
+        135deg,
+        rgba(8, 25, 43, 0.98),
+        rgba(3, 11, 22, 0.98)
+    );
+    border: 1px solid #3f8bc1;
+    border-radius: 0;
+    padding: 16px 20px;
+    margin-bottom: 16px;
+    text-align: left;
+    overflow: hidden;
+}
+
+.level-card::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 70px;
+    height: 24px;
+    background: #102f4c;
+    clip-path: polygon(25% 0, 100% 0, 100% 100%, 0 100%);
+    opacity: 0.8;
+}
+
+.level-card::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 55px;
+    height: 5px;
+    background: #46a9e8;
+    clip-path: polygon(0 0, 100% 0, 75% 100%, 0 100%);
+}
+
+.level-number {
+    font-size: 42px;
+    line-height: 1;
+    color: #f1faff;
+    text-shadow: 0 0 16px rgba(61, 177, 255, 0.55);
+}
+
+.level-title {
+    margin-top: 4px;
+    font-size: 14px;
+    color: #79b8dc;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+
+.progress-bg {
+    height: 7px;
+    background: #102234;
+    border-radius: 0;
+    margin: 14px 0 0;
+}
+
+.progress-fill {
+    background: linear-gradient(90deg, #237fba, #72d0ff);
+    box-shadow: 0 0 10px rgba(75, 185, 255, 0.55);
+}
+
+/* -----------------------------------------
+   АВАТАР / HERO
+   ----------------------------------------- */
+
+.hero {
+    position: relative;
+    background: rgba(4, 13, 24, 0.94);
+    border: 1px solid #315e7d;
+    border-radius: 0;
+    padding: 18px;
+    margin-bottom: 16px;
+}
+
+.hero::before {
+    content: "PLAYER // PROFILE";
+    position: absolute;
+    top: 8px;
+    left: 12px;
+    font-size: 8px;
+    letter-spacing: 2px;
+    color: #527d99;
+}
+
+.avatar-large {
+    width: 200px;
+    height: 260px;
+    margin: 18px auto 4px;
+    border: 1px solid #55a9d8;
+    border-radius: 0;
+    background: #071523;
+    box-shadow:
+        0 0 0 4px rgba(42, 112, 158, 0.08),
+        0 0 20px rgba(31, 133, 196, 0.12);
+}
+
+.avatar-large:hover {
+    box-shadow:
+        0 0 0 4px rgba(42, 112, 158, 0.12),
+        0 0 25px rgba(31, 133, 196, 0.3);
+}
+
+.avatar-placeholder {
+    color: #54778d;
+    font-size: 13px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+
+/* -----------------------------------------
+   НАВЫКИ
+   ----------------------------------------- */
+
+.skill-card {
+    position: relative;
+    background: rgba(5, 15, 27, 0.96);
+    border: 1px solid #326d98;
+    border-radius: 0;
+    padding: 16px;
+    margin-bottom: 12px;
+    overflow: hidden;
+}
+
+.skill-card::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 42px;
+    height: 5px;
+    background: #4db6ed;
+    clip-path: polygon(0 0, 100% 0, 78% 100%, 0 100%);
+}
+
+.skill-card::after {
+    content: "";
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    width: 35px;
+    height: 5px;
+    background: #1e5378;
+    clip-path: polygon(25% 0, 100% 0, 100% 100%, 0 100%);
+}
+
+.skill-header {
+    font-size: 17px;
+    color: #e8f7ff;
+    letter-spacing: 0.5px;
+}
+
+.skill-level-badge {
+    background: #0b2236;
+    border: 1px solid #3d8bb8;
+    border-radius: 2px;
+    padding: 4px 10px;
+    color: #83c9eb;
+    font-size: 11px;
+}
+
+.skill-stats {
+    color: #6f98b0;
+    font-size: 12px;
+}
+
+/* -----------------------------------------
+   НИЖНЕЕ МЕНЮ
+   ----------------------------------------- */
+
+.tab-bar {
+    background: rgba(3, 10, 18, 0.97);
+    border-top: 1px solid #285776;
+    padding: 8px 0 11px;
+}
+
+.tab {
+    color: #52758b;
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.tab.active {
+    color: #79d0ff;
+    text-shadow: 0 0 10px rgba(70, 184, 255, 0.6);
+    transform: translateY(-2px);
+}
+
+.tab span {
+    font-size: 20px;
+}
+
+
+/* =========================================
+   SKILLS HUD — FIXED
+   ========================================= */
+
+.skills-panel {
+    
+    
+    
+    
+    margin-bottom: 20px;
+    overflow: hidden;
+}
+
+/* углы большой панели */
+
+.skills-panel::before,
+.skills-panel::after {
+    content: "";
+    position: absolute;
+    width: 22px;
+    height: 22px;
+    border-color: #63c9ff;
+    border-style: solid;
+    pointer-events: none;
+}
+
+.skills-panel::before {
+    top: -1px;
+    left: -1px;
+    border-width: 2px 0 0 2px;
+}
+
+.skills-panel::after {
+    right: -1px;
+    bottom: -1px;
+    border-width: 0 2px 2px 0;
+}
+
+
+/* =========================================
+   ЗАГОЛОВОК
+   ========================================= */
+
+.skills-panel-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    margin-bottom: 11px;
+}
+
+.skills-panel-title {
+    font-size: 24px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    color: #eaf8ff;
+}
+
+.skills-panel-subtitle {
+    margin-top: 4px;
+    font-size: 9px;
+    letter-spacing: 1.8px;
+    color: #4d91b7;
+}
+
+.skills-total-percent {
+    font-size: 27px;
+    font-weight: 700;
+    color: #54c8ff;
+    text-shadow: 0 0 12px rgba(84, 200, 255, 0.45);
+}
+
+
+/* =========================================
+   ОБЩИЙ ПРОГРЕСС
+   ========================================= */
+
+.skills-total-progress {
+    height: 7px;
+    background: #0b2031;
+    border: 1px solid #245271;
+    margin-bottom: 7px;
+    overflow: hidden;
+}
+
+.skills-total-progress-fill {
+    height: 100%;
+    width: 0%;
+    background: linear-gradient(90deg, #208ac5, #5dd3ff);
+    box-shadow: 0 0 12px rgba(76, 197, 255, 0.6);
+}
+
+.skills-total-xp {
+    margin-bottom: 15px;
+    font-size: 10px;
+    letter-spacing: 1px;
+    color: #6e9bb4;
+}
+
+
+/* =========================================
+   КАРТОЧКИ НАВЫКОВ
+   ========================================= */
+
+/* ВАЖНО:
+   не используем grid/flex для самой карточки,
+   чтобы не ломать существующую структуру JS */
+
+.skills-panel .skill-card {
+    
+
+    display: block;
+
+    
+    
+    border-radius: 0;
+
+    
+
+    
+
+    
+
+    overflow: hidden;
+}
+
+.skills-panel .skill-card:last-child {
+    
+}
+
+
+/* =========================================
+   ИКОНКИ СЛЕВА
+   ========================================= */
+
+.skills-panel .skill-card::before {
+    content: "◈";
+
+    
+    
+    
+    
+
+    
+    
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+}
+
+
+/* разные иконки */
+
+.skills-panel .skill-card:nth-child(1)::before {
+    content: "⌁";
+}
+
+.skills-panel .skill-card:nth-child(2)::before {
+    content: "Aa";
+    font-size: 11px;
+    font-weight: 700;
+}
+
+.skills-panel .skill-card:nth-child(3)::before {
+    content: "✦";
+}
+
+.skills-panel .skill-card:nth-child(4)::before {
+    content: "↯";
+}
+
+
+/* =========================================
+   НАЗВАНИЕ НАВЫКА
+   ========================================= */
+
+.skills-panel .skill-header {
+    
+    
+
+    
+
+    
+
+    
+
+    
+}
+
+
+/* =========================================
+   УБИРАЕМ СТАРЫЕ БЕЙДЖИ
+   ========================================= */
+
+.skills-panel .skill-level-badge {
+    background: transparent !important;
+    border: none !important;
+    padding: 0 !important;
+
+    color: #55c9ff !important;
+
+    font-size: 0 !important;
+}
+
+
+/* если внутри badge есть текст "ур. 1 · Новичок" —
+   оставляем только сам уровень */
+
+.skills-panel .skill-level-badge::after {
+    content: "УРОВЕНЬ";
+    font-size: 8px;
+    letter-spacing: 1px;
+    color: #56839d;
+}
+
+
+/* =========================================
+   XP
+   ========================================= */
+
+.skills-panel .skill-stats {
+    
+    
+
+    
+
+    
+}
+
+
+/* =========================================
+   ПРОГРЕСС КАЖДОГО НАВЫКА
+   ========================================= */
+
+.skills-panel .progress-bg {
+    
+
+    margin-top: 5px;
+
+    
+
+    
+}
+
+.skills-panel .progress-fill {
+    
+
+    
+}
+
+
+/* =========================================
+   ТЕХНИЧЕСКИЕ АКЦЕНТЫ
+   ========================================= */
+
+.skills-panel .skill-card::after {
+    content: "";
+
+    position: absolute;
+
+    right: 0;
+    bottom: 0;
+
+    width: 28px;
+    height: 4px;
+
+    background: #1d5576;
+
+    clip-path: polygon(
+        25% 0,
+        100% 0,
+        100% 100%,
+        0 100%
+    );
+}
+
+
+/* =========================================
+   МОБИЛЬНЫЙ РАЗМЕР
+   ========================================= */
+
+@media (max-width: 400px) {
+
+    .skills-panel {
+        padding: 17px 12px 12px;
+    }
+
+    .skills-panel-title {
+        font-size: 22px;
+    }
+
+    .skills-total-percent {
+        font-size: 25px;
+    }
+
+    .skills-panel .skill-card {
+        padding-left: 49px;
+        min-height: 67px;
+    }
+
+    .skills-panel .skill-header {
+        font-size: 13px;
+    }
+}
+
+/* =========================================
+   ФИНАЛЬНАЯ НАСТРОЙКА SKILL CARD
+   ========================================= */
+
+.skills-panel .skill-card {
+    
+
+    
+
+    
+}
+
+
+/* Название */
+
+.skills-panel .skill-header {
+    
+    
+
+    
+
+    
+}
+
+
+/* Уровень справа */
+
+.skills-panel .skill-level {
+    
+
+    
+    
+
+    
+
+    
+}
+
+
+/* маленькое "УРОВЕНЬ" */
+
+.skills-panel .skill-level-label {
+    
+
+    
+    
+
+    
+
+    
+}
+
+
+/* сама цифра */
+
+.skills-panel .skill-level strong {
+    
+
+    
+
+    
+    
+
+    
+
+    
+}
+
+
+/* полоска */
+
+.skills-panel .progress-bg {
+    
+
+    
+
+    
+
+    
+}
+
+
+/* текст под полоской */
+
+.skills-panel .skill-stats {
+    
+    
+
+    
+
+    
+
+    
+}
+
+/* =========================================
+   ФИНАЛЬНАЯ ТИПОГРАФИКА SKILL CARDS
+   ========================================= */
+
+.skills-panel .skill-card {
+    
+
+    
+
+    
+}
+
+
+/* =========================================
+   НАЗВАНИЕ + УРОВЕНЬ
+   ========================================= */
+
+.skills-panel .skill-header {
+    
+    
+
+    
+    
+
+    
+
+    
+}
+
+
+/* "УРОВЕНЬ" справа —
+   теперь на одной высоте с названием */
+
+.skills-panel .skill-level {
+    
+
+    
+    
+
+    
+
+    
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+
+/* надпись УРОВЕНЬ */
+
+.skills-panel .skill-level-label {
+    
+
+    
+    
+
+    
+
+    
+
+    
+}
+
+
+/* цифра уровня */
+
+.skills-panel .skill-level strong {
+    
+
+    top: 31px;
+    left: 0;
+    right: 0;
+
+    
+
+    
+    
+
+    text-align: center;
+
+    
+
+    
+}
+
+
+/* =========================================
+   ШКАЛА
+   ========================================= */
+
+.skills-panel .progress-bg {
+    
+
+    
+
+    
+
+    
+
+    
+}
+
+.skills-panel .progress-fill {
+    
+
+    
+
+    
+}
+
+
+/* =========================================
+   ТЕКСТ "ДО СЛЕД. УРОВНЯ"
+   ========================================= */
+
+.skills-panel .skill-stats {
+    
+    
+
+    
+
+    
+
+    
+}
+
+/* =========================================
+   ПРОФИЛЬ: ОБЩИЙ УРОВЕНЬ + АВАТАР
+   ========================================= */
+
+.profile-hud {
+    
+    
+    
+    gap: 18px;
+
+    
+    
+
+    
+    
+
+    
+
+    
+
+    
+}
+
+/* Левая часть — общий уровень */
+
+.profile-hud .level-card {
+    
+    
+
+    
+    
+
+    
+    
+    
+
+    
+    
+    gap: 14px;
+}
+
+.profile-hud .level-number {
+    flex-shrink: 0;
+
+    
+    
+
+    
+    align-items: center;
+    justify-content: center;
+
+    
+    
+    
+
+    
+    
+
+    
+
+    
+}
+
+.profile-hud .level-info {
+    flex: 1;
+    min-width: 0;
+}
+
+.profile-hud .level-label {
+    
+    
+    
+    
+    margin-bottom: 3px;
+}
+
+.profile-hud .level-title {
+    font-size: 18px;
+    line-height: 22px;
+    font-weight: 500;
+    color: #e0f2ff;
+    margin-bottom: 12px;
+}
+
+.profile-hud .progress-bg {
+    
+    
+    
+
+    
+    
+    
+}
+
+.profile-hud .progress-fill {
+    
+    
+    
+}
+
+
+/* Правая часть — аватар */
+
+.profile-hud .hero {
+    
+
+    
+    
+
+    
+    
+
+    
+    
+    
+
+    
+}
+
+/* восьмиугольная рамка */
+
+.profile-hud .avatar-large {
+    
+    
+
+    
+
+    
+    
+    
+
+    
+
+    
+    
+
+    
+
+    
+}
+
+.profile-hud .avatar-large::before {
+    
+    
+    
+
+    
+
+    
+    
+}
+
+.profile-hud .avatar-large img {
+    
+    
+
+    
+}
+
+.profile-hud .avatar-placeholder {
+    
+    
+    
+    
+    
+    
+    
+}
+
+.profile-hud .avatar-large {
+    
+    
+    
+
+    
+    
+    
+
+    
+
+    
+    
+
+    
+
+    box-sizing: border-box;
+}
+
+.profile-hud .avatar-large img {
+    
+    
+
+    
+    
+
+    
+    
+
+    
+}
+
+/* =========================================
+   КОМПАКТНЫЙ ПРОФИЛЬНЫЙ HUD
+   ========================================= */
+
+.profile-hud {
+    
+    
+    
+
+    height: 145px;
+    
+    margin-bottom: 16px;
+
+    
+    
+
+    
+
+    
+}
+
+
+/* ---------- ЛЕВАЯ ЧАСТЬ ---------- */
+
+.profile-hud .level-card {
+    flex: 1;
+
+    
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+
+    
+    
+
+    
+    
+    
+}
+
+.profile-hud .level-info {
+    
+    flex-direction: column;
+    align-items: flex-start;
+
+    
+}
+
+
+/* маленькая подпись */
+
+.profile-hud .level-label {
+    
+    
+
+    
+    
+
+    
+}
+
+
+/* большая цифра */
+
+.profile-hud .level-number {
+    order: 1;
+
+    width: auto;
+    height: auto;
+
+    display: block;
+
+    
+    
+    
+
+    
+
+    background: none;
+    border: none;
+    clip-path: none;
+
+    
+
+    
+}
+
+
+/* Уровень должен идти первым визуально */
+
+.profile-hud .level-info {
+    order: 2;
+}
+
+
+/* Название больше не показываем */
+
+.profile-hud .level-title {
+    
+}
+
+
+/* Белая черта */
+
+.profile-hud .progress-bg {
+    
+    
+
+    
+
+    
+    
+    
+}
+
+.profile-hud .progress-fill {
+    
+
+    
+    
+}
+
+
+/* ---------- XP ПОД ЧЕРТОЙ ---------- */
+
+.profile-hud .level-info::after {
+    
+
+    
+    
+
+    
+    
+}
+
+
+/* ---------- АВАТАР ---------- */
+
+.profile-hud .hero {
+    
+
+    
+    
+
+    
+    
+    
+
+    margin: 0;
+    padding: 0;
+}
+
+
+/* Убираем старую квадратную рамку */
+
+.profile-hud .avatar-large {
+    
+    
+
+    
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    
+
+    
+
+    
+
+    
+
+    
+}
+
+
+/* Внешняя сложная HUD-рамка */
+
+.profile-hud .avatar-large::before {
+    
+
+    
+    
+
+    
+
+    
+
+    
+}
+
+
+/* Вторая внутренняя линия */
+
+.profile-hud .avatar-large::after {
+    
+
+    
+    
+
+    border: 1px solid rgba(85, 201, 255, 0.35);
+
+    clip-path: polygon(
+        25% 0,
+        75% 0,
+        100% 25%,
+        100% 75%,
+        75% 100%,
+        25% 100%,
+        0 75%,
+        0 25%
+    );
+
+    
+}
+
+
+/* Фото */
+
+.profile-hud .avatar-large img {
+    
+
+    
+    
+
+    
+    object-position: center;
+
+    
+}
+
+
+/* Заглушка */
+
+.profile-hud .avatar-placeholder {
+    font-size: 9px;
+    line-height: 11px;
+
+    text-align: center;
+
+    color: #62869a;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+
+    padding: 15px;
+}
+
+/* ===== НОВАЯ HUD-РАМКА АВАТАРА ===== */
+
+.profile-hud .hero {
+    
+    
+    
+    
+    
+    
+}
+
+/* Убираем старый прямоугольный контейнер */
+.profile-hud .avatar-large {
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+}
+
+/* Фото */
+.profile-hud .avatar-large img {
+    
+    
+    
+    
+    
+    display: block;
+    
+    
+}
+
+/* Внешняя HUD-линия */
+.profile-hud .avatar-large::before {
+    
+    
+    
+    
+    
+
+    
+
+    
+
+    
+}
+
+/* Внутренние технические уголки */
+.profile-hud .avatar-large::after {
+    
+    
+    
+    
+    
+
+    
+
+    
+}
+
+/* Убираем старую надпись поверх аватара */
+.profile-hud .avatar-large .avatar-placeholder {
+    display: none;
+}
+
+/* =========================================================
+   PROFILE + SKILLS HUD
+   Новый стиль по референсу
+   ========================================================= */
+
+/* ---------- PROFILE BLOCK ---------- */
 
 .profile-hud {
     position: relative;
@@ -570,6 +1966,7 @@ input[type="date"]::-webkit-calendar-picker-indicator {
         0 0 18px rgba(20, 130, 200, 0.04);
 }
 
+
 /* Технические линии внутри профиля */
 
 .profile-hud::before {
@@ -595,6 +1992,7 @@ input[type="date"]::-webkit-calendar-picker-indicator {
     opacity: 0.35;
 }
 
+
 /* ---------- LEVEL ---------- */
 
 .profile-hud .level-card {
@@ -613,10 +2011,12 @@ input[type="date"]::-webkit-calendar-picker-indicator {
     box-shadow: none;
 }
 
+
 .profile-hud .level-info {
-    display: block;
+    
     width: 100%;
 }
+
 
 .profile-hud .level-label {
     margin: 0 0 2px;
@@ -627,6 +2027,7 @@ input[type="date"]::-webkit-calendar-picker-indicator {
     letter-spacing: 2px;
     color: #7898ae;
 }
+
 
 .profile-hud .level-number {
     margin: 0 0 10px;
@@ -641,29 +2042,32 @@ input[type="date"]::-webkit-calendar-picker-indicator {
         0 0 16px rgba(220, 245, 255, 0.14);
 }
 
+
 /* Убираем название ранга */
 
 .profile-hud .level-title {
     display: none !important;
 }
 
+
 /* XP-линия */
 
 .profile-hud .progress-bg {
-    position: relative;
+    
 
-    width: 88%;
-    max-width: 250px;
-    height: 4px;
+    
+    
+    
 
-    margin: 0 0 9px;
+    
 
     background: #0a1b2c;
     border: 1px solid #315b76;
     border-radius: 0;
 
-    overflow: hidden;
+    
 }
+
 
 .profile-hud .progress-fill {
     height: 100%;
@@ -678,19 +2082,165 @@ input[type="date"]::-webkit-calendar-picker-indicator {
         0 0 10px rgba(70, 200, 255, 0.55);
 }
 
+
 /* Вместо "опыт до следующего уровня" */
 
 .profile-hud .level-info::after {
-    content: "200 / 3 000 XP";
+    
 
-    display: block;
+    
 
-    font-size: 14px;
-    line-height: 18px;
+    
+    
     letter-spacing: 0.3px;
 
-    color: #6e9bb5;
+    
 }
+
+
+/* ---------- AVATAR ---------- */
+
+.profile-hud .hero {
+    
+    z-index: 3;
+
+    
+    
+
+    
+    
+    
+
+    
+}
+
+
+.profile-hud .avatar-large {
+    
+
+    
+    
+
+    
+    
+
+    background: transparent !important;
+    border: none !important;
+    outline: none !important;
+
+    
+    
+    box-shadow: none !important;
+}
+
+
+/* Фото */
+
+.profile-hud .avatar-large img {
+    
+    inset: 0;
+
+    
+    
+
+    
+
+    
+
+    
+
+    filter: saturate(1.08) contrast(1.03);
+}
+
+
+/* Большая внешняя техническая рамка */
+
+.profile-hud .avatar-large::before {
+    content: "";
+
+    position: absolute;
+
+    inset: -15px;
+
+    z-index: 2;
+
+    pointer-events: none;
+
+    border: 1px solid rgba(50, 170, 240, 0.7);
+
+    clip-path: polygon(
+        19% 0,
+        81% 0,
+        100% 19%,
+        100% 81%,
+        81% 100%,
+        19% 100%,
+        0 81%,
+        0 19%
+    );
+
+    box-shadow:
+        0 0 12px rgba(35, 150, 220, 0.18),
+        inset 0 0 12px rgba(40, 150, 220, 0.08);
+}
+
+
+/* Вторая рамка + светящиеся технические элементы */
+
+.profile-hud .avatar-large::after {
+    content: "";
+
+    position: absolute;
+
+    inset: -22px;
+
+    z-index: 3;
+
+    pointer-events: none;
+
+    background:
+
+        /* верх */
+        linear-gradient(
+            90deg,
+            transparent 0,
+            transparent 32%,
+            #248fd0 32%,
+            #248fd0 48%,
+            transparent 48%
+        )
+        top left / 100% 2px no-repeat,
+
+        /* низ */
+        linear-gradient(
+            90deg,
+            transparent 0,
+            transparent 50%,
+            #42c8ff 50%,
+            #42c8ff 68%,
+            transparent 68%
+        )
+        bottom left / 100% 2px no-repeat,
+
+        /* левая сторона */
+        linear-gradient(
+            #42c8ff,
+            #42c8ff
+        )
+        left 20% / 2px 30px no-repeat,
+
+        /* правая сторона */
+        linear-gradient(
+            #248fd0,
+            #248fd0
+        )
+        right 28% / 2px 25px no-repeat;
+
+    opacity: 0.85;
+}
+
+
+/* ---------- SKILLS PANEL ---------- */
 
 .skills-panel {
     position: relative;
@@ -725,6 +2275,7 @@ input[type="date"]::-webkit-calendar-picker-indicator {
         inset 0 0 28px rgba(40, 150, 220, 0.035);
 }
 
+
 /* ---------- SKILLS HEADER ---------- */
 
 .skills-panel .skills-panel-header {
@@ -734,6 +2285,7 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 
     margin-bottom: 16px;
 }
+
 
 .skills-panel .skills-panel-title {
     font-size: 30px;
@@ -746,6 +2298,7 @@ input[type="date"]::-webkit-calendar-picker-indicator {
     color: #edf7ff;
 }
 
+
 .skills-panel .skills-panel-subtitle {
     margin-top: 4px;
 
@@ -756,6 +2309,7 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 
     color: #638ca5;
 }
+
 
 .skills-panel .skills-total-percent {
     font-size: 32px;
@@ -768,6 +2322,7 @@ input[type="date"]::-webkit-calendar-picker-indicator {
     text-shadow:
         0 0 12px rgba(70, 195, 255, 0.45);
 }
+
 
 /* Общий прогресс */
 
@@ -783,6 +2338,7 @@ input[type="date"]::-webkit-calendar-picker-indicator {
     border-radius: 0;
 }
 
+
 .skills-panel .skills-total-progress-fill {
     height: 100%;
 
@@ -796,6 +2352,7 @@ input[type="date"]::-webkit-calendar-picker-indicator {
         0 0 9px rgba(60, 195, 255, 0.5);
 }
 
+
 .skills-panel .skills-total-xp {
     margin-bottom: 22px;
 
@@ -807,18 +2364,19 @@ input[type="date"]::-webkit-calendar-picker-indicator {
     letter-spacing: 0.3px;
 }
 
+
 /* ---------- SKILL CARDS ---------- */
 
 .skills-panel .skill-card {
-    position: relative;
+    
 
-    min-height: 126px;
+    
 
-    box-sizing: border-box;
+    
 
-    padding: 22px 92px 18px 96px;
+    
 
-    margin-bottom: 14px;
+    
 
     background:
         linear-gradient(
@@ -844,17 +2402,19 @@ input[type="date"]::-webkit-calendar-picker-indicator {
         inset 0 0 18px rgba(40, 150, 220, 0.025);
 }
 
+
 .skills-panel .skill-card:last-child {
     margin-bottom: 0;
 }
 
+
 /* Название */
 
 .skills-panel .skill-header {
-    margin: 0 0 9px;
+    
 
-    font-size: 19px;
-    line-height: 24px;
+    
+    
 
     font-weight: 500;
 
@@ -863,17 +2423,18 @@ input[type="date"]::-webkit-calendar-picker-indicator {
     color: #edf7ff;
 }
 
+
 /* Иконки оставляем, но делаем их крупнее */
 
 .skills-panel .skill-card::before {
-    left: 22px;
+    
 
-    top: 50%;
+    
 
-    width: 50px;
-    height: 50px;
+    
+    
 
-    transform: translateY(-50%);
+    
 
     border: 1px solid #39bdf5;
 
@@ -899,6 +2460,7 @@ input[type="date"]::-webkit-calendar-picker-indicator {
         0 0 10px rgba(40, 170, 230, 0.12);
 }
 
+
 /* Прогресс навыка */
 
 .skills-panel .progress-bg {
@@ -913,6 +2475,7 @@ input[type="date"]::-webkit-calendar-picker-indicator {
     border-radius: 0;
 }
 
+
 .skills-panel .progress-fill {
     height: 100%;
 
@@ -925,6 +2488,7 @@ input[type="date"]::-webkit-calendar-picker-indicator {
     box-shadow:
         0 0 8px rgba(65, 195, 255, 0.45);
 }
+
 
 /* XP */
 
@@ -939,6 +2503,7 @@ input[type="date"]::-webkit-calendar-picker-indicator {
     letter-spacing: 0.2px;
 }
 
+
 /* ---------- LEVEL RIGHT ---------- */
 
 .skills-panel .skill-level {
@@ -952,6 +2517,7 @@ input[type="date"]::-webkit-calendar-picker-indicator {
     text-align: center;
 }
 
+
 .skills-panel .skill-level-label {
     display: block;
 
@@ -964,6 +2530,7 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 
     white-space: nowrap;
 }
+
 
 .skills-panel .skill-level strong {
     position: static;
@@ -981,6 +2548,7 @@ input[type="date"]::-webkit-calendar-picker-indicator {
         0 0 12px rgba(70, 195, 255, 0.45);
 }
 
+
 /* ---------- ЦВЕТА НАВЫКОВ ---------- */
 
 /* Дизайн */
@@ -993,11 +2561,13 @@ input[type="date"]::-webkit-calendar-picker-indicator {
     background: linear-gradient(90deg, #218dd0, #4ed5ff);
 }
 
+
 /* Английский */
 .skills-panel .skill-card:nth-child(2)::before {
     border-color: #35c8ff;
     color: #4bd4ff;
 }
+
 
 /* Стиль */
 .skills-panel .skill-card:nth-child(3)::before {
@@ -1013,6 +2583,7 @@ input[type="date"]::-webkit-calendar-picker-indicator {
     color: #d95cff;
 }
 
+
 /* Спорт */
 .skills-panel .skill-card:nth-child(4)::before {
     border-color: #19dcb4;
@@ -1027,38 +2598,83 @@ input[type="date"]::-webkit-calendar-picker-indicator {
     color: #26dfbd;
 }
 
-/* Skill icon content */
-.skills-panel .skill-card::before {
-    content: "◈";
-    position: absolute;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    box-sizing: border-box;
-    z-index: 2;
+
+/* ---------- MOBILE ---------- */
+
+@media (max-width: 430px) {
+
+    .profile-hud {
+        min-height: 190px;
+        padding: 22px 22px;
+    }
+
+    .profile-hud .level-card {
+        width: 52%;
+    }
+
+    .profile-hud .level-number {
+        font-size: 56px;
+        line-height: 56px;
+    }
+
+    .profile-hud .hero {
+        width: 150px;
+        height: 150px;
+    }
+
+    .profile-hud .avatar-large,
+    .profile-hud .avatar-large img {
+        width: 112px;
+        height: 112px;
+    }
+
+    .skills-panel {
+        padding: 25px 16px 22px;
+    }
+
+    .skills-panel .skills-panel-title {
+        font-size: 27px;
+        line-height: 31px;
+    }
+
+    .skills-panel .skills-total-percent {
+        font-size: 29px;
+    }
+
+    .skills-panel .skill-card {
+        min-height: 122px;
+        padding: 21px 82px 17px 88px;
+        margin-bottom: 13px;
+    }
+
+    .skills-panel .skill-card::before {
+        left: 18px;
+        width: 46px;
+        height: 46px;
+    }
+
+    .skills-panel .skill-header {
+        font-size: 18px;
+        line-height: 23px;
+    }
+
+    .skills-panel .skill-stats {
+        font-size: 14px;
+    }
+
+    .skills-panel .skill-level {
+        right: 15px;
+    }
 }
 
-.skills-panel .skill-card:nth-child(1)::before { content: "⌁"; }
-.skills-panel .skill-card:nth-child(2)::before {
-    content: "Aa";
-    font-size: 11px;
-    font-weight: 700;
-}
-.skills-panel .skill-card:nth-child(3)::before { content: "✦"; }
-.skills-panel .skill-card:nth-child(4)::before { content: "↯"; }
+/* =========================================================
+   FIX PROFILE + SKILL CARDS
+   ========================================================= */
 
-.skills-panel .skill-card::after {
-    content: "";
-    position: absolute;
-    right: 0;
-    bottom: 0;
-    width: 28px;
-    height: 4px;
-    background: #1d5576;
-    clip-path: polygon(25% 0, 100% 0, 100% 100%, 0 100%);
-}
 
-.skills-panel .skill-level-badge { display: none; }
+/* =========================
+   ПРОФИЛЬ / АВАТАР
+   ========================= */
 
 /* Полностью убираем старые рамки и псевдоэлементы */
 .profile-hud .hero,
@@ -1083,6 +2699,7 @@ input[type="date"]::-webkit-calendar-picker-indicator {
     display: none !important;
 }
 
+
 /* Сам аватар */
 .profile-hud .hero {
     position: relative !important;
@@ -1097,6 +2714,7 @@ input[type="date"]::-webkit-calendar-picker-indicator {
     flex-shrink: 0 !important;
 }
 
+
 /* Фото */
 .profile-hud .avatar-large {
     position: relative !important;
@@ -1110,6 +2728,7 @@ input[type="date"]::-webkit-calendar-picker-indicator {
     overflow: visible !important;
     clip-path: none !important;
 }
+
 
 /* Само изображение */
 .profile-hud .avatar-large img {
@@ -1136,6 +2755,7 @@ input[type="date"]::-webkit-calendar-picker-indicator {
         0 21%
     ) !important;
 }
+
 
 /* Внешний восьмиугольник */
 .profile-hud .hero::before {
@@ -1172,6 +2792,7 @@ input[type="date"]::-webkit-calendar-picker-indicator {
     pointer-events: none !important;
     z-index: 1 !important;
 }
+
 
 /* Технические светящиеся сегменты */
 .profile-hud .hero::after {
@@ -1210,6 +2831,7 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 
     opacity: 0.8 !important;
 }
+
 
 /* =========================
    УРОВЕНЬ + XP
@@ -1252,6 +2874,7 @@ input[type="date"]::-webkit-calendar-picker-indicator {
     color: #7099b4 !important;
 }
 
+
 /* =========================
    КАРТОЧКИ НАВЫКОВ
    ========================= */
@@ -1272,6 +2895,7 @@ input[type="date"]::-webkit-calendar-picker-indicator {
     margin-bottom: 14px !important;
 }
 
+
 /* Название */
 .skills-panel .skill-header {
     position: static !important;
@@ -1285,6 +2909,7 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 
     white-space: nowrap !important;
 }
+
 
 /* Полоса */
 .skills-panel .skill-card .progress-bg {
@@ -1303,6 +2928,7 @@ input[type="date"]::-webkit-calendar-picker-indicator {
     overflow: hidden !important;
 }
 
+
 /* Заполнение полосы */
 .skills-panel .skill-card .progress-fill {
     position: static !important;
@@ -1311,6 +2937,7 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 
     height: 100% !important;
 }
+
 
 /* XP — отдельной строкой ПОД полосой */
 .skills-panel .skill-card .skill-stats {
@@ -1325,6 +2952,7 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 
     white-space: nowrap !important;
 }
+
 
 /* =========================
    УРОВЕНЬ СПРАВА
@@ -1355,6 +2983,7 @@ input[type="date"]::-webkit-calendar-picker-indicator {
     text-align: center !important;
 }
 
+
 /* Слово УРОВЕНЬ */
 .skills-panel .skill-card .skill-level-label {
     position: static !important;
@@ -1375,6 +3004,7 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 
     white-space: nowrap !important;
 }
+
 
 /* Цифра */
 .skills-panel .skill-card .skill-level strong {
@@ -1398,6 +3028,7 @@ input[type="date"]::-webkit-calendar-picker-indicator {
         0 0 12px rgba(70, 195, 255, 0.45) !important;
 }
 
+
 /* =========================
    ИКОНКИ
    ========================= */
@@ -1417,6 +3048,7 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 
     z-index: 2 !important;
 }
+
 
 /* =========================
    МОБИЛЬНЫЙ ЭКРАН
