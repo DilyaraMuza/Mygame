@@ -1940,3 +1940,861 @@ body {
     padding: 15px;
 }
 
+/* ===== НОВАЯ HUD-РАМКА АВАТАРА ===== */
+
+.profile-hud .hero {
+    position: relative;
+    width: 138px;
+    height: 138px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Убираем старый прямоугольный контейнер */
+.profile-hud .avatar-large {
+    position: relative;
+    width: 116px;
+    height: 116px;
+    padding: 0;
+    margin: 0;
+    border: none !important;
+    outline: none;
+    background: transparent;
+    overflow: visible;
+    clip-path: none;
+    box-shadow: none;
+}
+
+/* Фото */
+.profile-hud .avatar-large img {
+    position: absolute;
+    inset: 0;
+    width: 116px;
+    height: 116px;
+    object-fit: cover;
+    display: block;
+    border: none;
+    clip-path: polygon(
+        20% 0,
+        80% 0,
+        100% 20%,
+        100% 80%,
+        80% 100%,
+        20% 100%,
+        0 80%,
+        0 20%
+    );
+}
+
+/* Внешняя HUD-линия */
+.profile-hud .avatar-large::before {
+    content: "";
+    position: absolute;
+    inset: -8px;
+    z-index: 2;
+    pointer-events: none;
+
+    border: 1px solid rgba(78, 174, 225, 0.65);
+
+    clip-path: polygon(
+        20% 0,
+        80% 0,
+        100% 20%,
+        100% 80%,
+        80% 100%,
+        20% 100%,
+        0 80%,
+        0 20%
+    );
+
+    box-shadow:
+        0 0 8px rgba(60, 180, 235, 0.12),
+        inset 0 0 8px rgba(60, 180, 235, 0.04);
+}
+
+/* Внутренние технические уголки */
+.profile-hud .avatar-large::after {
+    content: "";
+    position: absolute;
+    inset: -13px;
+    z-index: 3;
+    pointer-events: none;
+
+    background:
+        linear-gradient(#55c9ff, #55c9ff) left top / 22px 1px no-repeat,
+        linear-gradient(#55c9ff, #55c9ff) left top / 1px 22px no-repeat,
+
+        linear-gradient(#55c9ff, #55c9ff) right top / 22px 1px no-repeat,
+        linear-gradient(#55c9ff, #55c9ff) right top / 1px 22px no-repeat,
+
+        linear-gradient(#55c9ff, #55c9ff) left bottom / 22px 1px no-repeat,
+        linear-gradient(#55c9ff, #55c9ff) left bottom / 1px 22px no-repeat,
+
+        linear-gradient(#55c9ff, #55c9ff) right bottom / 22px 1px no-repeat,
+        linear-gradient(#55c9ff, #55c9ff) right bottom / 1px 22px no-repeat;
+
+    opacity: 0.75;
+}
+
+/* Убираем старую надпись поверх аватара */
+.profile-hud .avatar-large .avatar-placeholder {
+    display: none;
+}
+
+/* =========================================================
+   PROFILE + SKILLS HUD
+   Новый стиль по референсу
+   ========================================================= */
+
+/* ---------- PROFILE BLOCK ---------- */
+
+.profile-hud {
+    position: relative;
+    width: 100%;
+    min-height: 205px;
+    box-sizing: border-box;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    padding: 26px 34px 26px 34px;
+    margin: 18px 0 24px;
+
+    background:
+        linear-gradient(
+            135deg,
+            rgba(7, 25, 43, 0.98),
+            rgba(3, 14, 27, 0.98)
+        );
+
+    border: 1px solid #285b82;
+
+    clip-path: polygon(
+        0 22px,
+        22px 0,
+        calc(100% - 52px) 0,
+        calc(100% - 34px) 14px,
+        100% 14px,
+        100% calc(100% - 24px),
+        calc(100% - 24px) 100%,
+        38px 100%,
+        18px calc(100% - 18px),
+        0 calc(100% - 18px)
+    );
+
+    box-shadow:
+        inset 0 0 28px rgba(40, 150, 220, 0.035),
+        0 0 18px rgba(20, 130, 200, 0.04);
+}
+
+
+/* Технические линии внутри профиля */
+
+.profile-hud::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+
+    background:
+        linear-gradient(
+            90deg,
+            transparent 0,
+            transparent 8%,
+            rgba(67, 167, 220, 0.18) 8%,
+            rgba(67, 167, 220, 0.18) 8.1%,
+            transparent 8.1%,
+            transparent 70%,
+            rgba(67, 167, 220, 0.12) 70%,
+            rgba(67, 167, 220, 0.12) 70.1%,
+            transparent 70.1%
+        );
+
+    opacity: 0.35;
+}
+
+
+/* ---------- LEVEL ---------- */
+
+.profile-hud .level-card {
+    position: relative;
+    z-index: 2;
+
+    width: 52%;
+    min-width: 0;
+
+    display: block;
+    padding: 0;
+    margin: 0;
+
+    background: transparent;
+    border: none;
+    box-shadow: none;
+}
+
+
+.profile-hud .level-info {
+    display: block;
+    width: 100%;
+}
+
+
+.profile-hud .level-label {
+    margin: 0 0 2px;
+
+    font-size: 12px;
+    line-height: 16px;
+
+    letter-spacing: 2px;
+    color: #7898ae;
+}
+
+
+.profile-hud .level-number {
+    margin: 0 0 10px;
+
+    font-size: 62px;
+    line-height: 62px;
+    font-weight: 700;
+
+    color: #f1f7ff;
+
+    text-shadow:
+        0 0 16px rgba(220, 245, 255, 0.14);
+}
+
+
+/* Убираем название ранга */
+
+.profile-hud .level-title {
+    display: none !important;
+}
+
+
+/* XP-линия */
+
+.profile-hud .progress-bg {
+    position: relative;
+
+    width: 88%;
+    max-width: 250px;
+    height: 4px;
+
+    margin: 0 0 9px;
+
+    background: #0a1b2c;
+    border: 1px solid #315b76;
+    border-radius: 0;
+
+    overflow: hidden;
+}
+
+
+.profile-hud .progress-fill {
+    height: 100%;
+
+    background: linear-gradient(
+        90deg,
+        #218ed0,
+        #5ed8ff
+    );
+
+    box-shadow:
+        0 0 10px rgba(70, 200, 255, 0.55);
+}
+
+
+/* Вместо "опыт до следующего уровня" */
+
+.profile-hud .level-info::after {
+    content: "200 / 3 000 XP";
+
+    display: block;
+
+    font-size: 14px;
+    line-height: 18px;
+    letter-spacing: 0.3px;
+
+    color: #6e9bb5;
+}
+
+
+/* ---------- AVATAR ---------- */
+
+.profile-hud .hero {
+    position: relative;
+    z-index: 3;
+
+    width: 170px;
+    height: 170px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    flex-shrink: 0;
+}
+
+
+.profile-hud .avatar-large {
+    position: relative;
+
+    width: 128px;
+    height: 128px;
+
+    padding: 0;
+    margin: 0;
+
+    background: transparent !important;
+    border: none !important;
+    outline: none !important;
+
+    overflow: visible !important;
+    clip-path: none !important;
+    box-shadow: none !important;
+}
+
+
+/* Фото */
+
+.profile-hud .avatar-large img {
+    position: absolute;
+    inset: 0;
+
+    width: 128px;
+    height: 128px;
+
+    object-fit: cover;
+
+    border: none !important;
+
+    clip-path: polygon(
+        21% 0,
+        79% 0,
+        100% 21%,
+        100% 79%,
+        79% 100%,
+        21% 100%,
+        0 79%,
+        0 21%
+    );
+
+    filter: saturate(1.08) contrast(1.03);
+}
+
+
+/* Большая внешняя техническая рамка */
+
+.profile-hud .avatar-large::before {
+    content: "";
+
+    position: absolute;
+
+    inset: -15px;
+
+    z-index: 2;
+
+    pointer-events: none;
+
+    border: 1px solid rgba(50, 170, 240, 0.7);
+
+    clip-path: polygon(
+        19% 0,
+        81% 0,
+        100% 19%,
+        100% 81%,
+        81% 100%,
+        19% 100%,
+        0 81%,
+        0 19%
+    );
+
+    box-shadow:
+        0 0 12px rgba(35, 150, 220, 0.18),
+        inset 0 0 12px rgba(40, 150, 220, 0.08);
+}
+
+
+/* Вторая рамка + светящиеся технические элементы */
+
+.profile-hud .avatar-large::after {
+    content: "";
+
+    position: absolute;
+
+    inset: -22px;
+
+    z-index: 3;
+
+    pointer-events: none;
+
+    background:
+
+        /* верх */
+        linear-gradient(
+            90deg,
+            transparent 0,
+            transparent 32%,
+            #248fd0 32%,
+            #248fd0 48%,
+            transparent 48%
+        )
+        top left / 100% 2px no-repeat,
+
+        /* низ */
+        linear-gradient(
+            90deg,
+            transparent 0,
+            transparent 50%,
+            #42c8ff 50%,
+            #42c8ff 68%,
+            transparent 68%
+        )
+        bottom left / 100% 2px no-repeat,
+
+        /* левая сторона */
+        linear-gradient(
+            #42c8ff,
+            #42c8ff
+        )
+        left 20% / 2px 30px no-repeat,
+
+        /* правая сторона */
+        linear-gradient(
+            #248fd0,
+            #248fd0
+        )
+        right 28% / 2px 25px no-repeat;
+
+    opacity: 0.85;
+}
+
+
+/* ---------- SKILLS PANEL ---------- */
+
+.skills-panel {
+    position: relative;
+
+    width: 100%;
+    box-sizing: border-box;
+
+    padding: 28px 22px 26px;
+    margin: 0;
+
+    background:
+        linear-gradient(
+            135deg,
+            rgba(5, 22, 38, 0.98),
+            rgba(3, 14, 27, 0.98)
+        );
+
+    border: 1px solid #285b82;
+
+    clip-path: polygon(
+        0 18px,
+        18px 0,
+        calc(100% - 38px) 0,
+        100% 20px,
+        100% calc(100% - 20px),
+        calc(100% - 20px) 100%,
+        20px 100%,
+        0 calc(100% - 20px)
+    );
+
+    box-shadow:
+        inset 0 0 28px rgba(40, 150, 220, 0.035);
+}
+
+
+/* ---------- SKILLS HEADER ---------- */
+
+.skills-panel .skills-panel-header {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+
+    margin-bottom: 16px;
+}
+
+
+.skills-panel .skills-panel-title {
+    font-size: 30px;
+    line-height: 34px;
+
+    font-weight: 600;
+
+    letter-spacing: 2px;
+
+    color: #edf7ff;
+}
+
+
+.skills-panel .skills-panel-subtitle {
+    margin-top: 4px;
+
+    font-size: 11px;
+    line-height: 15px;
+
+    letter-spacing: 3px;
+
+    color: #638ca5;
+}
+
+
+.skills-panel .skills-total-percent {
+    font-size: 32px;
+    line-height: 34px;
+
+    font-weight: 600;
+
+    color: #55c9ff;
+
+    text-shadow:
+        0 0 12px rgba(70, 195, 255, 0.45);
+}
+
+
+/* Общий прогресс */
+
+.skills-panel .skills-total-progress {
+    height: 9px;
+
+    margin-bottom: 10px;
+
+    background: #091b2b;
+
+    border: 1px solid #28516c;
+
+    border-radius: 0;
+}
+
+
+.skills-panel .skills-total-progress-fill {
+    height: 100%;
+
+    background: linear-gradient(
+        90deg,
+        #228bd0,
+        #55d7ff
+    );
+
+    box-shadow:
+        0 0 9px rgba(60, 195, 255, 0.5);
+}
+
+
+.skills-panel .skills-total-xp {
+    margin-bottom: 22px;
+
+    font-size: 14px;
+    line-height: 18px;
+
+    color: #7098b0;
+
+    letter-spacing: 0.3px;
+}
+
+
+/* ---------- SKILL CARDS ---------- */
+
+.skills-panel .skill-card {
+    position: relative;
+
+    min-height: 126px;
+
+    box-sizing: border-box;
+
+    padding: 22px 92px 18px 96px;
+
+    margin-bottom: 14px;
+
+    background:
+        linear-gradient(
+            135deg,
+            rgba(7, 27, 45, 0.95),
+            rgba(4, 18, 31, 0.95)
+        );
+
+    border: 1px solid #285a7b;
+
+    clip-path: polygon(
+        0 15px,
+        15px 0,
+        calc(100% - 30px) 0,
+        100% 15px,
+        100% calc(100% - 10px),
+        calc(100% - 10px) 100%,
+        10px 100%,
+        0 calc(100% - 10px)
+    );
+
+    box-shadow:
+        inset 0 0 18px rgba(40, 150, 220, 0.025);
+}
+
+
+.skills-panel .skill-card:last-child {
+    margin-bottom: 0;
+}
+
+
+/* Название */
+
+.skills-panel .skill-header {
+    margin: 0 0 9px;
+
+    font-size: 19px;
+    line-height: 24px;
+
+    font-weight: 500;
+
+    letter-spacing: 0.2px;
+
+    color: #edf7ff;
+}
+
+
+/* Иконки оставляем, но делаем их крупнее */
+
+.skills-panel .skill-card::before {
+    left: 22px;
+
+    top: 50%;
+
+    width: 50px;
+    height: 50px;
+
+    transform: translateY(-50%);
+
+    border: 1px solid #39bdf5;
+
+    color: #55d4ff;
+
+    font-size: 24px;
+
+    background: #071b2d;
+
+    clip-path: polygon(
+        20% 0,
+        80% 0,
+        100% 20%,
+        100% 80%,
+        80% 100%,
+        20% 100%,
+        0 80%,
+        0 20%
+    );
+
+    box-shadow:
+        inset 0 0 14px rgba(40, 180, 240, 0.08),
+        0 0 10px rgba(40, 170, 230, 0.12);
+}
+
+
+/* Прогресс навыка */
+
+.skills-panel .progress-bg {
+    height: 9px;
+
+    margin: 0 0 9px;
+
+    background: #091b2c;
+
+    border: 1px solid #254b65;
+
+    border-radius: 0;
+}
+
+
+.skills-panel .progress-fill {
+    height: 100%;
+
+    background: linear-gradient(
+        90deg,
+        #238bc9,
+        #55d4ff
+    );
+
+    box-shadow:
+        0 0 8px rgba(65, 195, 255, 0.45);
+}
+
+
+/* XP */
+
+.skills-panel .skill-stats {
+    margin: 0;
+
+    font-size: 14px;
+    line-height: 18px;
+
+    color: #7099b4;
+
+    letter-spacing: 0.2px;
+}
+
+
+/* ---------- LEVEL RIGHT ---------- */
+
+.skills-panel .skill-level {
+    position: absolute;
+
+    right: 20px;
+    top: 20px;
+
+    width: 62px;
+
+    text-align: center;
+}
+
+
+.skills-panel .skill-level-label {
+    display: block;
+
+    font-size: 10px;
+    line-height: 14px;
+
+    letter-spacing: 1px;
+
+    color: #62869d;
+
+    white-space: nowrap;
+}
+
+
+.skills-panel .skill-level strong {
+    position: static;
+
+    display: block;
+
+    margin-top: 7px;
+
+    font-size: 30px;
+    line-height: 34px;
+
+    color: #55c9ff;
+
+    text-shadow:
+        0 0 12px rgba(70, 195, 255, 0.45);
+}
+
+
+/* ---------- ЦВЕТА НАВЫКОВ ---------- */
+
+/* Дизайн */
+.skills-panel .skill-card:nth-child(1)::before {
+    border-color: #36c8ff;
+    color: #48d3ff;
+}
+
+.skills-panel .skill-card:nth-child(1) .progress-fill {
+    background: linear-gradient(90deg, #218dd0, #4ed5ff);
+}
+
+
+/* Английский */
+.skills-panel .skill-card:nth-child(2)::before {
+    border-color: #35c8ff;
+    color: #4bd4ff;
+}
+
+
+/* Стиль */
+.skills-panel .skill-card:nth-child(3)::before {
+    border-color: #d84cff;
+    color: #ed65ff;
+}
+
+.skills-panel .skill-card:nth-child(3) .progress-fill {
+    background: linear-gradient(90deg, #a82ee0, #ed4cff);
+}
+
+.skills-panel .skill-card:nth-child(3) .skill-level strong {
+    color: #d95cff;
+}
+
+
+/* Спорт */
+.skills-panel .skill-card:nth-child(4)::before {
+    border-color: #19dcb4;
+    color: #2ce8c1;
+}
+
+.skills-panel .skill-card:nth-child(4) .progress-fill {
+    background: linear-gradient(90deg, #12b99d, #2be5c2);
+}
+
+.skills-panel .skill-card:nth-child(4) .skill-level strong {
+    color: #26dfbd;
+}
+
+
+/* ---------- MOBILE ---------- */
+
+@media (max-width: 430px) {
+
+    .profile-hud {
+        min-height: 190px;
+        padding: 22px 22px;
+    }
+
+    .profile-hud .level-card {
+        width: 52%;
+    }
+
+    .profile-hud .level-number {
+        font-size: 56px;
+        line-height: 56px;
+    }
+
+    .profile-hud .hero {
+        width: 150px;
+        height: 150px;
+    }
+
+    .profile-hud .avatar-large,
+    .profile-hud .avatar-large img {
+        width: 112px;
+        height: 112px;
+    }
+
+    .skills-panel {
+        padding: 25px 16px 22px;
+    }
+
+    .skills-panel .skills-panel-title {
+        font-size: 27px;
+        line-height: 31px;
+    }
+
+    .skills-panel .skills-total-percent {
+        font-size: 29px;
+    }
+
+    .skills-panel .skill-card {
+        min-height: 122px;
+        padding: 21px 82px 17px 88px;
+        margin-bottom: 13px;
+    }
+
+    .skills-panel .skill-card::before {
+        left: 18px;
+        width: 46px;
+        height: 46px;
+    }
+
+    .skills-panel .skill-header {
+        font-size: 18px;
+        line-height: 23px;
+    }
+
+    .skills-panel .skill-stats {
+        font-size: 14px;
+    }
+
+    .skills-panel .skill-level {
+        right: 15px;
+    }
+}
