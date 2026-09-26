@@ -2798,3 +2798,429 @@ body {
         right: 15px;
     }
 }
+
+/* =========================================================
+   FIX PROFILE + SKILL CARDS
+   ========================================================= */
+
+
+/* =========================
+   ПРОФИЛЬ / АВАТАР
+   ========================= */
+
+/* Полностью убираем старые рамки и псевдоэлементы */
+.profile-hud .hero,
+.profile-hud .avatar-large {
+    border: none !important;
+    outline: none !important;
+    box-shadow: none !important;
+    background: transparent !important;
+}
+
+/* Старые PLAYER PROFILE и прочие элементы вокруг аватара */
+.profile-hud .hero::before,
+.profile-hud .hero::after {
+    content: none !important;
+    display: none !important;
+}
+
+/* Старые псевдо-рамки самого avatar-large тоже убираем */
+.profile-hud .avatar-large::before,
+.profile-hud .avatar-large::after {
+    content: none !important;
+    display: none !important;
+}
+
+
+/* Сам аватар */
+.profile-hud .hero {
+    position: relative !important;
+
+    width: 170px !important;
+    height: 170px !important;
+
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+
+    flex-shrink: 0 !important;
+}
+
+
+/* Фото */
+.profile-hud .avatar-large {
+    position: relative !important;
+
+    width: 128px !important;
+    height: 128px !important;
+
+    margin: 0 !important;
+    padding: 0 !important;
+
+    overflow: visible !important;
+    clip-path: none !important;
+}
+
+
+/* Само изображение */
+.profile-hud .avatar-large img {
+    position: absolute !important;
+
+    left: 0 !important;
+    top: 0 !important;
+
+    width: 128px !important;
+    height: 128px !important;
+
+    object-fit: cover !important;
+
+    border: none !important;
+
+    clip-path: polygon(
+        21% 0,
+        79% 0,
+        100% 21%,
+        100% 79%,
+        79% 100%,
+        21% 100%,
+        0 79%,
+        0 21%
+    ) !important;
+}
+
+
+/* Внешний восьмиугольник */
+.profile-hud .hero::before {
+    content: "" !important;
+    display: block !important;
+
+    position: absolute !important;
+
+    width: 154px !important;
+    height: 154px !important;
+
+    top: 8px !important;
+    left: 8px !important;
+
+    border: 1px solid #286c98 !important;
+
+    clip-path: polygon(
+        20% 0,
+        80% 0,
+        100% 20%,
+        100% 80%,
+        80% 100%,
+        20% 100%,
+        0 80%,
+        0 20%
+    ) !important;
+
+    background: transparent !important;
+
+    box-shadow:
+        0 0 12px rgba(40, 150, 220, 0.12),
+        inset 0 0 12px rgba(40, 150, 220, 0.04) !important;
+
+    pointer-events: none !important;
+    z-index: 1 !important;
+}
+
+
+/* Технические светящиеся сегменты */
+.profile-hud .hero::after {
+    content: "" !important;
+    display: block !important;
+
+    position: absolute !important;
+
+    width: 174px !important;
+    height: 174px !important;
+
+    top: -2px !important;
+    left: -2px !important;
+
+    pointer-events: none !important;
+    z-index: 3 !important;
+
+    background:
+        linear-gradient(#38bfff, #38bfff)
+            25px 0 / 34px 2px no-repeat,
+
+        linear-gradient(#38bfff, #38bfff)
+            115px 0 / 34px 2px no-repeat,
+
+        linear-gradient(#38bfff, #38bfff)
+            0 27px / 2px 32px no-repeat,
+
+        linear-gradient(#38bfff, #38bfff)
+            172px 27px / 2px 32px no-repeat,
+
+        linear-gradient(#38bfff, #38bfff)
+            25px 172px / 34px 2px no-repeat,
+
+        linear-gradient(#38bfff, #38bfff)
+            115px 172px / 34px 2px no-repeat;
+
+    opacity: 0.8 !important;
+}
+
+
+/* =========================
+   УРОВЕНЬ + XP
+   ========================= */
+
+.profile-hud .level-info {
+    position: relative !important;
+    display: block !important;
+}
+
+.profile-hud .progress-bg {
+    position: relative !important;
+
+    display: block !important;
+
+    width: 220px !important;
+    max-width: 88% !important;
+
+    height: 4px !important;
+
+    margin: 0 0 9px 0 !important;
+
+    box-sizing: border-box !important;
+
+    overflow: hidden !important;
+}
+
+.profile-hud .level-info::after {
+    content: "200 / 3 000 XP" !important;
+
+    position: static !important;
+
+    display: block !important;
+
+    margin: 0 !important;
+
+    font-size: 14px !important;
+    line-height: 18px !important;
+
+    color: #7099b4 !important;
+}
+
+
+/* =========================
+   КАРТОЧКИ НАВЫКОВ
+   ========================= */
+
+.skills-panel .skill-card {
+    position: relative !important;
+
+    min-height: 126px !important;
+
+    box-sizing: border-box !important;
+
+    /*
+       Слева место под иконку.
+       Справа место под уровень.
+    */
+    padding: 20px 105px 18px 88px !important;
+
+    margin-bottom: 14px !important;
+}
+
+
+/* Название */
+.skills-panel .skill-header {
+    position: static !important;
+
+    display: block !important;
+
+    margin: 0 0 13px 0 !important;
+
+    font-size: 19px !important;
+    line-height: 24px !important;
+
+    white-space: nowrap !important;
+}
+
+
+/* Полоса */
+.skills-panel .skill-card .progress-bg {
+    position: static !important;
+
+    display: block !important;
+
+    width: 100% !important;
+
+    height: 8px !important;
+
+    margin: 0 0 9px 0 !important;
+
+    box-sizing: border-box !important;
+
+    overflow: hidden !important;
+}
+
+
+/* Заполнение полосы */
+.skills-panel .skill-card .progress-fill {
+    position: static !important;
+
+    display: block !important;
+
+    height: 100% !important;
+}
+
+
+/* XP — отдельной строкой ПОД полосой */
+.skills-panel .skill-card .skill-stats {
+    position: static !important;
+
+    display: block !important;
+
+    margin: 0 !important;
+
+    font-size: 14px !important;
+    line-height: 18px !important;
+
+    white-space: nowrap !important;
+}
+
+
+/* =========================
+   УРОВЕНЬ СПРАВА
+   ========================= */
+
+/*
+   ВАЖНО:
+   Уровень теперь строго вертикальный:
+   
+   УРОВЕНЬ
+      1
+*/
+
+.skills-panel .skill-card .skill-level {
+    position: absolute !important;
+
+    top: 20px !important;
+    right: 18px !important;
+
+    width: 62px !important;
+    height: auto !important;
+
+    display: block !important;
+
+    margin: 0 !important;
+    padding: 0 !important;
+
+    text-align: center !important;
+}
+
+
+/* Слово УРОВЕНЬ */
+.skills-panel .skill-card .skill-level-label {
+    position: static !important;
+
+    display: block !important;
+
+    width: 100% !important;
+
+    margin: 0 !important;
+    padding: 0 !important;
+
+    font-size: 10px !important;
+    line-height: 14px !important;
+
+    letter-spacing: 1px !important;
+
+    color: #63889f !important;
+
+    white-space: nowrap !important;
+}
+
+
+/* Цифра */
+.skills-panel .skill-card .skill-level strong {
+    position: static !important;
+
+    display: block !important;
+
+    width: 100% !important;
+
+    margin: 7px 0 0 0 !important;
+    padding: 0 !important;
+
+    font-size: 30px !important;
+    line-height: 34px !important;
+
+    text-align: center !important;
+
+    color: #55c9ff !important;
+
+    text-shadow:
+        0 0 12px rgba(70, 195, 255, 0.45) !important;
+}
+
+
+/* =========================
+   ИКОНКИ
+   ========================= */
+
+.skills-panel .skill-card::before {
+    position: absolute !important;
+
+    left: 20px !important;
+    top: 50% !important;
+
+    width: 50px !important;
+    height: 50px !important;
+
+    transform: translateY(-50%) !important;
+
+    box-sizing: border-box !important;
+
+    z-index: 2 !important;
+}
+
+
+/* =========================
+   МОБИЛЬНЫЙ ЭКРАН
+   ========================= */
+
+@media (max-width: 430px) {
+
+    .skills-panel .skill-card {
+        min-height: 126px !important;
+
+        padding:
+            20px 92px 18px 82px !important;
+    }
+
+    .skills-panel .skill-card .skill-level {
+        right: 12px !important;
+        top: 20px !important;
+
+        width: 58px !important;
+    }
+
+    .skills-panel .skill-card .skill-level-label {
+        font-size: 9px !important;
+        line-height: 13px !important;
+    }
+
+    .skills-panel .skill-card .skill-level strong {
+        margin-top: 7px !important;
+
+        font-size: 28px !important;
+        line-height: 32px !important;
+    }
+
+    .skills-panel .skill-header {
+        font-size: 18px !important;
+        line-height: 23px !important;
+    }
+
+    .skills-panel .skill-card .skill-stats {
+        font-size: 14px !important;
+        line-height: 18px !important;
+    }
+}
